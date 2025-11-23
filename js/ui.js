@@ -197,6 +197,19 @@ function setupEventListeners(updateCallback) {
         updateCallback(newData);
     });
 
+    // Company collapse toggle
+    const companyToggle = document.getElementById('company-collapse-toggle');
+    const companyBody = document.getElementById('company-filter-body');
+    if (companyToggle && companyBody) {
+        // Default collapsed; toggle on click
+        companyToggle.addEventListener('click', () => {
+            const isHidden = companyBody.classList.toggle('hidden');
+            companyToggle.setAttribute('aria-expanded', (!isHidden).toString());
+            // Rotate arrow visually
+            companyToggle.textContent = isHidden ? '▸' : '▾';
+        });
+    }
+
     // Reset Filters button
     const resetBtn = document.getElementById('reset-filters');
     if (resetBtn) {
