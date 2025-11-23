@@ -210,6 +210,18 @@ function setupEventListeners(updateCallback) {
         });
     }
 
+    // Tag collapse toggle
+    const tagToggle = document.getElementById('tag-collapse-toggle');
+    const tagBody = document.getElementById('tag-filter-body');
+    if (tagToggle && tagBody) {
+        // Default collapsed; toggle on click
+        tagToggle.addEventListener('click', () => {
+            const isHidden = tagBody.classList.toggle('hidden');
+            tagToggle.setAttribute('aria-expanded', (!isHidden).toString());
+            tagToggle.textContent = isHidden ? '▸' : '▾';
+        });
+    }
+
     // Reset Filters button
     const resetBtn = document.getElementById('reset-filters');
     if (resetBtn) {
