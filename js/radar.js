@@ -13,6 +13,15 @@ const config = {
 
 // Phases are provided per-render from the data object so layout can compress
 
+// Human-friendly descriptions for each phase (shown in tooltip on hover)
+const PHASE_DESCRIPTIONS = {
+    'adopt': 'Adopt — production-ready technologies that teams should consider adopting.',
+    'trial': 'Trial — promising technologies that are ready for evaluation in a limited scope.',
+    'assess': 'Assess — technologies worth exploring to understand fit and potential.',
+    'hold': 'Hold — technologies that should be used with caution; re-evaluate timing.',
+    'deprecate': 'Deprecate — technologies to avoid or replace; not recommended for new work.'
+};
+
 export function initRadar(data) {
     config.color = d3.scaleOrdinal(d3.schemeCategory10);
     const container = document.getElementById('radar');
@@ -119,7 +128,26 @@ export function updateRadar(data) {
             .attr("class", "legend-text")
             .attr("y", (d, i) => -((i + 1) * ringRadius) + 15)
             .attr("x", 0)
-            .text(d => d.toUpperCase());
+            .text(d => d.toUpperCase())
+            .style("cursor", "pointer")
+            .on("dblclick", (event, d) => {
+                const filterEvent = new CustomEvent('filter-phase', { detail: d });
+                document.dispatchEvent(filterEvent);
+            })
+            .on("mouseenter", (event, d) => {
+                const t = document.getElementById('tooltip');
+                const key = (d || '').toLowerCase();
+                t.innerHTML = `<strong>${(d || '').toUpperCase()}</strong><div style="margin-top:6px; font-size:0.9rem">${PHASE_DESCRIPTIONS[key] || ''}</div>`;
+                t.classList.remove('hidden');
+                t.style.pointerEvents = 'none';
+                updateTooltipPosition(event);
+            })
+            .on("mousemove", (event) => {
+                updateTooltipPosition(event);
+            })
+            .on("mouseleave", () => {
+                document.getElementById('tooltip').classList.add('hidden');
+            });
     }
 
     // 3. Calculate Blip Positions

@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase } from './data.js';
 
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
@@ -257,6 +257,14 @@ function setupEventListeners(updateCallback) {
         const newData = setExclusiveCategory(category);
         updateCallback(newData);
         renderFilters(updateCallback); // Re-render to update checkboxes
+    });
+
+    // Filter Phase Event (Drill-down)
+    document.addEventListener('filter-phase', (e) => {
+        const phase = e.detail;
+        const newData = setExclusivePhase(phase);
+        updateCallback(newData);
+        renderFilters(updateCallback);
     });
 }
 
