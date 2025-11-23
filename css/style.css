@@ -103,6 +103,39 @@ header {
     gap: 0.5rem;
 }
 
+/* Domain group layout: ensure each domain starts on a new line and is left-aligned */
+.domain-group {
+    display: block;
+    width: 100%;
+    clear: both;
+    margin-bottom: 1rem;
+}
+
+.domain-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.domain-icon {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+
+.domain-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Make company name tags slightly smaller inside domain lists */
+.domain-list .tag {
+    font-size: 80%;
+}
+
 /* Collapsible controls */
 .collapse-toggle {
     background: none;
