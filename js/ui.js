@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, getRatingsForTech, setExclusiveCategory } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, getRatingsForTech, setExclusiveCategory } from './data.js';
 
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
@@ -56,6 +56,33 @@ function renderFilters(updateCallback) {
     // Category Filter
     const categoryContainer = document.getElementById('category-filter');
     categoryContainer.innerHTML = '';
+
+    // Add Bulk Controls for Categories
+    const catControlsDiv = document.createElement('div');
+    catControlsDiv.className = 'filter-controls';
+
+    const catSelectAllBtn = document.createElement('button');
+    catSelectAllBtn.textContent = 'All';
+    catSelectAllBtn.className = 'filter-btn';
+    catSelectAllBtn.onclick = () => {
+        const newData = setAllCategories(true);
+        updateCallback(newData);
+        renderFilters(updateCallback);
+    };
+
+    const catDeselectAllBtn = document.createElement('button');
+    catDeselectAllBtn.textContent = 'None';
+    catDeselectAllBtn.className = 'filter-btn';
+    catDeselectAllBtn.onclick = () => {
+        const newData = setAllCategories(false);
+        updateCallback(newData);
+        renderFilters(updateCallback);
+    };
+
+    catControlsDiv.appendChild(catSelectAllBtn);
+    catControlsDiv.appendChild(catDeselectAllBtn);
+    categoryContainer.appendChild(catControlsDiv);
+
     // We get ALL categories from getFilters, not just active ones, so user can re-enable them
     const allCategories = getFilters().categories;
 
@@ -127,6 +154,18 @@ function setupEventListeners(updateCallback) {
         const newData = setFilter('dummy', null, false);
         updateCallback(newData);
     });
+
+    // Search Filter
+    const searchInput = document.getElementById('search-filter');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const newData = setFilter('search', e.target.value);
+            updateCallback(newData);
+        });
+    }
+
+    // Modal Events
+
 
     // Modal Events
     document.addEventListener('open-modal', (e) => {
