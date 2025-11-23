@@ -23,9 +23,9 @@ const phaseMap = {
 export function initRadar(data) {
     config.color = d3.scaleOrdinal(d3.schemeCategory10);
     const container = document.getElementById('radar');
-    width = container.clientWidth;
-    height = container.clientHeight;
-    radius = Math.min(width, height) / 2 - config.margin;
+    width = container.clientWidth || 800;
+    height = container.clientHeight || 600;
+    radius = Math.max(0, Math.min(width, height) / 2 - config.margin);
 
     svg = d3.select("#radar")
         .append("svg")
@@ -67,7 +67,12 @@ export function updateRadar(data) {
             .attr("class", "segment-arc")
             .attr("d", (d, i) => arc(d, i))
             .attr("fill", d => segmentColors(d))
-            .style("stroke", "none");
+            .style("stroke", "none")
+            .style("cursor", "pointer")
+            .on("dblclick", (event, d) => {
+                const filterEvent = new CustomEvent('filter-category', { detail: d });
+                document.dispatchEvent(filterEvent);
+            });
 
         g.selectAll(".segment-line")
             .data(categories)
@@ -88,7 +93,12 @@ export function updateRadar(data) {
             .attr("x", (d, i) => (radius + 20) * Math.cos(i * angleSlice + angleSlice / 2 - Math.PI / 2))
             .attr("y", (d, i) => (radius + 20) * Math.sin(i * angleSlice + angleSlice / 2 - Math.PI / 2))
             .style("text-anchor", "middle")
-            .text(d => d);
+            .style("cursor", "pointer")
+            .text(d => d)
+            .on("dblclick", (event, d) => {
+                const filterEvent = new CustomEvent('filter-category', { detail: d });
+                document.dispatchEvent(filterEvent);
+            });
     }
 
     // 2. Draw Rings

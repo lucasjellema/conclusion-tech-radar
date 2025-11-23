@@ -74,6 +74,12 @@ export function setAllCompanies(shouldSelect) {
     return processData();
 }
 
+export function setExclusiveCategory(category) {
+    activeFilters.categories.clear();
+    activeFilters.categories.add(category);
+    return processData();
+}
+
 export function getRatingsForTech(identifier) {
     return rawData.ratings.filter(r => r.identifier === identifier);
 }

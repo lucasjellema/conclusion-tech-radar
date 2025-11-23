@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, getRatingsForTech } from './data.js';
+import { getFilters, setFilter, setAllCompanies, getRatingsForTech, setExclusiveCategory } from './data.js';
 
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
@@ -136,6 +136,14 @@ function setupEventListeners(updateCallback) {
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-overlay').addEventListener('click', (e) => {
         if (e.target.id === 'modal-overlay') closeModal();
+    });
+
+    // Filter Category Event (Drill-down)
+    document.addEventListener('filter-category', (e) => {
+        const category = e.detail;
+        const newData = setExclusiveCategory(category);
+        updateCallback(newData);
+        renderFilters(updateCallback); // Re-render to update checkboxes
     });
 }
 
