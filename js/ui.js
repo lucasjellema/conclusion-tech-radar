@@ -337,7 +337,14 @@ function setupEventListeners(updateCallback) {
     // Filter Category Event (Drill-down)
     document.addEventListener('filter-category', (e) => {
         const category = e.detail;
-        const newData = setExclusiveCategory(category);
+        const activeCategories = getFilters().active.categories;
+        let newData;
+        // If this category is already the only active one, restore all categories
+        if (activeCategories.size === 1 && activeCategories.has(category)) {
+            newData = setAllCategories(true);
+        } else {
+            newData = setExclusiveCategory(category);
+        }
         updateCallback(newData);
         renderFilters(updateCallback); // Re-render to update checkboxes
     });
