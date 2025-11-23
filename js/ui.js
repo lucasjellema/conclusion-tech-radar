@@ -1,6 +1,19 @@
 import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData } from './data.js';
 import { t, translatePage } from './i18n.js';
 
+// Helper to produce an SVG path for domain symbol shapes matching radar's DOMAIN_SYMBOLS
+function getSymbolPathForDomain(name) {
+    const MAP = {
+        'Cloud & Mission Critical': d3.symbolSquare,
+        'Strategy & Business Consultany': d3.symbolTriangle,
+        'Enterprise Applications': d3.symbolDiamond,
+        'Data & AI': d3.symbolStar,
+        'Experience & Software': d3.symbolCircle
+    };
+    const sym = MAP[name] || d3.symbolCircle;
+    return d3.symbol().type(sym).size(80)();
+}
+
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
     setupEventListeners(updateCallback);
@@ -40,6 +53,27 @@ function renderFilters(updateCallback) {
         domainDiv.className = 'domain-group';
         const header = document.createElement('div');
         header.className = 'domain-header';
+        // Domain shape icon (matches DOMAIN_SYMBOLS in radar.js)
+        const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svgIcon.setAttribute('width', '18');
+        svgIcon.setAttribute('height', '18');
+        svgIcon.setAttribute('viewBox', '0 0 18 18');
+        svgIcon.classList.add('domain-icon');
+        svgIcon.style.marginRight = '8px';
+        svgIcon.style.verticalAlign = 'middle';
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+        // Use module-scoped helper to get symbol path
+        path.setAttribute('d', getSymbolPathForDomain(domain));
+        path.setAttribute('transform', 'translate(9,9)');
+        path.setAttribute('fill', 'rgba(200,200,200,0.12)');
+        path.setAttribute('stroke', 'var(--text-color)');
+        path.setAttribute('stroke-width', '1');
+        svgIcon.appendChild(path);
+
+        header.appendChild(svgIcon);
+
         const title = document.createElement('strong');
         title.textContent = domain;
         header.appendChild(title);
