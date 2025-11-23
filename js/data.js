@@ -9,6 +9,7 @@ let activeFilters = {
     date: null,
     tags: new Set(),
     categories: new Set(),
+    phases: new Set(),
     search: ''
 };
 
@@ -31,6 +32,10 @@ export async function loadData() {
     const categories = [...new Set(rawData.technologies.map(t => t.category))];
     categories.forEach(c => activeFilters.categories.add(c));
 
+    // Initialise all phases as active (from ratings data)
+    const phases = [...new Set(rawData.ratings.map(r => (r.fase || '').toLowerCase()))].filter(p => p);
+    phases.forEach(p => activeFilters.phases.add(p));
+
     return processData();
 }
 
@@ -39,10 +44,13 @@ export function getFilters() {
     const allTags = rawData.technologies.flatMap(t => t.tags);
     const tags = [...new Set(allTags)].sort();
     const categories = [...new Set(rawData.technologies.map(t => t.category))].sort();
+    const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
+    const phases = PHASE_ORDER; // Expose fixed order for UI and radar
     return {
         companies,
         tags,
         categories,
+        phases,
         active: activeFilters
     };
 }
@@ -57,6 +65,11 @@ export function setFilter(type, value, isAdd) {
     } else if (type === 'category') {
         if (isAdd) activeFilters.categories.add(value);
         else activeFilters.categories.delete(value);
+    } else if (type === 'phase') {
+        const v = (value || '').toLowerCase();
+        if (!v) return processData();
+        if (isAdd) activeFilters.phases.add(v);
+        else activeFilters.phases.delete(v);
     } else if (type === 'date') {
         activeFilters.date = value ? new Date(value) : null;
     } else if (type === 'search') {
@@ -82,6 +95,22 @@ export function setAllCategories(shouldSelect) {
     } else {
         activeFilters.categories.clear();
     }
+    return processData();
+}
+
+export function setAllPhases(shouldSelect) {
+    const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
+    if (shouldSelect) {
+        PHASE_ORDER.forEach(p => activeFilters.phases.add(p));
+    } else {
+        activeFilters.phases.clear();
+    }
+    return processData();
+}
+
+export function setExclusivePhase(phase) {
+    activeFilters.phases.clear();
+    if (phase) activeFilters.phases.add(phase.toLowerCase());
     return processData();
 }
 
@@ -111,6 +140,8 @@ function processData() {
         const tech = rawData.technologies.find(t => t.identifier === rating.identifier);
         if (!tech) return null;
         if (!activeFilters.categories.has(tech.category)) return null;
+        const phase = (rating.fase || '').toLowerCase();
+        if (activeFilters.phases.size > 0 && !activeFilters.phases.has(phase)) return null;
         if (activeFilters.tags.size > 0) {
             const hasTag = tech.tags.some(tag => activeFilters.tags.has(tag));
             if (!hasTag) return null;

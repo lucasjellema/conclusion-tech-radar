@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, setAllCategories, getRatingsForTech, setExclusiveCategory } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, getRatingsForTech, setExclusiveCategory } from './data.js';
 
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
@@ -6,7 +6,7 @@ export function initUI(data, updateCallback) {
 }
 
 function renderFilters(updateCallback) {
-    const { companies, tags, active } = getFilters();
+    const { companies, tags, active, categories, phases } = getFilters();
 
     // Company List
     const companyContainer = document.getElementById('company-filter');
@@ -100,6 +100,53 @@ function renderFilters(updateCallback) {
 
         categoryContainer.appendChild(span);
     });
+
+    // Phase Filter (Rings)
+    const phaseContainer = document.getElementById('phase-filter');
+    if (phaseContainer) {
+        phaseContainer.innerHTML = '';
+
+        // Bulk controls for phases
+        const phaseControls = document.createElement('div');
+        phaseControls.className = 'filter-controls';
+
+        const phaseSelectAll = document.createElement('button');
+        phaseSelectAll.textContent = 'All';
+        phaseSelectAll.className = 'filter-btn';
+        phaseSelectAll.onclick = () => {
+            const newData = setAllPhases(true);
+            updateCallback(newData);
+            renderFilters(updateCallback);
+        };
+
+        const phaseDeselectAll = document.createElement('button');
+        phaseDeselectAll.textContent = 'None';
+        phaseDeselectAll.className = 'filter-btn';
+        phaseDeselectAll.onclick = () => {
+            const newData = setAllPhases(false);
+            updateCallback(newData);
+            renderFilters(updateCallback);
+        };
+
+        phaseControls.appendChild(phaseSelectAll);
+        phaseControls.appendChild(phaseDeselectAll);
+        phaseContainer.appendChild(phaseControls);
+
+        phases.forEach(ph => {
+            const span = document.createElement('span');
+            span.className = 'tag';
+            if (active.phases.has(ph)) span.classList.add('active');
+            span.textContent = ph;
+
+            span.addEventListener('click', () => {
+                const isActive = span.classList.toggle('active');
+                const newData = setFilter('phase', ph, isActive);
+                updateCallback(newData);
+            });
+
+            phaseContainer.appendChild(span);
+        });
+    }
 
     // Tag Cloud
     const tagContainer = document.getElementById('tag-cloud');
