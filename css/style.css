@@ -73,6 +73,21 @@ header {
     z-index: 5;
 }
 
+/* Sidebar resizer (vertical divider) */
+#sidebar-resizer {
+    width: 8px;
+    cursor: col-resize;
+    background: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    flex: 0 0 8px;
+    z-index: 20;
+}
+
+#sidebar-resizer:hover {
+    background: rgba(255,255,255,0.03);
+}
+
 .filter-section h3 {
     margin-top: 0;
     font-size: 1rem;

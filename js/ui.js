@@ -222,6 +222,56 @@ function setupEventListeners(updateCallback) {
         });
     }
 
+    // Sidebar resizer (drag to resize)
+    const resizer = document.getElementById('sidebar-resizer');
+    const sidebar = document.querySelector('.sidebar');
+    const container = document.querySelector('.container');
+    if (resizer && sidebar && container) {
+        let isResizing = false;
+        const minWidth = 200;
+        const maxWidth = 800;
+
+        const onPointerMove = (clientX) => {
+            const rect = container.getBoundingClientRect();
+            let newWidth = clientX - rect.left;
+            newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+            sidebar.style.width = newWidth + 'px';
+        };
+
+        const onMouseMove = (e) => {
+            if (!isResizing) return;
+            onPointerMove(e.clientX);
+        };
+
+        const onTouchMove = (e) => {
+            if (!isResizing) return;
+            if (e.touches && e.touches.length) onPointerMove(e.touches[0].clientX);
+        };
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.userSelect = 'none';
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('mouseup', stopResize);
+        });
+
+        resizer.addEventListener('touchstart', (e) => {
+            isResizing = true;
+            document.body.style.userSelect = 'none';
+            window.addEventListener('touchmove', onTouchMove);
+            window.addEventListener('touchend', stopResize);
+        }, { passive: false });
+
+        function stopResize() {
+            isResizing = false;
+            document.body.style.userSelect = '';
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', stopResize);
+            window.removeEventListener('touchmove', onTouchMove);
+            window.removeEventListener('touchend', stopResize);
+        }
+    }
+
     // Reset Filters button
     const resetBtn = document.getElementById('reset-filters');
     if (resetBtn) {
