@@ -63,10 +63,67 @@ export function updateRadar(data) {
     // 1. Draw Segments (Categories)
     const showSegments = document.getElementById('toggle-segments').checked;
 
-    // Define subtle colors for segments
-    const segmentColors = d3.scaleOrdinal()
-        .domain(categories)
-        .range(["rgba(59, 130, 246, 0.3)", "rgba(16, 185, 129, 0.3)", "rgba(245, 158, 11, 0.3)", "rgba(239, 68, 68, 0.3)", "rgba(139, 92, 246, 0.3)"]);
+    // Define subtle colors for segments. We keep a stable mapping between
+    // category -> color for the duration of the browser session so colors
+    // don't shift when categories are hidden/shown or when drilling down.
+    const BASE_SEGMENT_COLORS = [
+        "rgba(59, 130, 246, 0.3)",
+        "rgba(16, 185, 129, 0.3)",
+        "rgba(245, 158, 11, 0.3)",
+        "rgba(239, 68, 68, 0.3)",
+        "rgba(139, 92, 246, 0.3)"];
+
+    // Read or initialize category->color mapping in sessionStorage
+    function loadCategoryColorMap() {
+        try {
+            const raw = sessionStorage.getItem('radarCategoryColors');
+            return raw ? JSON.parse(raw) : {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function saveCategoryColorMap(map) {
+        try {
+            sessionStorage.setItem('radarCategoryColors', JSON.stringify(map));
+        } catch (e) {
+            // ignore
+        }
+    }
+
+    function ensureCategoryColors(categoriesList) {
+        const map = loadCategoryColorMap();
+        // Preserve insertion order for assignment
+        const assigned = new Set(Object.keys(map));
+        let nextIdx = 0;
+        // find next free index in base colors
+        while (nextIdx < BASE_SEGMENT_COLORS.length && Array.from(assigned).some(k => map[k] === BASE_SEGMENT_COLORS[nextIdx])) {
+            nextIdx++;
+        }
+
+        for (const cat of categoriesList) {
+            if (!map.hasOwnProperty(cat)) {
+                // Pick color from base palette if available, otherwise generate via d3.interpolateRainbow
+                let color;
+                if (nextIdx < BASE_SEGMENT_COLORS.length) {
+                    color = BASE_SEGMENT_COLORS[nextIdx];
+                    nextIdx++;
+                } else {
+                    // Generate a deterministic color based on category index/hash
+                    const idx = Object.keys(map).length;
+                    color = d3.interpolateRainbow((idx % 12) / 12);
+                    // make it semi-transparent to match palette style
+                    color = (function(c) { return c.replace('rgb', 'rgba').replace(')', ',0.28)'); })((d3.color(color).formatRgb()));
+                }
+                map[cat] = color;
+            }
+        }
+        saveCategoryColorMap(map);
+        return map;
+    }
+
+    const categoryColorMap = ensureCategoryColors(categories);
+    const segmentColors = (d) => categoryColorMap[d] || 'rgba(128,128,128,0.2)';
 
     if (showSegments && categories.length > 0) {
         const arc = d3.arc()
