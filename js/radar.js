@@ -22,6 +22,15 @@ const PHASE_DESCRIPTIONS = {
     'deprecate': 'Deprecate — technologies to avoid or replace; not recommended for new work.'
 };
 
+// Human-friendly descriptions for categories
+const CATEGORY_DESCRIPTIONS = {
+    'platform': 'Platform — foundational tools and services for building and operating systems.',
+    'infrastructure': 'Infrastructure — hardware, networks and low-level services that support applications.',
+    'process': 'Process — practices, methodologies and ways of working.',
+    'tools': 'Tools — developer tools, frameworks and libraries that aid delivery.',
+    'data': 'Data — storage, processing and analysis technologies.'
+};
+
 export function initRadar(data) {
     config.color = d3.scaleOrdinal(d3.schemeCategory10);
     const container = document.getElementById('radar');
@@ -104,6 +113,20 @@ export function updateRadar(data) {
             .on("dblclick", (event, d) => {
                 const filterEvent = new CustomEvent('filter-category', { detail: d });
                 document.dispatchEvent(filterEvent);
+            })
+            .on("mouseenter", (event, d) => {
+                const t = document.getElementById('tooltip');
+                const key = (d || '').toLowerCase();
+                t.innerHTML = `<strong>${d}</strong><div style="margin-top:6px; font-size:0.9rem">${CATEGORY_DESCRIPTIONS[key] || ''}</div>`;
+                t.classList.remove('hidden');
+                t.style.pointerEvents = 'none';
+                updateTooltipPosition(event);
+            })
+            .on("mousemove", (event) => {
+                updateTooltipPosition(event);
+            })
+            .on("mouseleave", () => {
+                document.getElementById('tooltip').classList.add('hidden');
             });
     }
 
