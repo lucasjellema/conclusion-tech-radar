@@ -1,0 +1,245 @@
+
+{
+  "statusPerBedrijf": [
+    {
+      "identifier": "docker",
+      "bedrijf": "Conclusion Enablement",
+      "fase": "adopt",
+      "toelichting": "Docker is volledig geïntegreerd in CI/CD pipelines. Wordt gebruikt voor containerisatie van microservices. Plannen: optimalisatie met Kubernetes.",
+      "datumBeoordeling": "2025-11-15",
+      "beoordelaars": ["Jan de Vries", "Sanne Bakker"]
+    },
+    {
+      "identifier": "kubernetes",
+      "bedrijf": "Conclusion Cloud",
+      "fase": "trial",
+      "toelichting": "Pilot voor multi-cloud orchestration. Complexiteit en beheer zijn aandachtspunten.",
+      "datumBeoordeling": "2025-11-10",
+      "beoordelaars": ["Peter Jansen"]
+    },
+    {
+      "identifier": "terraform",
+      "bedrijf": "Conclusion Consulting",
+      "fase": "assess",
+      "toelichting": "Onderzoek naar governance en security. Proof-of-concept gepland in Q1 2026.",
+      "datumBeoordeling": "2025-11-18",
+      "beoordelaars": ["Linda van Dijk", "Mark Visser"]
+    },
+    {
+      "identifier": "ansible",
+      "bedrijf": "Conclusion Automation",
+      "fase": "adopt",
+      "toelichting": "Standaard voor configuratiebeheer en provisioning. Uitbreiding met Ansible Tower gepland.",
+      "datumBeoordeling": "2025-11-12",
+      "beoordelaars": ["Tom Willems"]
+    },
+    {
+      "identifier": "prometheus",
+      "bedrijf": "Conclusion Observability",
+      "fase": "trial",
+      "toelichting": "Test voor metrics-collectie in containeromgevingen. Integratie met Grafana loopt.",
+      "datumBeoordeling": "2025-11-14",
+      "beoordelaars": ["Eva Janssen"]
+    },
+    {
+      "identifier": "grafana",
+      "bedrijf": "Conclusion Observability",
+      "fase": "adopt",
+      "toelichting": "Breed ingezet voor dashboards en monitoring. Alerting workflows in ontwikkeling.",
+      "datumBeoordeling": "2025-11-14",
+      "beoordelaars": ["Eva Janssen", "Tom Willems"]
+    },
+    {
+      "identifier": "jenkins",
+      "bedrijf": "Conclusion DevOps",
+      "fase": "hold",
+      "toelichting": "Nog gebruikt in legacy pipelines. Migratie naar GitLab CI gepland.",
+      "datumBeoordeling": "2025-11-16",
+      "beoordelaars": ["Bas van Leeuwen"]
+    },
+    {
+      "identifier": "gitlab",
+      "bedrijf": "Conclusion DevOps",
+      "fase": "adopt",
+      "toelichting": "Primair platform voor CI/CD en source code management. Security scanning uitbreiding gepland.",
+      "datumBeoordeling": "2025-11-16",
+      "beoordelaars": ["Bas van Leeuwen", "Sanne Bakker"]
+    },
+    {
+      "identifier": "elastic",
+      "bedrijf": "Conclusion Data",
+      "fase": "assess",
+      "toelichting": "Onderzoek naar enterprise search en observability. SIEM-functionaliteit in PoC.",
+      "datumBeoordeling": "2025-11-19",
+      "beoordelaars": ["Jeroen Smits"]
+    },
+    {
+      "identifier": "apache-kafka",
+      "bedrijf": "Conclusion Integration",
+      "fase": "trial",
+      "toelichting": "Test voor event-driven integraties. Evaluatie van Confluent Cloud gepland.",
+      "datumBeoordeling": "2025-11-20",
+      "beoordelaars": ["Martijn de Boer"]
+    },
+    {
+      "identifier": "docker",
+      "bedrijf": "Conclusion Application Innovation",
+      "fase": "assess",
+      "toelichting": "Docker wordt bekeken voor legacy modernisatie. Plannen: pilot met interne applicaties.",
+      "datumBeoordeling": "2025-11-21",
+      "beoordelaars": ["Sophie van Dam"]
+    },
+    {
+      "identifier": "kubernetes",
+      "bedrijf": "Conclusion Security",
+      "fase": "hold",
+      "toelichting": "Complexiteit en compliance-risico’s zorgen voor terughoudendheid. Geen actieve projecten.",
+      "datumBeoordeling": "2025-11-19",
+      "beoordelaars": ["Koen Meijer"]
+    },
+    {
+      "identifier": "terraform",
+      "bedrijf": "Conclusion Cloud",
+      "fase": "adopt",
+      "toelichting": "Terraform is standaard voor multi-cloud provisioning. Integratie met GitLab CI.",
+      "datumBeoordeling": "2025-11-20",
+      "beoordelaars": ["Peter Jansen", "Linda van Dijk"]
+    },
+    {
+      "identifier": "ansible",
+      "bedrijf": "Conclusion Security",
+      "fase": "trial",
+      "toelichting": "Test voor hardening van Linux-omgevingen. Plannen: security automation uitbreiden.",
+      "datumBeoordeling": "2025-11-18",
+      "beoordelaars": ["Koen Meijer"]
+    },
+    {
+      "identifier": "prometheus",
+      "bedrijf": "Conclusion Cloud",
+      "fase": "adopt",
+      "toelichting": "Prometheus is geïntegreerd in cloud-native observability stack. Alerting via Grafana.",
+      "datumBeoordeling": "2025-11-17",
+      "beoordelaars": ["Eva Janssen"]
+    },
+    {
+      "identifier": "grafana",
+      "bedrijf": "Conclusion Consulting",
+      "fase": "trial",
+      "toelichting": "Pilot voor klantdashboards. Evaluatie van multi-tenant setup.",
+      "datumBeoordeling": "2025-11-15",
+      "beoordelaars": ["Mark Visser"]
+    },
+    {
+      "identifier": "jenkins",
+      "bedrijf": "Conclusion Enablement",
+      "fase": "deprecate",
+      "toelichting": "Wordt uitgefaseerd. Migratie naar GitLab CI bijna afgerond.",
+      "datumBeoordeling": "2025-11-14",
+      "beoordelaars": ["Jan de Vries"]
+    },
+    {
+      "identifier": "gitlab",
+      "bedrijf": "Conclusion Security",
+      "fase": "assess",
+      "toelichting": "Onderzoek naar integratie van security scanning en compliance checks.",
+      "datumBeoordeling": "2025-11-19",
+      "beoordelaars": ["Koen Meijer"]
+    },
+    {
+      "identifier": "elastic",
+      "bedrijf": "Conclusion Observability",
+      "fase": "trial",
+      "toelichting": "Elastic wordt getest voor log analytics. Integratie met Prometheus en Grafana.",
+      "datumBeoordeling": "2025-11-20",
+      "beoordelaars": ["Eva Janssen"]
+    },
+    {
+      "identifier": "apache-kafka",
+      "bedrijf": "Conclusion Consulting",
+      "fase": "assess",
+      "toelichting": "Kafka wordt onderzocht voor real-time data integratie. Plannen: PoC met retail-klant.",
+      "datumBeoordeling": "2025-11-21",
+      "beoordelaars": ["Mark Visser"]
+    },
+    {
+      "identifier": "docker",
+      "bedrijf": "Conclusion Security",
+      "fase": "hold",
+      "toelichting": "Gebruik beperkt vanwege compliance-risico’s. Alternatieven worden bekeken.",
+      "datumBeoordeling": "2025-11-22",
+      "beoordelaars": ["Koen Meijer"]
+    },
+    {
+      "identifier": "kubernetes",
+      "bedrijf": "Conclusion Integration",
+      "fase": "adopt",
+      "toelichting": "Kubernetes is standaard voor integratieplatformen. Plannen: uitbreiding met service mesh.",
+      "datumBeoordeling": "2025-11-22",
+      "beoordelaars": ["Martijn de Boer"]
+    },
+    {
+      "identifier": "terraform",
+      "bedrijf": "Conclusion Enablement",
+      "fase": "trial",
+      "toelichting": "Pilot voor provisioning van interne testomgevingen.",
+      "datumBeoordeling": "2025-11-21",
+      "beoordelaars": ["Jan de Vries"]
+    },
+    {
+      "identifier": "ansible",
+      "bedrijf": "Conclusion Consulting",
+      "fase": "assess",
+      "toelichting": "Onderzoek naar automatisering van Windows-omgevingen.",
+      "datumBeoordeling": "2025-11-20",
+      "beoordelaars": ["Linda van Dijk"]
+    },
+    {
+      "identifier": "prometheus",
+      "bedrijf": "Conclusion Integration",
+      "fase": "hold",
+      "toelichting": "Monitoring via Prometheus wordt beperkt gebruikt. Evaluatie van alternatieven loopt.",
+      "datumBeoordeling": "2025-11-19",
+      "beoordelaars": ["Martijn de Boer"]
+    },
+    {
+      "identifier": "grafana",
+      "bedrijf": "Conclusion Enablement",
+      "fase": "adopt",
+      "toelichting": "Grafana dashboards zijn standaard voor interne KPI-monitoring.",
+      "datumBeoordeling": "2025-11-18",
+      "beoordelaars": ["Jan de Vries"]
+    },
+    {
+      "identifier": "jenkins",
+      "bedrijf": "Conclusion Cloud",
+      "fase": "hold",
+      "toelichting": "Legacy pipelines draaien nog op Jenkins. Migratie gepland in 2026.",
+      "datumBeoordeling": "2025-11-17",
+      "beoordelaars": ["Peter Jansen"]
+    },
+    {
+      "identifier": "gitlab",
+      "bedrijf": "Conclusion Integration",
+      "fase": "adopt",
+      "toelichting": "GitLab wordt gebruikt voor integratieprojecten. CI/CD pipelines zijn standaard.",
+      "datumBeoordeling": "2025-11-16",
+      "beoordelaars": ["Martijn de Boer"]
+    },
+    {
+      "identifier": "elastic",
+      "bedrijf": "Conclusion Security",
+      "fase": "trial",
+      "toelichting": "Elastic wordt getest voor SIEM-oplossingen. Plannen: integratie met SOC.",
+      "datumBeoordeling": "2025-11-15",
+      "beoordelaars": ["Koen Meijer"]
+    },
+    {
+      "identifier": "apache-kafka",
+      "bedrijf": "Conclusion Enablement",
+      "fase": "adopt",
+      "toelichting": "Kafka is standaard voor event-driven architectuur. Wordt gebruikt in meerdere klantprojecten.",
+      "datumBeoordeling": "2025-11-14",
+      "beoordelaars": ["Jan de Vries"]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Conclusion Technology Radar</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Conclusion Tech Radar</div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <button id="theme-toggle" class="tag">Theme: Dark</button>
+            <div class="controls-toggle">Filters</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3>Companies</h3>
+                <div id="company-filter" class="tag-cloud">
+                    <!-- Checkboxes will be injected here -->
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Categories</h3>
+                <div id="category-filter" class="tag-cloud">
+                    <!-- Categories will be injected here -->
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Date</h3>
+                <input type="date" id="date-filter">
+                <label for="date-filter">Show ratings after</label>
+            </div>
+
+            <div class="filter-section">
+                <h3>Tags</h3>
+                <div id="tag-cloud" class="tag-cloud">
+                    <!-- Tags will be injected here -->
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Visibility</h3>
+                <div class="visibility-controls">
+                    <label><input type="checkbox" id="toggle-rings" checked> Show Rings</label>
+                    <label><input type="checkbox" id="toggle-segments" checked> Show Segments</label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="radar-container">
+            <div id="radar"></div>
+        </main>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip hidden"></div>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <button id="modal-close" class="modal-close">&times;</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

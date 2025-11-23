@@ -1,0 +1,142 @@
+[
+  {
+    "identifier": "docker",
+    "name": "Docker",
+    "category": "Infrastructure",
+    "tags": [
+      "containerization",
+      "devops",
+      "virtualization"
+    ],
+    "description": "Platform for developing, shipping, and running applications in containers.",
+    "logo": "https://cdn.simpleicons.org/docker",
+    "vendor": "Docker Inc.",
+    "homepage": "https://www.docker.com/"
+  },
+  {
+    "identifier": "kubernetes",
+    "name": "Kubernetes",
+    "category": "Infrastructure",
+    "tags": [
+      "orchestration",
+      "containers",
+      "cloud-native"
+    ],
+    "description": "Open-source system for automating deployment, scaling, and management of containerized applications.",
+    "logo": "https://cdn.simpleicons.org/kubernetes",
+    "vendor": "CNCF",
+    "homepage": "https://kubernetes.io/"
+  },
+  {
+    "identifier": "terraform",
+    "name": "Terraform",
+    "category": "Tools",
+    "tags": [
+      "iac",
+      "infrastructure",
+      "automation"
+    ],
+    "description": "Infrastructure as Code software tool that provides a consistent CLI workflow to manage hundreds of cloud services.",
+    "logo": "https://cdn.simpleicons.org/terraform",
+    "vendor": "HashiCorp",
+    "homepage": "https://www.terraform.io/"
+  },
+  {
+    "identifier": "ansible",
+    "name": "Ansible",
+    "category": "Tools",
+    "tags": [
+      "automation",
+      "configuration-management",
+      "provisioning"
+    ],
+    "description": "Open-source software provisioning, configuration management, and application-deployment tool.",
+    "logo": "https://cdn.simpleicons.org/ansible",
+    "vendor": "Red Hat",
+    "homepage": "https://www.ansible.com/"
+  },
+  {
+    "identifier": "prometheus",
+    "name": "Prometheus",
+    "category": "Observability",
+    "tags": [
+      "monitoring",
+      "metrics",
+      "alerting"
+    ],
+    "description": "Open-source systems monitoring and alerting toolkit originally built at SoundCloud.",
+    "logo": "https://cdn.simpleicons.org/prometheus",
+    "vendor": "CNCF",
+    "homepage": "https://prometheus.io/"
+  },
+  {
+    "identifier": "grafana",
+    "name": "Grafana",
+    "category": "Observability",
+    "tags": [
+      "visualization",
+      "dashboard",
+      "monitoring"
+    ],
+    "description": "Open source analytics and interactive visualization web application.",
+    "logo": "https://cdn.simpleicons.org/grafana",
+    "vendor": "Grafana Labs",
+    "homepage": "https://grafana.com/"
+  },
+  {
+    "identifier": "jenkins",
+    "name": "Jenkins",
+    "category": "Tools",
+    "tags": [
+      "ci/cd",
+      "automation",
+      "build"
+    ],
+    "description": "Open source automation server which enables developers around the world to reliably build, test, and deploy their software.",
+    "logo": "https://cdn.simpleicons.org/jenkins",
+    "vendor": "Jenkins Project",
+    "homepage": "https://www.jenkins.io/"
+  },
+  {
+    "identifier": "gitlab",
+    "name": "GitLab",
+    "category": "Platforms",
+    "tags": [
+      "scm",
+      "ci/cd",
+      "devops"
+    ],
+    "description": "The One DevOps Platform for software innovation.",
+    "logo": "https://cdn.simpleicons.org/gitlab",
+    "vendor": "GitLab Inc.",
+    "homepage": "https://about.gitlab.com/"
+  },
+  {
+    "identifier": "elastic",
+    "name": "Elasticsearch",
+    "category": "Data",
+    "tags": [
+      "search",
+      "analytics",
+      "database"
+    ],
+    "description": "Distributed, RESTful search and analytics engine capable of addressing a growing number of use cases.",
+    "logo": "https://cdn.simpleicons.org/elasticsearch",
+    "vendor": "Elastic",
+    "homepage": "https://www.elastic.co/"
+  },
+  {
+    "identifier": "apache-kafka",
+    "name": "Apache Kafka",
+    "category": "Data",
+    "tags": [
+      "streaming",
+      "event-driven",
+      "messaging"
+    ],
+    "description": "Open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines.",
+    "logo": "https://cdn.simpleicons.org/apachekafka",
+    "vendor": "Apache Software Foundation",
+    "homepage": "https://kafka.apache.org/"
+  }
+]
