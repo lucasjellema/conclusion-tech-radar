@@ -301,11 +301,74 @@ export function updateRadar(data) {
         blip.x = r * Math.cos(theta);
         blip.y = r * Math.sin(theta);
 
-        // Store color based on phase
-        blip.color = getPhaseColor(blip.rating.fase);
+        // companyColor will be assigned later based on domain/company mapping
     }
 
-    // 4. Draw Blips
+    // Prepare company color mapping per-domain and domain->symbol mapping
+    function loadCompanyColorMap() {
+        try {
+            const raw = sessionStorage.getItem('radarCompanyColors');
+            return raw ? JSON.parse(raw) : {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function saveCompanyColorMap(map) {
+        try {
+            sessionStorage.setItem('radarCompanyColors', JSON.stringify(map));
+        } catch (e) {
+            // ignore
+        }
+    }
+
+    function ensureCompanyColors(blipsList) {
+        const map = loadCompanyColorMap();
+        const BASE_COMPANY_COLORS = d3.schemeCategory10.slice();
+        // gather companies by domain
+        const domainMap = {};
+        for (const b of blipsList) {
+            const domain = b.companyDomain || 'Other';
+            domainMap[domain] = domainMap[domain] || new Set();
+            domainMap[domain].add(b.company);
+        }
+
+        for (const [domain, companiesSet] of Object.entries(domainMap)) {
+            const companies = Array.from(companiesSet);
+            // preserve any existing assignments for these companies
+            let nextIdx = 0;
+            for (const c of companies) {
+                if (!Object.hasOwn(map, c)) {
+                    let color;
+                    if (nextIdx < BASE_COMPANY_COLORS.length) {
+                        color = BASE_COMPANY_COLORS[nextIdx];
+                        nextIdx++;
+                    } else {
+                        const idx = Object.keys(map).length;
+                        color = d3.interpolateRainbow((idx % 12) / 12);
+                    }
+                    map[c] = color;
+                }
+            }
+        }
+        saveCompanyColorMap(map);
+        return map;
+    }
+
+    const companyColorMap = ensureCompanyColors(blips);
+    // annotate blips with companyColor for use in tooltips etc.
+    for (const b of blips) b.companyColor = companyColorMap[b.company] || '#999';
+
+    // Domain -> symbol mapping
+    const DOMAIN_SYMBOLS = {
+        'Cloud & Mission Critical': d3.symbolSquare,
+        'Strategy & Business Consultany': d3.symbolTriangle,
+        'Enterprise Applications': d3.symbolDiamond,
+        'Data & AI': d3.symbolStar,
+        'Experience & Software': d3.symbolCircle
+    };
+
+    // 4. Draw Blips (with domain-shaped symbols and company colors)
     const blipNodes = g.selectAll(".blip")
         .data(blips)
         .enter()
@@ -317,9 +380,15 @@ export function updateRadar(data) {
         .on("mouseleave", handleMouseOut)
         .on("click", handleClick);
 
-    blipNodes.append("circle")
-        .attr("r", config.dotRadius)
-        .style("fill", d => d.color);
+    const SYMBOL_SIZE = Math.max(30, Math.PI * Math.pow(config.dotRadius + 2, 2));
+    blipNodes.append('path')
+        .attr('d', d => {
+            const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
+            return d3.symbol().type(sym).size(SYMBOL_SIZE)();
+        })
+        .style('fill', d => companyColorMap[d.company] || '#999')
+        .style('stroke', '#fff')
+        .style('stroke-width', 1.2);
 
     // Add small text label to blip
     blipNodes.append("text")
@@ -329,6 +398,32 @@ export function updateRadar(data) {
         .style("font-size", "10px")
         .style("fill", "var(--text-color)")
         .style("pointer-events", "none");
+
+    // Domain legend (shapes)
+    try {
+        svg.selectAll('.domain-legend').remove();
+        const domainList = Object.keys(DOMAIN_SYMBOLS);
+        const legend = svg.append('g').attr('class', 'domain-legend').attr('transform', `translate(12,12)`);
+        const item = legend.selectAll('g').data(domainList).enter().append('g').attr('transform', (d, i) => `translate(0, ${i * 22})`);
+        item.append('path')
+            .attr('d', d => {
+                const sym = DOMAIN_SYMBOLS[d] || d3.symbolCircle;
+                return d3.symbol().type(sym).size(80)();
+            })
+            .attr('transform', 'translate(8,8)')
+            .style('fill', 'rgba(200,200,200,0.15)')
+            .style('stroke', 'var(--text-color)')
+            .style('stroke-width', 1);
+
+        item.append('text')
+            .text(d => d)
+            .attr('x', 30)
+            .attr('y', 12)
+            .style('fill', 'var(--text-color)')
+            .style('font-size', '12px');
+    } catch (e) {
+        // ignore legend errors
+    }
 }
 
 function getPhaseColor(phase) {
@@ -350,7 +445,7 @@ function handleMouseOver(event, d) {
         <div class="tooltip-meta">
             <span>${d.rating.bedrijf}</span>
             <span>•</span>
-            <span style="color: ${d.color}">${d.rating.fase.toUpperCase()}</span>
+            <span style="color: ${d.companyColor}">${d.rating.fase.toUpperCase()}</span>
         </div>
         <div>${d.tags.join(', ')}</div>
     `;

@@ -104,6 +104,10 @@ function renderFilters(updateCallback) {
             const newData = setFilter('category', cat, isActive);
             updateCallback(newData);
         });
+        // Support double-click on sidebar category tag to trigger drill-down / toggle back
+        span.addEventListener('dblclick', () => {
+            document.dispatchEvent(new CustomEvent('filter-category', { detail: cat }));
+        });
 
         categoryContainer.appendChild(span);
     }

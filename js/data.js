@@ -21,8 +21,17 @@ export async function loadData() {
     ]);
     const technologies = await techRes.json();
     const ratingsData = await ratingsRes.json();
+    // Load companies metadata if available
+    let companiesData = { companies: [] };
+    try {
+        const compRes = await fetch('data/companies.json');
+        companiesData = await compRes.json();
+    } catch (e) {
+        // ignore missing companies file
+    }
     rawData.technologies = technologies;
     rawData.ratings = ratingsData.statusPerBedrijf;
+    rawData.companies = companiesData.companies || [];
 
     // Initialise all companies as active
     const companies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
@@ -178,10 +187,15 @@ function processData() {
             const matchesDesc = (tech.description || '').toLowerCase().includes(s);
             if (!matchesName && !matchesVendor && !matchesDesc) return null;
         }
+        const companyMeta = rawData.companies.find(c => c.name === rating.bedrijf) || {};
         return {
             ...tech,
             rating,
-            id: `${rating.identifier}-${rating.bedrijf}`
+            id: `${rating.identifier}-${rating.bedrijf}`,
+            company: rating.bedrijf,
+            companyDomain: companyMeta.domain || 'Other',
+            companyHomepage: companyMeta.homepage || '',
+            companyLogo: companyMeta.logo || ''
         };
     }).filter(b => b !== null);
 

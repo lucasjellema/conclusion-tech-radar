@@ -1,0 +1,75 @@
+
+{
+	"companies": [
+		{
+			"name": "Conclusion Enablement",
+			"description": "Helps customers adopt and operationalize technology with training, enablement and tooling.",
+			"homepage": "https://www.conclusion.com/enablement",
+			"logo": "https://www.conclusion.com/assets/logos/enablement.png",
+			"domain": "Experience & Software"
+		},
+		{
+			"name": "Conclusion Cloud",
+			"description": "Provides cloud architecture, managed services and mission-critical platform engineering.",
+			"homepage": "https://www.conclusion.com/cloud",
+			"logo": "https://www.conclusion.com/assets/logos/cloud.png",
+			"domain": "Cloud & Mission Critical"
+		},
+		{
+			"name": "Conclusion Consulting",
+			"description": "Strategy and business consulting to align technology choices with organisational goals.",
+			"homepage": "https://www.conclusion.com/consulting",
+			"logo": "https://www.conclusion.com/assets/logos/consulting.png",
+			"domain": "Strategy & Business Consultany"
+		},
+		{
+			"name": "Conclusion Automation",
+			"description": "Expertise in automation, CI/CD and infrastructure-as-code to accelerate delivery.",
+			"homepage": "https://www.conclusion.com/automation",
+			"logo": "https://www.conclusion.com/assets/logos/automation.png",
+			"domain": "Enterprise Applications"
+		},
+		{
+			"name": "Conclusion Observability",
+			"description": "Focuses on monitoring, observability and telemetry to improve reliability and operations.",
+			"homepage": "https://www.conclusion.com/observability",
+			"logo": "https://www.conclusion.com/assets/logos/observability.png",
+			"domain": "Data & AI"
+		},
+		{
+			"name": "Conclusion DevOps",
+			"description": "Delivers DevOps practices, tooling and platform services to streamline software delivery.",
+			"homepage": "https://www.conclusion.com/devops",
+			"logo": "https://www.conclusion.com/assets/logos/devops.png",
+			"domain": "Cloud & Mission Critical"
+		},
+		{
+			"name": "Conclusion Application Innovation",
+			"description": "Builds modern applications and prototypes that explore new product and service ideas.",
+			"homepage": "https://www.conclusion.com/application-innovation",
+			"logo": "https://www.conclusion.com/assets/logos/application-innovation.png",
+			"domain": "Experience & Software"
+		},
+		{
+			"name": "Conclusion Data",
+			"description": "Provides data engineering, analytics and AI solutions to turn data into insight.",
+			"homepage": "https://www.conclusion.com/data",
+			"logo": "https://www.conclusion.com/assets/logos/data.png",
+			"domain": "Data & AI"
+		},
+		{
+			"name": "Conclusion Integration",
+			"description": "Specialises in system integration, messaging and event-driven architectures.",
+			"homepage": "https://www.conclusion.com/integration",
+			"logo": "https://www.conclusion.com/assets/logos/integration.png",
+			"domain": "Enterprise Applications"
+		},
+		{
+			"name": "Conclusion Security",
+			"description": "Offers security consulting, compliance and hardening services to reduce risk.",
+			"homepage": "https://www.conclusion.com/security",
+			"logo": "https://www.conclusion.com/assets/logos/security.png",
+			"domain": "Cloud & Mission Critical"
+		}
+	]
+}
