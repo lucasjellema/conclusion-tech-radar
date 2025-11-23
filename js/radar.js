@@ -4,6 +4,8 @@ import { t } from './i18n.js';
 
 let svg, width, height, radius;
 let g;
+let currentData = null;
+let resizeObserver = null;
 
 const config = {
     margin: 50,
@@ -19,23 +21,80 @@ const config = {
 
 export function initRadar(data) {
     config.color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    // Keep last data so we can re-render on resize
+    currentData = data;
+
     const container = document.getElementById('radar');
-    width = container.clientWidth || 800;
-    height = container.clientHeight || 600;
-    radius = Math.max(0, Math.min(width, height) / 2 - config.margin);
+    resizeCanvas(container);
 
-    svg = d3.select("#radar")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+    // Create or replace svg element
+    d3.select('#radar').selectAll('svg').remove();
+    svg = d3.select('#radar')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
 
-    g = svg.append("g")
-        .attr("transform", `translate(${width / 2},${height / 2})`);
+    g = svg.append('g')
+        .attr('transform', `translate(${width / 2},${height / 2})`);
+
+    // Observe container size changes and resize radar accordingly
+    try {
+        const containerNode = document.querySelector('.radar-container') || container.parentElement || container;
+        if (resizeObserver) resizeObserver.disconnect();
+        const RESIZE_DEBOUNCE_MS = 150;
+        let resizeTimer = null;
+        resizeObserver = new ResizeObserver(() => {
+            // update measured size immediately, but debounce the expensive re-render
+            resizeCanvas(containerNode);
+            if (svg) {
+                svg.attr('width', width).attr('height', height);
+                g.attr('transform', `translate(${width / 2},${height / 2})`);
+            }
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (svg) {
+                    svg.attr('width', width).attr('height', height);
+                    g.attr('transform', `translate(${width / 2},${height / 2})`);
+                }
+                if (currentData) updateRadar(currentData);
+            }, RESIZE_DEBOUNCE_MS);
+        });
+        resizeObserver.observe(containerNode);
+    } catch (e) {
+        // ResizeObserver may not be available; fall back to window resize with debounce
+        const RESIZE_DEBOUNCE_MS = 150;
+        let resizeTimerWin = null;
+        globalThis.addEventListener('resize', () => {
+            resizeCanvas(container);
+            if (svg) {
+                svg.attr('width', width).attr('height', height);
+                g.attr('transform', `translate(${width / 2},${height / 2})`);
+            }
+            if (resizeTimerWin) clearTimeout(resizeTimerWin);
+            resizeTimerWin = setTimeout(() => {
+                if (svg) {
+                    svg.attr('width', width).attr('height', height);
+                    g.attr('transform', `translate(${width / 2},${height / 2})`);
+                }
+                if (currentData) updateRadar(currentData);
+            }, RESIZE_DEBOUNCE_MS);
+        });
+    }
 
     updateRadar(data);
 }
 
+function resizeCanvas(container) {
+    const rect = container.getBoundingClientRect();
+    width = Math.max(0, Math.floor(rect.width)) || 800;
+    height = Math.max(0, Math.floor(rect.height)) || 600;
+    radius = Math.max(0, Math.min(width, height) / 2 - config.margin);
+}
+
 export function updateRadar(data) {
+    // Keep reference to last data for responsive re-renders
+    currentData = data;
     g.selectAll("*").remove(); // Clear canvas
 
     const { blips, categories, phases } = data;

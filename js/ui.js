@@ -271,6 +271,8 @@ function setupEventListeners(updateCallback) {
             globalThis.removeEventListener('mouseup', stopResize);
             globalThis.removeEventListener('touchmove', onTouchMove);
             globalThis.removeEventListener('touchend', stopResize);
+            // Trigger an update so the radar redraws to the new available space
+            try { updateCallback(getProcessedData()); } catch (e) { /* ignore */ }
         }
     }
 
