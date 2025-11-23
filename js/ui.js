@@ -15,49 +15,76 @@ function renderFilters(updateCallback) {
     const searchInput = document.getElementById('search-filter');
     if (searchInput) searchInput.value = active.search || '';
 
-    // Company List
+    // Company List grouped by domain
     const companyContainer = document.getElementById('company-filter');
     companyContainer.innerHTML = '';
 
-    // Add Bulk Controls
+    // Global All/None for companies
     const controlsDiv = document.createElement('div');
     controlsDiv.className = 'filter-controls';
-
     const selectAllBtn = document.createElement('button');
     selectAllBtn.textContent = t('filter.all');
     selectAllBtn.className = 'filter-btn';
-    selectAllBtn.onclick = () => {
-        const newData = setAllCompanies(true);
-        updateCallback(newData);
-        renderFilters(updateCallback); // Re-render to update checkboxes
-    };
-
+    selectAllBtn.onclick = () => { const newData = setAllCompanies(true); updateCallback(newData); renderFilters(updateCallback); };
     const deselectAllBtn = document.createElement('button');
     deselectAllBtn.textContent = t('filter.none');
     deselectAllBtn.className = 'filter-btn';
-    deselectAllBtn.onclick = () => {
-        const newData = setAllCompanies(false);
-        updateCallback(newData);
-        renderFilters(updateCallback); // Re-render to update checkboxes
-    };
-
+    deselectAllBtn.onclick = () => { const newData = setAllCompanies(false); updateCallback(newData); renderFilters(updateCallback); };
     controlsDiv.appendChild(selectAllBtn);
     controlsDiv.appendChild(deselectAllBtn);
     companyContainer.appendChild(controlsDiv);
 
-    for (const company of companies) {
-        const span = document.createElement('span');
-        span.className = 'tag';
-        if (active.companies.has(company)) span.classList.add('active');
-        span.textContent = company;
+    const { domainsMap, domains } = getFilters();
+    for (const domain of domains) {
+        const domainDiv = document.createElement('div');
+        domainDiv.className = 'domain-group';
+        const header = document.createElement('div');
+        header.className = 'domain-header';
+        const title = document.createElement('strong');
+        title.textContent = domain;
+        header.appendChild(title);
 
-        span.addEventListener('click', () => {
-            const isActive = span.classList.toggle('active');
-            const newData = setFilter('company', company, isActive);
+        const domSelectAll = document.createElement('button');
+        domSelectAll.textContent = t('filter.all');
+        domSelectAll.className = 'filter-btn small';
+        domSelectAll.onclick = () => {
+            for (const c of domainsMap[domain]) setFilter('company', c, true);
+            const newData = getProcessedData();
             updateCallback(newData);
-        });
+            renderFilters(updateCallback);
+        };
 
-        companyContainer.appendChild(span);
+        const domDeselect = document.createElement('button');
+        domDeselect.textContent = t('filter.none');
+        domDeselect.className = 'filter-btn small';
+        domDeselect.onclick = () => {
+            for (const c of domainsMap[domain]) setFilter('company', c, false);
+            const newData = getProcessedData();
+            updateCallback(newData);
+            renderFilters(updateCallback);
+        };
+
+        header.appendChild(domSelectAll);
+        header.appendChild(domDeselect);
+        domainDiv.appendChild(header);
+
+        const list = document.createElement('div');
+        list.className = 'tag-cloud domain-list';
+        for (const company of domainsMap[domain]) {
+            const span = document.createElement('span');
+            span.className = 'tag';
+            if (active.companies.has(company)) span.classList.add('active');
+            span.textContent = company;
+            span.addEventListener('click', () => {
+                const isActive = span.classList.toggle('active');
+                setFilter('company', company, isActive);
+                const newData = getProcessedData();
+                updateCallback(newData);
+            });
+            list.appendChild(span);
+        }
+        domainDiv.appendChild(list);
+        companyContainer.appendChild(domainDiv);
     }
 
     // Category Filter

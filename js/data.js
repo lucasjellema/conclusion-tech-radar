@@ -55,11 +55,29 @@ export function getFilters() {
     const categories = [...new Set(rawData.technologies.map(t => t.category))].sort((a, b) => a.localeCompare(b));
     const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
     const phases = PHASE_ORDER; // Expose fixed order for UI and radar
+    // Build domain grouping using companies metadata (if available)
+    const companyMeta = rawData.companies || [];
+    const companyToDomain = {};
+    for (const c of companyMeta) {
+        if (c && c.name) companyToDomain[c.name] = c.domain || 'Other';
+    }
+
+    const domainsMap = {};
+    for (const c of companies) {
+        const d = companyToDomain[c] || 'Other';
+        if (!domainsMap[d]) domainsMap[d] = [];
+        domainsMap[d].push(c);
+    }
+
+    const domains = Object.keys(domainsMap).sort((a, b) => a.localeCompare(b));
+
     return {
         companies,
         tags,
         categories,
         phases,
+        domainsMap,
+        domains,
         active: activeFilters
     };
 }
