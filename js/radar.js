@@ -1,5 +1,7 @@
 // D3 Radar Visualization
 
+import { t } from './i18n.js';
+
 let svg, width, height, radius;
 let g;
 
@@ -13,23 +15,7 @@ const config = {
 
 // Phases are provided per-render from the data object so layout can compress
 
-// Human-friendly descriptions for each phase (shown in tooltip on hover)
-const PHASE_DESCRIPTIONS = {
-    'adopt': 'Adopt — production-ready technologies that teams should consider adopting.',
-    'trial': 'Trial — promising technologies that are ready for evaluation in a limited scope.',
-    'assess': 'Assess — technologies worth exploring to understand fit and potential.',
-    'hold': 'Hold — technologies that should be used with caution; re-evaluate timing.',
-    'deprecate': 'Deprecate — technologies to avoid or replace; not recommended for new work.'
-};
-
-// Human-friendly descriptions for categories
-const CATEGORY_DESCRIPTIONS = {
-    'platform': 'Platform — foundational tools and services for building and operating systems.',
-    'infrastructure': 'Infrastructure — hardware, networks and low-level services that support applications.',
-    'process': 'Process — practices, methodologies and ways of working.',
-    'tools': 'Tools — developer tools, frameworks and libraries that aid delivery.',
-    'data': 'Data — storage, processing and analysis technologies.'
-};
+// Note: human-friendly descriptions are provided via i18n files; `t()` is used to fetch them.
 
 export function initRadar(data) {
     config.color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -101,8 +87,8 @@ export function updateRadar(data) {
             nextIdx++;
         }
 
-        for (const cat of categoriesList) {
-            if (!map.hasOwnProperty(cat)) {
+            for (const cat of categoriesList) {
+                if (!Object.hasOwn(map, cat)) {
                 // Pick color from base palette if available, otherwise generate via d3.interpolateRainbow
                 let color;
                 if (nextIdx < BASE_SEGMENT_COLORS.length) {
@@ -172,11 +158,12 @@ export function updateRadar(data) {
                 document.dispatchEvent(filterEvent);
             })
             .on("mouseenter", (event, d) => {
-                const t = document.getElementById('tooltip');
+                const tEl = document.getElementById('tooltip');
                 const key = (d || '').toLowerCase();
-                t.innerHTML = `<strong>${d}</strong><div style="margin-top:6px; font-size:0.9rem">${CATEGORY_DESCRIPTIONS[key] || ''}</div>`;
-                t.classList.remove('hidden');
-                t.style.pointerEvents = 'none';
+                const desc = t(`categories.${key}`, '');
+                tEl.innerHTML = `<strong>${d}</strong><div style="margin-top:6px; font-size:0.9rem">${desc}</div>`;
+                tEl.classList.remove('hidden');
+                tEl.style.pointerEvents = 'none';
                 updateTooltipPosition(event);
             })
             .on("mousemove", (event) => {
@@ -215,11 +202,12 @@ export function updateRadar(data) {
                 document.dispatchEvent(filterEvent);
             })
             .on("mouseenter", (event, d) => {
-                const t = document.getElementById('tooltip');
+                const tEl = document.getElementById('tooltip');
                 const key = (d || '').toLowerCase();
-                t.innerHTML = `<strong>${(d || '').toUpperCase()}</strong><div style="margin-top:6px; font-size:0.9rem">${PHASE_DESCRIPTIONS[key] || ''}</div>`;
-                t.classList.remove('hidden');
-                t.style.pointerEvents = 'none';
+                const desc = t(`phases.${key}`, '');
+                tEl.innerHTML = `<strong>${(d || '').toUpperCase()}</strong><div style="margin-top:6px; font-size:0.9rem">${desc}</div>`;
+                tEl.classList.remove('hidden');
+                tEl.style.pointerEvents = 'none';
                 updateTooltipPosition(event);
             })
             .on("mousemove", (event) => {
@@ -231,7 +219,7 @@ export function updateRadar(data) {
     }
 
     // 3. Calculate Blip Positions
-    blips.forEach(blip => {
+    for (const blip of blips) {
         const phaseIndex = phases.indexOf((blip.rating.fase || '').toLowerCase());
         const catIndex = categories.indexOf(blip.category);
 
@@ -256,7 +244,7 @@ export function updateRadar(data) {
 
         // Store color based on phase
         blip.color = getPhaseColor(blip.rating.fase);
-    });
+    }
 
     // 4. Draw Blips
     const blipNodes = g.selectAll(".blip")

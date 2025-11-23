@@ -26,24 +26,24 @@ export async function loadData() {
 
     // Initialise all companies as active
     const companies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
-    companies.forEach(c => activeFilters.companies.add(c));
+    for (const c of companies) activeFilters.companies.add(c);
 
     // Initialise all categories as active
     const categories = [...new Set(rawData.technologies.map(t => t.category))];
-    categories.forEach(c => activeFilters.categories.add(c));
+    for (const c of categories) activeFilters.categories.add(c);
 
     // Initialise all phases as active (from ratings data)
     const phases = [...new Set(rawData.ratings.map(r => (r.fase || '').toLowerCase()))].filter(p => p);
-    phases.forEach(p => activeFilters.phases.add(p));
+    for (const p of phases) activeFilters.phases.add(p);
 
     return processData();
 }
 
 export function getFilters() {
-    const companies = [...new Set(rawData.ratings.map(r => r.bedrijf))].sort();
+    const companies = [...new Set(rawData.ratings.map(r => r.bedrijf))].sort((a, b) => a.localeCompare(b));
     const allTags = rawData.technologies.flatMap(t => t.tags);
-    const tags = [...new Set(allTags)].sort();
-    const categories = [...new Set(rawData.technologies.map(t => t.category))].sort();
+    const tags = [...new Set(allTags)].sort((a, b) => a.localeCompare(b));
+    const categories = [...new Set(rawData.technologies.map(t => t.category))].sort((a, b) => a.localeCompare(b));
     const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
     const phases = PHASE_ORDER; // Expose fixed order for UI and radar
     return {
@@ -81,7 +81,7 @@ export function setFilter(type, value, isAdd) {
 export function setAllCompanies(shouldSelect) {
     if (shouldSelect) {
         const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
-        allCompanies.forEach(c => activeFilters.companies.add(c));
+        for (const c of allCompanies) activeFilters.companies.add(c);
     } else {
         activeFilters.companies.clear();
     }
@@ -91,7 +91,7 @@ export function setAllCompanies(shouldSelect) {
 export function setAllCategories(shouldSelect) {
     if (shouldSelect) {
         const allCategories = [...new Set(rawData.technologies.map(t => t.category))];
-        allCategories.forEach(c => activeFilters.categories.add(c));
+        for (const c of allCategories) activeFilters.categories.add(c);
     } else {
         activeFilters.categories.clear();
     }
@@ -101,7 +101,7 @@ export function setAllCategories(shouldSelect) {
 export function setAllPhases(shouldSelect) {
     const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
     if (shouldSelect) {
-        PHASE_ORDER.forEach(p => activeFilters.phases.add(p));
+        for (const p of PHASE_ORDER) activeFilters.phases.add(p);
     } else {
         activeFilters.phases.clear();
     }
@@ -145,6 +145,10 @@ export function resetAllFilters() {
     return processData();
 }
 
+export function getProcessedData() {
+    return processData();
+}
+
 function processData() {
     // 1. Filter Ratings (company & date)
     const filteredRatings = rawData.ratings.filter(r => {
@@ -183,7 +187,7 @@ function processData() {
 
     return {
         blips,
-        categories: [...activeFilters.categories].sort(),
+        categories: [...activeFilters.categories].sort((a, b) => a.localeCompare(b)),
         // Return only the active phases in the canonical order so the radar redraws
         // as if unselected rings do not exist.
         phases: ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p))

@@ -15,26 +15,30 @@
 
 <body>
     <header>
-        <div class="logo">Conclusion Tech Radar</div>
+        <div class="logo" data-i18n-key="header.logo">Conclusion Tech Radar</div>
         <div style="display: flex; gap: 1rem; align-items: center;">
-            <button id="theme-toggle" class="tag">Theme: Dark</button>
-            <div class="controls-toggle">Filters</div>
+            <button id="theme-toggle" class="tag" data-i18n-key="header.theme">Theme</button>
+            <div class="controls-toggle" data-i18n-key="header.filters">Filters</div>
+            <label for="lang-select" class="sr-only" data-i18n-key="header.lang_label">Language</label>
+            <select id="lang-select" aria-label="Language">
+                <option value="en">EN</option>
+                <option value="nl">NL</option>
+            </select>
         </div>
     </header>
 
     <div class="container">
         <aside class="sidebar">
             <div class="filter-section">
-                <button id="reset-filters" class="filter-btn">Reset Filters</button>
+                <button id="reset-filters" class="filter-btn" data-i18n-key="filter.reset">Reset Filters</button>
             </div>
             <div class="filter-section">
-                <h3>Search</h3>
-                <input type="text" id="search-filter" placeholder="Search technologies..."
-                    style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid var(--border-color); background-color: var(--bg-color); color: var(--text-color);">
+                <h3 data-i18n-key="filter.search">Search</h3>
+                <input type="text" id="search-filter" data-i18n-key="filter.search_placeholder" placeholder="" class="search-input">
             </div>
 
             <div class="filter-section">
-                <h3>Companies <button id="company-collapse-toggle" class="collapse-toggle" aria-expanded="false">▸</button></h3>
+                <h3><span data-i18n-key="filter.companies">Companies</span> <button id="company-collapse-toggle" class="collapse-toggle" aria-expanded="false">▸</button></h3>
                 <div id="company-filter-body" class="collapsible hidden">
                     <div id="company-filter" class="tag-cloud">
                         <!-- Checkboxes will be injected here -->
@@ -43,27 +47,27 @@
             </div>
 
             <div class="filter-section">
-                <h3>Categories</h3>
+                <h3><span data-i18n-key="filter.categories">Categories</span></h3>
                 <div id="category-filter" class="tag-cloud">
                     <!-- Categories will be injected here -->
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3>Phases</h3>
+                <h3><span data-i18n-key="filter.phases">Phases</span></h3>
                 <div id="phase-filter" class="tag-cloud">
                     <!-- Phases (rings) will be injected here -->
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3>Date</h3>
+                <h3><span data-i18n-key="filter.date">Date</span></h3>
                 <input type="date" id="date-filter">
-                <label for="date-filter">Show ratings after</label>
+                <label for="date-filter" data-i18n-key="filter.date_label">Show ratings after</label>
             </div>
 
             <div class="filter-section">
-                <h3>Tags <button id="tag-collapse-toggle" class="collapse-toggle" aria-expanded="false">▸</button></h3>
+                <h3><span data-i18n-key="filter.tags">Tags</span> <button id="tag-collapse-toggle" class="collapse-toggle" aria-expanded="false">▸</button></h3>
                 <div id="tag-filter-body" class="collapsible hidden">
                     <div id="tag-cloud" class="tag-cloud">
                         <!-- Tags will be injected here -->
@@ -72,10 +76,10 @@
             </div>
 
             <div class="filter-section">
-                <h3>Visibility</h3>
+                <h3><span data-i18n-key="filter.visibility">Visibility</span></h3>
                 <div class="visibility-controls">
-                    <label><input type="checkbox" id="toggle-rings" checked> Show Rings</label>
-                    <label><input type="checkbox" id="toggle-segments" checked> Show Segments</label>
+                    <label><input type="checkbox" id="toggle-rings" checked> <span data-i18n-key="filter.show_rings">Show Rings</span></label>
+                    <label><input type="checkbox" id="toggle-segments" checked> <span data-i18n-key="filter.show_segments">Show Segments</span></label>
                 </div>
             </div>
         </aside>

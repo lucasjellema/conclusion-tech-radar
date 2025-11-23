@@ -1,4 +1,5 @@
-import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData } from './data.js';
+import { t, translatePage } from './i18n.js';
 
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
@@ -23,7 +24,7 @@ function renderFilters(updateCallback) {
     controlsDiv.className = 'filter-controls';
 
     const selectAllBtn = document.createElement('button');
-    selectAllBtn.textContent = 'All';
+    selectAllBtn.textContent = t('filter.all');
     selectAllBtn.className = 'filter-btn';
     selectAllBtn.onclick = () => {
         const newData = setAllCompanies(true);
@@ -32,7 +33,7 @@ function renderFilters(updateCallback) {
     };
 
     const deselectAllBtn = document.createElement('button');
-    deselectAllBtn.textContent = 'None';
+    deselectAllBtn.textContent = t('filter.none');
     deselectAllBtn.className = 'filter-btn';
     deselectAllBtn.onclick = () => {
         const newData = setAllCompanies(false);
@@ -44,7 +45,7 @@ function renderFilters(updateCallback) {
     controlsDiv.appendChild(deselectAllBtn);
     companyContainer.appendChild(controlsDiv);
 
-    companies.forEach(company => {
+    for (const company of companies) {
         const span = document.createElement('span');
         span.className = 'tag';
         if (active.companies.has(company)) span.classList.add('active');
@@ -57,7 +58,7 @@ function renderFilters(updateCallback) {
         });
 
         companyContainer.appendChild(span);
-    });
+    }
 
     // Category Filter
     const categoryContainer = document.getElementById('category-filter');
@@ -68,7 +69,7 @@ function renderFilters(updateCallback) {
     catControlsDiv.className = 'filter-controls';
 
     const catSelectAllBtn = document.createElement('button');
-    catSelectAllBtn.textContent = 'All';
+    catSelectAllBtn.textContent = t('filter.all');
     catSelectAllBtn.className = 'filter-btn';
     catSelectAllBtn.onclick = () => {
         const newData = setAllCategories(true);
@@ -77,7 +78,7 @@ function renderFilters(updateCallback) {
     };
 
     const catDeselectAllBtn = document.createElement('button');
-    catDeselectAllBtn.textContent = 'None';
+    catDeselectAllBtn.textContent = t('filter.none');
     catDeselectAllBtn.className = 'filter-btn';
     catDeselectAllBtn.onclick = () => {
         const newData = setAllCategories(false);
@@ -92,7 +93,7 @@ function renderFilters(updateCallback) {
     // We get ALL categories from getFilters, not just active ones, so user can re-enable them
     const allCategories = getFilters().categories;
 
-    allCategories.forEach(cat => {
+    for (const cat of allCategories) {
         const span = document.createElement('span');
         span.className = 'tag';
         if (active.categories.has(cat)) span.classList.add('active');
@@ -105,7 +106,7 @@ function renderFilters(updateCallback) {
         });
 
         categoryContainer.appendChild(span);
-    });
+    }
 
     // Phase Filter (Rings)
     const phaseContainer = document.getElementById('phase-filter');
@@ -117,7 +118,7 @@ function renderFilters(updateCallback) {
         phaseControls.className = 'filter-controls';
 
         const phaseSelectAll = document.createElement('button');
-        phaseSelectAll.textContent = 'All';
+        phaseSelectAll.textContent = t('filter.all');
         phaseSelectAll.className = 'filter-btn';
         phaseSelectAll.onclick = () => {
             const newData = setAllPhases(true);
@@ -126,7 +127,7 @@ function renderFilters(updateCallback) {
         };
 
         const phaseDeselectAll = document.createElement('button');
-        phaseDeselectAll.textContent = 'None';
+        phaseDeselectAll.textContent = t('filter.none');
         phaseDeselectAll.className = 'filter-btn';
         phaseDeselectAll.onclick = () => {
             const newData = setAllPhases(false);
@@ -138,7 +139,7 @@ function renderFilters(updateCallback) {
         phaseControls.appendChild(phaseDeselectAll);
         phaseContainer.appendChild(phaseControls);
 
-        phases.forEach(ph => {
+        for (const ph of phases) {
             const span = document.createElement('span');
             span.className = 'tag';
             if (active.phases.has(ph)) span.classList.add('active');
@@ -151,13 +152,13 @@ function renderFilters(updateCallback) {
             });
 
             phaseContainer.appendChild(span);
-        });
+        }
     }
 
     // Tag Cloud
     const tagContainer = document.getElementById('tag-cloud');
     tagContainer.innerHTML = '';
-    tags.forEach(tag => {
+    for (const tag of tags) {
         const span = document.createElement('span');
         span.className = 'tag';
         if (active.tags.has(tag)) span.classList.add('active');
@@ -170,7 +171,7 @@ function renderFilters(updateCallback) {
         });
 
         tagContainer.appendChild(span);
-    });
+    }
 }
 
 function setupEventListeners(updateCallback) {
@@ -182,13 +183,14 @@ function setupEventListeners(updateCallback) {
 
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        themeBtn.textContent = `Theme: ${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)}`;
+        // Refresh translated theme label
+        try { translatePage(); } catch (e) { /* ignore */ }
     });
 
     // Initialize Theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    themeBtn.textContent = `Theme: ${savedTheme.charAt(0).toUpperCase() + savedTheme.slice(1)}`;
+    // theme button text is handled by translatePage which reads current theme
 
     // Date Filter
     const dateInput = document.getElementById('date-filter');
@@ -251,24 +253,24 @@ function setupEventListeners(updateCallback) {
         resizer.addEventListener('mousedown', (e) => {
             isResizing = true;
             document.body.style.userSelect = 'none';
-            window.addEventListener('mousemove', onMouseMove);
-            window.addEventListener('mouseup', stopResize);
+            globalThis.addEventListener('mousemove', onMouseMove);
+            globalThis.addEventListener('mouseup', stopResize);
         });
 
         resizer.addEventListener('touchstart', (e) => {
             isResizing = true;
             document.body.style.userSelect = 'none';
-            window.addEventListener('touchmove', onTouchMove);
-            window.addEventListener('touchend', stopResize);
+            globalThis.addEventListener('touchmove', onTouchMove);
+            globalThis.addEventListener('touchend', stopResize);
         }, { passive: false });
 
         function stopResize() {
             isResizing = false;
             document.body.style.userSelect = '';
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseup', stopResize);
-            window.removeEventListener('touchmove', onTouchMove);
-            window.removeEventListener('touchend', stopResize);
+            globalThis.removeEventListener('mousemove', onMouseMove);
+            globalThis.removeEventListener('mouseup', stopResize);
+            globalThis.removeEventListener('touchmove', onTouchMove);
+            globalThis.removeEventListener('touchend', stopResize);
         }
     }
 
@@ -341,6 +343,12 @@ function setupEventListeners(updateCallback) {
         updateCallback(newData);
         renderFilters(updateCallback);
     });
+    // Re-render when language is changed
+    document.addEventListener('language-changed', () => {
+        renderFilters(updateCallback);
+        // update radar so any localized tooltips/labels are refreshed
+        try { updateCallback(getProcessedData()); } catch (e) { /* ignore */ }
+    });
 }
 
 function openModal(data) {
@@ -354,17 +362,17 @@ function openModal(data) {
                 <h2>${data.name}</h2>
                 <div style="color: #94a3b8">${data.category}</div>
                 <div style="color: #64748b; font-size: 0.9rem">${data.vendor || ''}</div>
-                ${data.homepage ? `<a href="${data.homepage}" target="_blank" style="color: var(--accent-color); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-top: 0.25rem;">Visit Website &rarr;</a>` : ''}
+                ${data.homepage ? `<a href="${data.homepage}" target="_blank" style="color: var(--accent-color); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-top: 0.25rem;">${t('modal.visit_website')}</a>` : ''}
             </div>
         </div>
         
         <p>${data.description}</p>
         
         <div style="margin-bottom: 1.5rem">
-            <strong>Tags:</strong> ${data.tags.map(t => `<span class="tag">${t}</span>`).join(' ')}
+            <strong>${t('modal.tags')}</strong> ${data.tags.map(tg => `<span class="tag">${tg}</span>`).join(' ')}
         </div>
 
-        <h3>Evaluation</h3>
+        <h3>${t('modal.evaluation')}</h3>
         <div class="rating-card">
             <div class="rating-header">
                 <span>${data.rating.bedrijf}</span>
@@ -375,7 +383,7 @@ function openModal(data) {
             </div>
             <p>${data.rating.toelichting}</p>
             <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem">
-                <strong>Beoordelaars:</strong> ${data.rating.beoordelaars.join(', ')}
+                <strong>${t('modal.reviewers')}:</strong> ${data.rating.beoordelaars.join(', ')}
             </div>
         </div>
         </div>
@@ -387,10 +395,10 @@ function openModal(data) {
     const otherRatings = getRatingsForTech(data.identifier)
         .filter(r => r.bedrijf !== data.rating.bedrijf);
 
-    if (otherRatings.length > 0) {
+        if (otherRatings.length > 0) {
         const container = document.getElementById('other-ratings');
         const h3 = document.createElement('h3');
-        h3.textContent = 'Other Evaluations';
+        h3.textContent = t('modal.other_evaluations');
         container.appendChild(h3);
 
         const list = document.createElement('div');
@@ -398,41 +406,32 @@ function openModal(data) {
         list.style.flexDirection = 'column';
         list.style.gap = '0.5rem';
 
-        otherRatings.forEach(rating => {
-            const item = document.createElement('div');
-            item.className = 'rating-card';
-            item.style.cursor = 'pointer';
-            item.style.marginBottom = '0';
-            item.style.padding = '0.75rem';
-            item.style.borderLeftColor = '#334155'; // Neutral color until hovered
-            item.style.transition = 'all 0.2s';
+        for (const rating of otherRatings) {
+          const item = document.createElement('div');
+          item.className = 'rating-card';
+          item.style.cursor = 'pointer';
+          item.style.marginBottom = '0';
+          item.style.padding = '0.75rem';
+          item.style.borderLeftColor = '#334155';
+          item.style.transition = 'all 0.2s';
 
-            item.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong>${rating.bedrijf}</strong>
-                    <span class="rating-phase ${rating.fase.toLowerCase()}">${rating.fase.toUpperCase()}</span>
-                </div>
-            `;
+          item.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>${rating.bedrijf}</strong>
+                        <span class="rating-phase ${rating.fase.toLowerCase()}">${rating.fase.toUpperCase()}</span>
+                    </div>
+                `;
 
-            item.addEventListener('mouseenter', () => {
-                item.style.backgroundColor = '#1e293b';
-            });
-            item.addEventListener('mouseleave', () => {
-                item.style.backgroundColor = 'var(--bg-color)';
-            });
+          item.addEventListener('mouseenter', () => { item.style.backgroundColor = '#1e293b'; });
+          item.addEventListener('mouseleave', () => { item.style.backgroundColor = 'var(--bg-color)'; });
 
-            item.addEventListener('click', () => {
-                // Construct new data object merging original tech data with new rating
-                const newData = {
-                    ...data,
-                    rating: rating,
-                    id: `${rating.identifier}-${rating.bedrijf}`
-                };
-                openModal(newData);
-            });
+          item.addEventListener('click', () => {
+            const newData = { ...data, rating: rating, id: `${rating.identifier}-${rating.bedrijf}` };
+            openModal(newData);
+          });
 
-            list.appendChild(item);
-        });
+          list.appendChild(item);
+        }
         container.appendChild(list);
     }
 
