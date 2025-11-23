@@ -163,6 +163,8 @@ function processData() {
     return {
         blips,
         categories: [...activeFilters.categories].sort(),
-        phases: ['adopt', 'trial', 'assess', 'hold', 'deprecate']
+        // Return only the active phases in the canonical order so the radar redraws
+        // as if unselected rings do not exist.
+        phases: ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p))
     };
 }

@@ -11,14 +11,7 @@ const config = {
     dotRadius: 6
 };
 
-// Phase mapping to ring index (0 = center)
-const phaseMap = {
-    'adopt': 0,
-    'trial': 1,
-    'assess': 2,
-    'hold': 3,
-    'deprecate': 4 // Outermost
-};
+// Phases are provided per-render from the data object so layout can compress
 
 export function initRadar(data) {
     config.color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -42,7 +35,11 @@ export function updateRadar(data) {
     g.selectAll("*").remove(); // Clear canvas
 
     const { blips, categories, phases } = data;
-    const ringRadius = radius / config.levels;
+    // If there are no active phases, don't draw rings or blips
+    if (!phases || phases.length === 0) return;
+
+    // Compute ring radius based on number of active phases so removed phases compress layout
+    const ringRadius = radius / phases.length;
     const angleSlice = (Math.PI * 2) / categories.length;
 
     // 1. Draw Segments (Categories)
@@ -127,12 +124,13 @@ export function updateRadar(data) {
 
     // 3. Calculate Blip Positions
     blips.forEach(blip => {
-        const phaseIndex = phaseMap[blip.rating.fase.toLowerCase()] || 0;
+        const phaseIndex = phases.indexOf((blip.rating.fase || '').toLowerCase());
         const catIndex = categories.indexOf(blip.category);
 
         if (catIndex === -1) return; // Should not happen if data is consistent
+        if (phaseIndex === -1) return; // Phase was filtered out
 
-        // Radial bounds for this phase
+        // Radial bounds for this phase (compressed according to active phases)
         const innerR = phaseIndex * ringRadius;
         const outerR = (phaseIndex + 1) * ringRadius;
 
