@@ -124,6 +124,27 @@ export function getRatingsForTech(identifier) {
     return rawData.ratings.filter(r => r.identifier === identifier);
 }
 
+export function resetAllFilters() {
+    // Restore companies
+    const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
+    activeFilters.companies = new Set(allCompanies);
+
+    // Restore categories
+    const allCategories = [...new Set(rawData.technologies.map(t => t.category))];
+    activeFilters.categories = new Set(allCategories);
+
+    // Restore phases to canonical order
+    const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
+    activeFilters.phases = new Set(PHASE_ORDER);
+
+    // Clear tags, date and search
+    activeFilters.tags.clear();
+    activeFilters.date = null;
+    activeFilters.search = '';
+
+    return processData();
+}
+
 function processData() {
     // 1. Filter Ratings (company & date)
     const filteredRatings = rawData.ratings.filter(r => {

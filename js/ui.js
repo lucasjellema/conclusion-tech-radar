@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, getRatingsForTech, setExclusiveCategory } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory } from './data.js';
 
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
@@ -7,6 +7,12 @@ export function initUI(data, updateCallback) {
 
 function renderFilters(updateCallback) {
     const { companies, tags, active, categories, phases } = getFilters();
+
+    // Ensure date and search inputs reflect active filters
+    const dateInput = document.getElementById('date-filter');
+    if (dateInput) dateInput.value = active.date ? active.date.toISOString().slice(0, 10) : '';
+    const searchInput = document.getElementById('search-filter');
+    if (searchInput) searchInput.value = active.search || '';
 
     // Company List
     const companyContainer = document.getElementById('company-filter');
@@ -190,6 +196,27 @@ function setupEventListeners(updateCallback) {
         const newData = setFilter('date', e.target.value);
         updateCallback(newData);
     });
+
+    // Reset Filters button
+    const resetBtn = document.getElementById('reset-filters');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            const newData = resetAllFilters();
+            updateCallback(newData);
+            renderFilters(updateCallback);
+
+            // Reset inputs and visibility toggles
+            const ringsToggle = document.getElementById('toggle-rings');
+            const segmentsToggle = document.getElementById('toggle-segments');
+            if (ringsToggle) ringsToggle.checked = true;
+            if (segmentsToggle) segmentsToggle.checked = true;
+
+            const dateInput = document.getElementById('date-filter');
+            if (dateInput) dateInput.value = '';
+            const searchInput = document.getElementById('search-filter');
+            if (searchInput) searchInput.value = '';
+        });
+    }
 
     // Visibility Toggles
     document.getElementById('toggle-rings').addEventListener('change', () => {
