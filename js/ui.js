@@ -150,6 +150,10 @@ function renderFilters(updateCallback) {
                 const newData = setFilter('phase', ph, isActive);
                 updateCallback(newData);
             });
+            // Support double-click on sidebar phase label to drill-down / toggle back
+            span.addEventListener('dblclick', () => {
+                document.dispatchEvent(new CustomEvent('filter-phase', { detail: ph }));
+            });
 
             phaseContainer.appendChild(span);
         }
@@ -340,10 +344,22 @@ function setupEventListeners(updateCallback) {
 
     // Filter Phase Event (Drill-down)
     document.addEventListener('filter-phase', (e) => {
-        const phase = e.detail;
-        const newData = setExclusivePhase(phase);
+        const phase = (e.detail || '').toLowerCase();
+        const activePhases = getFilters().active.phases;
+        console.debug('[ui] filter-phase event:', phase, 'activePhases:', Array.from(activePhases));
+        let newData;
+        // If this phase is already the only active one, restore all phases (toggle back)
+        if (activePhases.size === 1 && activePhases.has(phase)) {
+            console.debug('[ui] phase is the only active one -> restoring all phases');
+            newData = setAllPhases(true);
+        } else {
+            console.debug('[ui] drilling down to phase:', phase);
+            newData = setExclusivePhase(phase);
+        }
+        // Ensure radar updates and UI reflects current filter state
         updateCallback(newData);
         renderFilters(updateCallback);
+        console.debug('[ui] post-update active phases:', Array.from(getFilters().active.phases));
     });
     // Re-render when language is changed
     document.addEventListener('language-changed', () => {
