@@ -71,5 +71,225 @@
 			"logo": "https://www.conclusion.com/assets/logos/security.png",
 			"domain": "Cloud & Mission Critical"
 		}
+		,
+
+  {
+    "name": "4net",
+    "description": "Network and managed hosting provider offering connectivity and cloud services.",
+    "homepage": "https://www.4net.com/",
+    "logo": "",
+    "domain": "Cloud & Mission Critical"
+  },
+  {
+    "name": "AMIS",
+    "description": "Software engineering and consultancy focusing on cloud-native applications and integrations.",
+    "homepage": "https://www.conclusion.nl/amis",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "AI360",
+    "description": "AI consultancy and solutions provider specialising in machine learning and analytics.",
+    "homepage": "https://www.conclusion.nl/ai-360",
+    "logo": "",
+    "domain": "Data & AI"
+  },
+  {
+    "name": "Arlanet",
+    "description": "IT service provider focused on networking, integration and managed services.",
+    "homepage": "https://www.arlanet.nl/",
+    "logo": "",
+    "domain": "Enterprise Applications"
+  },
+  {
+    "name": "Bright Alley",
+    "description": "Design and development studio building digital products and user experiences.",
+    "homepage": "https://www.conclusion.nl/bright-alley",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Bikkelhart",
+    "description": "Small digital agency delivering web and application development services.",
+    "homepage": "https://www.bikkelhart.com/",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Blauwe Monsters",
+    "description": "Creative studio focused on visual design and interactive experiences.",
+    "homepage": "https://blauwemonsters.nl/",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Conclusion AFAS Services",
+    "description": "Services around AFAS ERP/HR solutions and integrations for customers.",
+    "homepage": "https://www.conclusion.nl/afas-solutions",
+    "logo": "",
+    "domain": "Enterprise Applications"
+  },
+  {
+    "name": "Conclusion Intelligence DACH (voorheen Mediaan)",
+    "description": "Data engineering, analytics and intelligence services for DACH-region clients.",
+    "homepage": "https://conclusionintelligence.de/",
+    "logo": "",
+    "domain": "Data & AI"
+  },
+  {
+    "name": "Conclusion Mission Critical",
+    "description": "Specialises in mission-critical cloud platforms and resilient infrastructure.",
+    "homepage": "https://www.conclusion.nl/mission-critical",
+    "logo": "",
+    "domain": "Cloud & Mission Critical"
+  },
+  {
+    "name": "Conclusion Confidential",
+    "description": "Secure platform and confidential computing services focused on sensitive workloads.",
+    "homepage": "https://www.conclusion.nl/confidential",
+    "logo": "",
+    "domain": "Cloud & Mission Critical"
+  },
+  {
+    "name": "Conclusion Experience",
+    "description": "Digital product and experience teams building customer-facing applications.",
+    "homepage": "https://www.conclusion.nl/experience",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Conclusion Staffing",
+    "description": "Staffing and talent services providing skilled professionals to projects.",
+    "homepage": "https://www.conclusionstaffing.nl/",
+    "logo": "",
+    "domain": "Strategy & Business Consultany"
+  },
+  {
+    "name": "D&A group",
+    "description": "Data & analytics group delivering data strategy and engineering solutions.",
+    "homepage": "https://www.conclusion.nl/dna",
+    "logo": "",
+    "domain": "Data & AI"
+  },
+  {
+    "name": "First 8",
+    "description": "",
+    "homepage": "https://www.conclusion.nl/first8",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Conclusion ForeyeT",
+    "description": "Specialist services (ForeyeT) within the Conclusion group.",
+    "homepage": "https://www.conclusion.nl/foreyet",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Future Facts",
+    "description": "Research and consultancy group focusing on future trends and data-driven insights.",
+    "homepage": "https://www.futurefacts.nl/",
+    "logo": "",
+    "domain": "Strategy & Business Consultany"
+  },
+  {
+    "name": "Furore",
+    "description": "Digital health and software company building healthcare applications and platforms.",
+    "homepage": "https://www.conclusion.nl/furore",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Hot ITem",
+    "description": "Technology consultancy providing development and IT services.",
+    "homepage": "https://www.conclusion.nl/hot-item",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "KWD Resultaat Management",
+    "description": "Management consultancy focused on performance and results-driven transformations.",
+    "homepage": "https://www.conclusion.nl/kwd-resultaatmanagement",
+    "logo": "",
+    "domain": "Strategy & Business Consultany"
+  },
+  {
+    "name": "Low Code Company",
+    "description": "Specialises in low-code platforms and rapid application development.",
+    "homepage": "https://www.conclusion.nl/low-code-company",
+    "logo": "",
+    "domain": "Enterprise Applications"
+  },
+  {
+    "name": "myAppX",
+    "description": "Platform and consultancy for building and deploying web and mobile applications.",
+    "homepage": "https://werkenbij.mybrand.nl/myappx/",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Conclusion MBS",
+    "description": "Managed business services providing operational support and platform services.",
+    "homepage": "https://www.conclusion.nl/mbs",
+    "logo": "",
+    "domain": "Enterprise Applications"
+  },
+  {
+    "name": "Morgens",
+    "description": "Digital agency and consultancy specialising in web and data-driven solutions.",
+    "homepage": "https://www.conclusion.nl/morgens",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "myBrand",
+    "description": "Branding and digital marketing services within the Conclusion group.",
+    "homepage": "https://www.conclusion.nl/mybrand",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Nexwork",
+    "description": "Integration and connectivity specialist delivering enterprise-grade messaging solutions.",
+    "homepage": "https://www.nexwork.nl/",
+    "logo": "",
+    "domain": "Enterprise Applications"
+  },
+  {
+    "name": "PossibilIT",
+    "description": "Consultancy offering software development and IT advisory services.",
+    "homepage": "https://www.possibilit.nl/en/",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "theFactor.e",
+    "description": "Creative and technical consultancy focused on digital product innovation.",
+    "homepage": "https://tfe.nl/",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Conclusion Xforce",
+    "description": "Security and incident response services within the Conclusion group.",
+    "homepage": "https://www.conclusion.nl/xforce",
+    "logo": "",
+    "domain": "Cloud & Mission Critical"
+  },
+  {
+    "name": "Yellowtail (incl ADPI, Da Vinci, KCD, Fortrum)",
+    "description": "Group of agencies and specialist teams delivering marketing, design and digital services.",
+    "homepage": "https://www.conclusion.nl/yellowtail",
+    "logo": "",
+    "domain": "Experience & Software"
+  },
+  {
+    "name": "Netvlies",
+    "description": "Digital agency specialising in web development, design and e-commerce solutions.",
+    "homepage": "https://www.netvlies.nl/",
+    "logo": "",
+    "domain": "Experience & Software"
+  }
+
 	]
 }
