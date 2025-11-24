@@ -29,7 +29,10 @@ export default {
     other_evaluations: "Other Evaluations",
     evaluation: "Evaluation",
     reviewers: "Reviewers",
-    tags: "Tags:" 
+    tags: "Tags:",
+    rating_counts: "Rating counts by category",
+    no_ratings: "No ratings available",
+    ratings_list: "Ratings"
   },
   phases: {
     adopt: "Adopt — production-ready technologies that teams should consider adopting.",

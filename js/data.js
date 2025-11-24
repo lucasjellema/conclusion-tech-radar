@@ -151,6 +151,28 @@ export function getRatingsForTech(identifier) {
     return rawData.ratings.filter(r => r.identifier === identifier);
 }
 
+export function getCompanyByName(name) {
+    if (!name) return null;
+    return rawData.companies.find(c => c.name === name) || null;
+}
+
+export function getRatingsForCompany(companyName) {
+    if (!companyName) return [];
+    return rawData.ratings.filter(r => r.bedrijf === companyName);
+}
+
+export function getRatingCountsByCategoryForCompany(companyName) {
+    const counts = {};
+    if (!companyName) return counts;
+    const ratings = getRatingsForCompany(companyName);
+    for (const r of ratings) {
+        const tech = rawData.technologies.find(t => t.identifier === r.identifier);
+        const cat = tech ? tech.category : 'Uncategorized';
+        counts[cat] = (counts[cat] || 0) + 1;
+    }
+    return counts;
+}
+
 export function resetAllFilters() {
     // Restore companies
     const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];

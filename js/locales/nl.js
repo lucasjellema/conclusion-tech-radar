@@ -29,7 +29,10 @@ export default {
     other_evaluations: "Andere beoordelingen",
     evaluation: "Evaluatie",
     reviewers: "Beoordelaars",
-    tags: "Tags:"
+    tags: "Tags:",
+    rating_counts: "Aantal beoordelingen per categorie",
+    no_ratings: "Geen beoordelingen beschikbaar",
+    ratings_list: "Beoordelingen"
   },
   phases: {
     adopt: "Adopt — productieklare technologieën die teams zouden moeten overwegen te gebruiken.",

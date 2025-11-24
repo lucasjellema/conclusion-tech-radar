@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData, getCompanyByName, getRatingsForCompany, getRatingCountsByCategoryForCompany } from './data.js';
 import { t, translatePage } from './i18n.js';
 
 // Helper to produce an SVG path for domain symbol shapes matching radar's DOMAIN_SYMBOLS
@@ -114,6 +114,23 @@ function renderFilters(updateCallback) {
                 setFilter('company', company, isActive);
                 const newData = getProcessedData();
                 updateCallback(newData);
+            });
+            // double-click on company tag opens company modal with details
+            span.addEventListener('dblclick', async () => {
+                const meta = getCompanyByName(company) || { name: company };
+                const counts = getRatingCountsByCategoryForCompany(company);
+                const ratings = getRatingsForCompany(company);
+                const modalData = {
+                    type: 'company',
+                    name: meta.name || company,
+                    description: meta.description || '',
+                    logo: meta.logo || '',
+                    homepage: meta.homepage || '',
+                    domain: meta.domain || '',
+                    ratingCounts: counts,
+                    ratings: ratings
+                };
+                document.dispatchEvent(new CustomEvent('open-modal', { detail: modalData }));
             });
             list.appendChild(span);
         }
@@ -453,7 +470,45 @@ function setupEventListeners(updateCallback) {
 function openModal(data) {
     const overlay = document.getElementById('modal-overlay');
     const content = document.getElementById('modal-content');
+    // If this modal was opened for a company, render company view
+    if (data && data.type === 'company') {
+        const counts = data.ratingCounts || {};
+        const countRows = Object.keys(counts).sort().map(cat => `<div class="company-count-row"><strong>${cat}:</strong> ${counts[cat]}</div>`).join('');
 
+        content.innerHTML = `
+            <div class="modal-header">
+                <img src="${data.logo || ''}" alt="${data.name} logo" onerror="this.style.display='none'">
+                <div>
+                    <h2>${data.name}</h2>
+                    <div style="color: #94a3b8">${data.domain || ''}</div>
+                    ${data.homepage ? `<a href="${data.homepage}" target="_blank" style="color: var(--accent-color); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-top: 0.25rem;">${t('modal.visit_website')}</a>` : ''}
+                </div>
+            </div>
+            <p>${data.description || ''}</p>
+
+            <h3>${t('modal.rating_counts')}</h3>
+            <div class="company-counts">${countRows || '<div>' + t('modal.no_ratings') + '</div>'}</div>
+
+            <h3>${t('modal.ratings_list')}</h3>
+            <div class="company-ratings-list">
+                ${ (data.ratings || []).map(r => `
+                    <div class="rating-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <strong>${r.identifier}</strong>
+                            <span class="rating-phase ${r.fase.toLowerCase()}">${r.fase.toUpperCase()}</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-top:0.25rem">${r.datumBeoordeling}</div>
+                        <p style="margin-top:0.5rem">${r.toelichting || ''}</p>
+                    </div>
+                `).join('') }
+            </div>
+        `;
+
+        overlay.classList.remove('hidden');
+        return;
+    }
+
+    // Otherwise render technology/rating modal (existing behavior)
     content.innerHTML = `
         <div class="modal-header">
             <img src="${data.logo}" alt="${data.name} logo" onerror="this.style.display='none'">
