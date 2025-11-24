@@ -1,6 +1,6 @@
 export default {
   header: {
-    logo: "Conclusion Tech Radar",
+    logo: "Conclusion Technology Radar - Changes in 2025",
     filters: "Filters",
     theme: "Theme",
     login: "Sign in",
