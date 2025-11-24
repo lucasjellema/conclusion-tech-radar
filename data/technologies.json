@@ -138,5 +138,143 @@
     "logo": "https://cdn.simpleicons.org/apachekafka",
     "vendor": "Apache Software Foundation",
     "homepage": "https://kafka.apache.org/"
+  },   {
+    "identifier": "windsurf",
+    "name": "Windsurf AI Coding Assistant",
+    "category": "Development",
+    "tags": [
+      "AI",
+      "coding assistant",
+      "Jetbrains",
+      "PhpStorm"
+    ],
+    "description": "AI coding assistant geïntegreerd in Jetbrains PhpStorm, geadopteerd door developers voor ondersteuning bij programmeren.",
+    "logo": "",
+    "vendor": "Windsurf",
+    "homepage": "https://windsurf.com/"
+  },
+  {
+    "identifier": "microsoft-azure-ai-foundry",
+    "name": "Microsoft Azure AI Foundry",
+    "category": "Infrastructure",
+    "tags": [
+      "AI",
+      "cloud",
+      "infrastructure"
+    ],
+    "description": "AI infrastructuur-oplossing van Microsoft Azure, ingezet na interne evaluatie en trial.",
+    "logo": "https://cdn.simpleicons.org/microsoftazure",
+    "vendor": "Microsoft",
+    "homepage": "https://azure.microsoft.com/"
+  },
+  {
+    "identifier": "windows-copilot",
+    "name": "Windows Copilot",
+    "category": "Productivity",
+    "tags": [
+      "AI",
+      "assistant",
+      "Windows"
+    ],
+    "description": "AI-assistent geïntegreerd in Windows voor productiviteitsverbetering.",
+    "logo": "",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/"
+  },
+  {
+    "identifier": "salesforce-ai",
+    "name": "Salesforce AI",
+    "category": "CRM",
+    "tags": [
+      "AI",
+      "CRM",
+      "Salesforce"
+    ],
+    "description": "AI-functionaliteit binnen Salesforce voor CRM-processen.",
+    "logo": "https://cdn.simpleicons.org/salesforce",
+    "vendor": "Salesforce",
+    "homepage": "https://www.salesforce.com/"
+  },
+  {
+    "identifier": "keeper",
+    "name": "Keeper",
+    "category": "Security",
+    "tags": [
+      "password manager",
+      "security"
+    ],
+    "description": "Password manager voor veilig beheer van wachtwoorden.",
+    "logo": "",
+    "vendor": "Keeper Security",
+    "homepage": "https://www.keepersecurity.com/"
+  },
+  {
+    "identifier": "visual-studio-copilot",
+    "name": "Visual Studio Copilot",
+    "category": "Development",
+    "tags": [
+      "AI",
+      "coding assistant",
+      "Visual Studio","copilot"
+    ],
+    "description": "AI-coding assistant geïntegreerd in Visual Studio.",
+    "logo": "",
+    "vendor": "Microsoft",
+    "homepage": "https://visualstudio.microsoft.com/"
+  },
+  {
+    "identifier": "visual-studio-code-agentforce",
+    "name": "Visual Studio Code Agentforce",
+    "category": "Development",
+    "tags": [
+      "AI",
+      "coding assistant",
+      "VS Code"
+    ],
+    "description": "AI-agent voor Visual Studio Code.",
+    "logo": "",
+    "vendor": "Microsoft",
+    "homepage": "https://code.visualstudio.com/"
+  },
+  {
+    "identifier": "lastpass",
+    "name": "LastPass",
+    "category": "Security",
+    "tags": [
+      "password manager",
+      "security"
+    ],
+    "description": "Password manager voor veilig beheer van wachtwoorden.",
+    "logo": "https://cdn.simpleicons.org/lastpass",
+    "vendor": "LastPass",
+    "homepage": "https://www.lastpass.com/"
+  },
+  {
+    "identifier": "elmah-io",
+    "name": "Elmah.io",
+    "category": "Monitoring",
+    "tags": [
+      "logging",
+      "monitoring",
+      "Umbraco"
+    ],
+    "description": "Logging- en monitoringtool, voorheen gebruikt bij Umbraco.",
+    "logo": "",
+    "vendor": "elmah.io",
+    "homepage": "https://elmah.io/"
+  },
+  {
+    "identifier": "azure-devops-board",
+    "name": "Azure DevOps Board",
+    "category": "Project Management",
+    "tags": [
+      "devops",
+      "project management"
+    ],
+    "description": "Azure DevOps board, gebruikt voor werken met storypoints in plaats van uren.",
+    "logo": "https://cdn.simpleicons.org/azuredevops",
+    "vendor": "Microsoft",
+    "homepage": "https://azure.microsoft.com/services/devops/"
   }
+
 ]

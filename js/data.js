@@ -35,6 +35,15 @@ export async function loadData() {
 
     // Initialise all companies as active
     // Include companies from companies.json even if they have no ratings
+    return processRadarData();
+}
+
+export function handleFreshRatings(newRatings) {
+    rawData.ratings = newRatings;
+    return processRadarData();
+}
+
+function processRadarData() {
     const ratingCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
     const metaCompanies = (rawData.companies || []).map(c => c.name).filter(Boolean);
     const companies = [...new Set([...ratingCompanies, ...metaCompanies])];

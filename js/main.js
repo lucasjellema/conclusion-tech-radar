@@ -1,9 +1,10 @@
-import { loadData } from './data.js';
+import { loadData, handleFreshRatings } from './data.js';
 import { initRadar, updateRadar } from './radar.js';
 //import { initUI } from './ui.js';
 import * as ui from './ui.js';
 import { initI18n, setLocale, translatePage, t } from './i18n.js';
 import * as auth from './auth.js';
+import * as dataService from './dataService.js';
 
 
 // Constants for application state
@@ -60,6 +61,7 @@ async function init() {
       console.log(`User ${account.username} logged in successfully`);
       console.log("Successful authentication response received");
       await updateUserState();
+      fetchData();
     }
   })
   
@@ -185,6 +187,22 @@ function handleSignOut() {
   }
 }
 
+async function fetchData() {
+  if (!APP_STATE.authenticated) {
+    ui.showDataError("You must be authenticated to fetch data");
+    return;
+  }
 
+  try {
+    // Get data from the API
+    const data = await dataService.getData();
+    handleFreshRatings(data.statusPerBedrijf);
+    console.log("Fetched data:", data);
+    // use the data in the radar
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    ui.showDataError(error.message || "Failed to fetch data");
+  }
+}
 
 document.addEventListener('DOMContentLoaded', init);

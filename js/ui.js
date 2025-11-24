@@ -3,11 +3,11 @@ import { t, translatePage } from './i18n.js';
 
 // CSS classes for styling different states
 const UI_CLASSES = {
-  authenticated: 'authenticated',
-  unauthenticated: 'unauthenticated',
-  loading: 'loading',
-  error: 'error',
-  success: 'success'
+    authenticated: 'authenticated',
+    unauthenticated: 'unauthenticated',
+    loading: 'loading',
+    error: 'error',
+    success: 'success'
 };
 
 // Helper to produce an SVG path for domain symbol shapes matching radar's DOMAIN_SYMBOLS
@@ -29,12 +29,12 @@ export function initUI(data, updateCallback) {
 }
 
 export function initializeUI(signInCallback, signOutCallback) {
-  // Check if DOM is loaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setupLoginEventListeners(signInCallback, signOutCallback));
-  } else {
-    setupLoginEventListeners(signInCallback, signOutCallback);
-  }
+    // Check if DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setupLoginEventListeners(signInCallback, signOutCallback));
+    } else {
+        setupLoginEventListeners(signInCallback, signOutCallback);
+    }
 }
 
 /**
@@ -43,32 +43,32 @@ export function initializeUI(signInCallback, signOutCallback) {
  * @param {Function} signOutCallback - Function to call when sign-out button is clicked
  */
 function setupLoginEventListeners(signInCallback, signOutCallback) {
-  // Re-assign DOM elements to ensure they're available
+    // Re-assign DOM elements to ensure they're available
     const elements = {
         welcomeMessage: document.getElementById('welcome-message'),
         signInButton: document.getElementById('signin-button'),
         signOutButton: document.getElementById('signout-button'),
     };
-  
-  // Set up sign in button
-  if (elements.signInButton) {
-    elements.signInButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (typeof signInCallback === 'function') {
-        signInCallback();
-      }
-    });
-  }
-  
-  // Set up sign out button
-  if (elements.signOutButton) {
-    elements.signOutButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (typeof signOutCallback === 'function') {
-        signOutCallback();
-      }
-    });
-  }
+
+    // Set up sign in button
+    if (elements.signInButton) {
+        elements.signInButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (typeof signInCallback === 'function') {
+                signInCallback();
+            }
+        });
+    }
+
+    // Set up sign out button
+    if (elements.signOutButton) {
+        elements.signOutButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (typeof signOutCallback === 'function') {
+                signOutCallback();
+            }
+        });
+    }
 }
 
 function renderFilters(updateCallback) {
@@ -679,7 +679,10 @@ function openModal(data) {
         <h3>${t('modal.evaluation')}</h3>
         <div class="rating-card">
             <div class="rating-header">
-                <span>${data.rating.bedrijf}</span>
+                <div style="display:flex; align-items:center; gap:10px;">
+                     <span class="company-name">${data.rating.bedrijf}</span>
+                     ${data.companyLogo ? `<img src="${data.companyLogo}" alt="${data.rating.bedrijf} logo" style="height:24px; width:auto;">` : ''}
+                </div>
                 <span>${data.rating.datumBeoordeling}</span>
             </div>
             <div class="rating-phase ${data.rating.fase.toLowerCase()}" style="margin-bottom: 0.5rem">
@@ -699,7 +702,7 @@ function openModal(data) {
     const otherRatings = getRatingsForTech(data.identifier)
         .filter(r => r.bedrijf !== data.rating.bedrijf);
 
-        if (otherRatings.length > 0) {
+    if (otherRatings.length > 0) {
         const container = document.getElementById('other-ratings');
         const h3 = document.createElement('h3');
         h3.textContent = t('modal.other_evaluations');
@@ -711,30 +714,36 @@ function openModal(data) {
         list.style.gap = '0.5rem';
 
         for (const rating of otherRatings) {
-          const item = document.createElement('div');
-          item.className = 'rating-card';
-          item.style.cursor = 'pointer';
-          item.style.marginBottom = '0';
-          item.style.padding = '0.75rem';
-          item.style.borderLeftColor = '#334155';
-          item.style.transition = 'all 0.2s';
+            const item = document.createElement('div');
+            item.className = 'rating-card';
+            item.style.cursor = 'pointer';
+            item.style.marginBottom = '0';
+            item.style.padding = '0.75rem';
+            item.style.borderLeftColor = '#334155';
+            item.style.transition = 'all 0.2s';
 
-          item.innerHTML = `
+            item.innerHTML = `
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <strong>${rating.bedrijf}</strong>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <strong>${rating.bedrijf}</strong>
+                            ${(() => {
+                    const c = getCompanyByName(rating.bedrijf);
+                    return c && c.logo ? `<img src="${c.logo}" style="height:16px; width:auto;" alt="">` : '';
+                })()}
+                        </div>
                         <span class="rating-phase ${rating.fase.toLowerCase()}">${rating.fase.toUpperCase()}</span>
                     </div>
                 `;
 
-          item.addEventListener('mouseenter', () => { item.style.backgroundColor = '#1e293b'; });
-          item.addEventListener('mouseleave', () => { item.style.backgroundColor = 'var(--bg-color)'; });
+            item.addEventListener('mouseenter', () => { item.style.backgroundColor = '#1e293b'; });
+            item.addEventListener('mouseleave', () => { item.style.backgroundColor = 'var(--bg-color)'; });
 
-          item.addEventListener('click', () => {
-            const newData = { ...data, rating: rating, id: `${rating.identifier}-${rating.bedrijf}` };
-            openModal(newData);
-          });
+            item.addEventListener('click', () => {
+                const newData = { ...data, rating: rating, id: `${rating.identifier}-${rating.bedrijf}` };
+                openModal(newData);
+            });
 
-          list.appendChild(item);
+            list.appendChild(item);
         }
         container.appendChild(list);
     }
@@ -753,96 +762,96 @@ function closeModal() {
  * @param {Object|null} tokenClaims - The parsed ID token claims
  */
 export function showAuthenticatedUser(user, tokenClaims) {
-  const elements = {
-    welcomeMessage: document.getElementById('welcome-message'),
-    signInButton: document.getElementById('signin-button'),
-    signOutButton: document.getElementById('signout-button'),
-    tokenSection: document.getElementById('token-section'),
-    tokenData: document.getElementById('token-data'),
-    dataSection: document.getElementById('data-section')
-  };
-  
-  // Update welcome message with user's name
-  if (elements.welcomeMessage) {
-    const displayName = user.displayName || user.name || 'Authenticated User';
-    elements.welcomeMessage.innerHTML = `
+    const elements = {
+        welcomeMessage: document.getElementById('welcome-message'),
+        signInButton: document.getElementById('signin-button'),
+        signOutButton: document.getElementById('signout-button'),
+        tokenSection: document.getElementById('token-section'),
+        tokenData: document.getElementById('token-data'),
+        dataSection: document.getElementById('data-section')
+    };
+
+    // Update welcome message with user's name
+    if (elements.welcomeMessage) {
+        const displayName = user.displayName || user.name || 'Authenticated User';
+        elements.welcomeMessage.innerHTML = `
       <p>Welcome, <strong>${displayName}</strong>!</p>
     `;
         // Make sure welcome message is visible in the header (remove screen-reader-only class)
         elements.welcomeMessage.classList.remove('sr-only');
         elements.welcomeMessage.style.display = 'inline-block';
-  }
-  
-  // Update button visibility
-  if (elements.signInButton) {
-    elements.signInButton.style.display = 'none';
-  }
-  
-  if (elements.signOutButton) {
-    elements.signOutButton.style.display = 'inline-block';
-  }
-  
-  // Show token section and update token data
-  if (elements.tokenSection) {
-    elements.tokenSection.style.display = 'block';
-    
-    // Update token data if available
-    if (elements.tokenData && tokenClaims) {
-      elements.tokenData.value = JSON.stringify(tokenClaims, null, 2);
     }
-  }
-  
-  // Show data section
-  if (elements.dataSection) {
-    elements.dataSection.style.display = 'block';
-  }
-  
-  // Add authenticated class to body
-  document.body.classList.add(UI_CLASSES.authenticated);
-  document.body.classList.remove(UI_CLASSES.unauthenticated);
+
+    // Update button visibility
+    if (elements.signInButton) {
+        elements.signInButton.style.display = 'none';
+    }
+
+    if (elements.signOutButton) {
+        elements.signOutButton.style.display = 'inline-block';
+    }
+
+    // Show token section and update token data
+    if (elements.tokenSection) {
+        elements.tokenSection.style.display = 'block';
+
+        // Update token data if available
+        if (elements.tokenData && tokenClaims) {
+            elements.tokenData.value = JSON.stringify(tokenClaims, null, 2);
+        }
+    }
+
+    // Show data section
+    if (elements.dataSection) {
+        elements.dataSection.style.display = 'block';
+    }
+
+    // Add authenticated class to body
+    document.body.classList.add(UI_CLASSES.authenticated);
+    document.body.classList.remove(UI_CLASSES.unauthenticated);
 }
 
 export function showUnauthenticatedState() {
-  const elements = {
-    welcomeMessage: document.getElementById('welcome-message'),
-    signInButton: document.getElementById('signin-button'),
-    signOutButton: document.getElementById('signout-button'),
-    tokenSection: document.getElementById('token-section')
-  };
-  
-  // Reset welcome message
-  if (elements.welcomeMessage) {
-    elements.welcomeMessage.innerHTML = `
+    const elements = {
+        welcomeMessage: document.getElementById('welcome-message'),
+        signInButton: document.getElementById('signin-button'),
+        signOutButton: document.getElementById('signout-button'),
+        tokenSection: document.getElementById('token-section')
+    };
+
+    // Reset welcome message
+    if (elements.welcomeMessage) {
+        elements.welcomeMessage.innerHTML = `
       <p>Welcome, please sign in</p>
     `;
         // keep it visually minimal when not signed in
         elements.welcomeMessage.style.display = 'none';
         elements.welcomeMessage.classList.add('sr-only');
-  }
-  
-  // Update button visibility
-  if (elements.signInButton) {
-    elements.signInButton.style.display = 'inline-block';
-  }
-  
-  if (elements.signOutButton) {
-    elements.signOutButton.style.display = 'none';
-  }
-  
-  // Hide token section and data section
-  if (elements.tokenSection) {
-    elements.tokenSection.style.display = 'none';
-  }
-  
-  if (elements.dataSection) {
-    elements.dataSection.style.display = 'none';
-  }
-  
-  if (elements.userDataSection) {
-    elements.userDataSection.style.display = 'none';
-  }
-  
-  // Update body class
-  document.body.classList.add(UI_CLASSES.unauthenticated);
-  document.body.classList.remove(UI_CLASSES.authenticated);
+    }
+
+    // Update button visibility
+    if (elements.signInButton) {
+        elements.signInButton.style.display = 'inline-block';
+    }
+
+    if (elements.signOutButton) {
+        elements.signOutButton.style.display = 'none';
+    }
+
+    // Hide token section and data section
+    if (elements.tokenSection) {
+        elements.tokenSection.style.display = 'none';
+    }
+
+    if (elements.dataSection) {
+        elements.dataSection.style.display = 'none';
+    }
+
+    if (elements.userDataSection) {
+        elements.userDataSection.style.display = 'none';
+    }
+
+    // Update body class
+    document.body.classList.add(UI_CLASSES.unauthenticated);
+    document.body.classList.remove(UI_CLASSES.authenticated);
 }
