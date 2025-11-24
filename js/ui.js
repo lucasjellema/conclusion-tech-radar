@@ -669,8 +669,10 @@ export function showAuthenticatedUser(user, tokenClaims) {
     const displayName = user.displayName || user.name || 'Authenticated User';
     elements.welcomeMessage.innerHTML = `
       <p>Welcome, <strong>${displayName}</strong>!</p>
-      <p class="user-info">You are signed in with Microsoft Entra ID</p>
     `;
+        // Make sure welcome message is visible in the header (remove screen-reader-only class)
+        elements.welcomeMessage.classList.remove('sr-only');
+        elements.welcomeMessage.style.display = 'inline-block';
   }
   
   // Update button visibility
@@ -715,6 +717,9 @@ export function showUnauthenticatedState() {
     elements.welcomeMessage.innerHTML = `
       <p>Welcome, please sign in</p>
     `;
+        // keep it visually minimal when not signed in
+        elements.welcomeMessage.style.display = 'none';
+        elements.welcomeMessage.classList.add('sr-only');
   }
   
   // Update button visibility
