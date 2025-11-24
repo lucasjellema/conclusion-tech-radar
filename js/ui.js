@@ -525,36 +525,134 @@ function openModal(data) {
     // If this modal was opened for a company, render company view
     if (data && data.type === 'company') {
         const counts = data.ratingCounts || {};
-        const countRows = Object.keys(counts).sort().map(cat => `<div class="company-count-row"><strong>${cat}:</strong> ${counts[cat]}</div>`).join('');
+        const countRows = Object.keys(counts).sort().map(cat => {
+            const div = document.createElement('div');
+            div.className = 'company-count-row';
+            div.innerHTML = `<strong>${cat}:</strong> ${counts[cat]}`;
+            return div;
+        });
 
-        content.innerHTML = `
-            <div class="modal-header">
-                <img src="${data.logo || ''}" alt="${data.name} logo" onerror="this.style.display='none'">
-                <div>
-                    <h2>${data.name}</h2>
-                    <div style="color: #94a3b8">${data.domain || ''}</div>
-                    ${data.homepage ? `<a href="${data.homepage}" target="_blank" style="color: var(--accent-color); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-top: 0.25rem;">${t('modal.visit_website')}</a>` : ''}
+        // Helper: slugify company name for logo filename
+        function slugify(input) {
+            return (input || '')
+                .toString()
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
+        }
+
+        // Create modal content programmatically so we can attempt multiple logo file extensions
+        content.innerHTML = '';
+
+        const header = document.createElement('div');
+        header.className = 'modal-header';
+
+        const img = document.createElement('img');
+        img.alt = `${data.name} logo`;
+        img.style.display = 'none';
+        img.width = 48;
+        img.height = 48;
+
+        // Build list of candidate logo sources (explicit, then logos/<slug>.(svg|png|jpg|webp))
+        const candidates = [];
+        if (data.logo) candidates.push(data.logo);
+        const slug = slugify(data.name || '');
+        if (slug) {
+            candidates.push(`logos/${slug}.svg`);
+            candidates.push(`logos/${slug}.png`);
+            candidates.push(`logos/${slug}.webp`);
+            candidates.push(`logos/${slug}.jpg`);
+        }
+
+        let tryIndex = 0;
+        img.addEventListener('error', () => {
+            tryIndex += 1;
+            if (tryIndex < candidates.length) {
+                img.src = candidates[tryIndex];
+            } else {
+                img.style.display = 'none';
+            }
+        });
+
+        img.addEventListener('load', () => {
+            img.style.display = 'block';
+        });
+
+        // Start with first candidate if any
+        if (candidates.length > 0) {
+            img.src = candidates[0];
+        }
+
+        header.appendChild(img);
+
+        const info = document.createElement('div');
+        const h2 = document.createElement('h2');
+        h2.textContent = data.name;
+        info.appendChild(h2);
+
+        if (data.domain) {
+            const domainDiv = document.createElement('div');
+            domainDiv.style.color = '#94a3b8';
+            domainDiv.textContent = data.domain;
+            info.appendChild(domainDiv);
+        }
+
+        if (data.homepage) {
+            const a = document.createElement('a');
+            a.href = data.homepage;
+            a.target = '_blank';
+            a.style.color = 'var(--accent-color)';
+            a.style.fontSize = '0.9rem';
+            a.style.textDecoration = 'none';
+            a.style.display = 'inline-block';
+            a.style.marginTop = '0.25rem';
+            a.textContent = t('modal.visit_website');
+            info.appendChild(a);
+        }
+
+        header.appendChild(info);
+
+        content.appendChild(header);
+
+        const desc = document.createElement('p');
+        desc.textContent = data.description || '';
+        content.appendChild(desc);
+
+        const h3Counts = document.createElement('h3');
+        h3Counts.textContent = t('modal.rating_counts');
+        content.appendChild(h3Counts);
+
+        const countsDiv = document.createElement('div');
+        countsDiv.className = 'company-counts';
+        if (countRows.length > 0) {
+            countRows.forEach(r => countsDiv.appendChild(r));
+        } else {
+            countsDiv.innerHTML = '<div>' + t('modal.no_ratings') + '</div>';
+        }
+        content.appendChild(countsDiv);
+
+        const h3List = document.createElement('h3');
+        h3List.textContent = t('modal.ratings_list');
+        content.appendChild(h3List);
+
+        const ratingsList = document.createElement('div');
+        ratingsList.className = 'company-ratings-list';
+        (data.ratings || []).forEach(r => {
+            const card = document.createElement('div');
+            card.className = 'rating-card';
+            card.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <strong>${r.identifier}</strong>
+                    <span class="rating-phase ${r.fase.toLowerCase()}">${r.fase.toUpperCase()}</span>
                 </div>
-            </div>
-            <p>${data.description || ''}</p>
-
-            <h3>${t('modal.rating_counts')}</h3>
-            <div class="company-counts">${countRows || '<div>' + t('modal.no_ratings') + '</div>'}</div>
-
-            <h3>${t('modal.ratings_list')}</h3>
-            <div class="company-ratings-list">
-                ${ (data.ratings || []).map(r => `
-                    <div class="rating-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <strong>${r.identifier}</strong>
-                            <span class="rating-phase ${r.fase.toLowerCase()}">${r.fase.toUpperCase()}</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:#94a3b8; margin-top:0.25rem">${r.datumBeoordeling}</div>
-                        <p style="margin-top:0.5rem">${r.toelichting || ''}</p>
-                    </div>
-                `).join('') }
-            </div>
-        `;
+                <div style="font-size:0.85rem; color:#94a3b8; margin-top:0.25rem">${r.datumBeoordeling}</div>
+                <p style="margin-top:0.5rem">${r.toelichting || ''}</p>
+            `;
+            ratingsList.appendChild(card);
+        });
+        content.appendChild(ratingsList);
 
         overlay.classList.remove('hidden');
         return;
