@@ -379,16 +379,81 @@ export function updateRadar(data) {
         .on("mousemove", handleMouseMove)
         .on("mouseleave", handleMouseOut)
         .on("click", handleClick);
-
     const SYMBOL_SIZE = Math.max(30, Math.PI * Math.pow(config.dotRadius + 2, 2));
-    blipNodes.append('path')
-        .attr('d', d => {
-            const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
-            return d3.symbol().type(sym).size(SYMBOL_SIZE)();
-        })
-        .style('fill', d => companyColorMap[d.company] || '#999')
-        .style('stroke', '#fff')
-        .style('stroke-width', 1.2);
+
+    // Toggle: show logos in blips if the visibility control is checked
+    const showLogos = !!document.getElementById('toggle-blip-logos') && document.getElementById('toggle-blip-logos').checked;
+    const ICON_SIZE = Math.max(18, config.dotRadius * 4);
+
+    if (showLogos) {
+            // Debug: log attempt to load logos so users can inspect console when Network shows nothing
+            try { console.debug('[radar] showLogos enabled - preparing to load logos for', blips.length, 'blips'); } catch (e) {}
+        // When logos are enabled, render the company logo image centered on the blip.
+        // If no logo is available, fall back to colored symbol.
+        blipNodes.each(function(d, i) {
+            const node = d3.select(this);
+            // Prefer technology logo (from technologies.json) over company logo
+            const logoUrl = d.logo || d.logoUrl || d.companyLogo || '';
+            if (logoUrl) {
+                try { console.debug('[radar] attempting logo for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) {}
+                // Preload the image to detect load failure and avoid broken icons.
+                const imgEl = new Image();
+                // Do not force CORS; loading without crossOrigin matches how modal <img> works
+                imgEl.onload = function () {
+                    // draw subtle stroke behind the image
+                    node.append('circle')
+                        .attr('r', ICON_SIZE / 2 + 2)
+                        .style('fill', 'none')
+                        .style('stroke', '#fff')
+                        .style('stroke-width', 1.2)
+                        .style('pointer-events', 'none');
+
+                    const img = node.append('image')
+                        .attr('width', ICON_SIZE)
+                        .attr('height', ICON_SIZE)
+                        .attr('x', -ICON_SIZE / 2)
+                        .attr('y', -ICON_SIZE / 2)
+                        .attr('preserveAspectRatio', 'xMidYMid meet')
+                        .style('pointer-events', 'none');
+                    img.attr('href', logoUrl).attr('xlink:href', logoUrl);
+                    try { console.debug('[radar] logo loaded for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) {}
+                };
+                imgEl.onerror = function () {
+                    // fallback: render colored domain-shaped symbol
+                    try { console.debug('[radar] logo failed to load for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) {}
+                    node.append('path')
+                        .attr('d', () => {
+                            const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
+                            return d3.symbol().type(sym).size(SYMBOL_SIZE)();
+                        })
+                        .style('fill', companyColorMap[d.company] || '#999')
+                        .style('stroke', '#fff')
+                        .style('stroke-width', 1.2);
+                };
+                imgEl.src = logoUrl;
+            } else {
+                // fallback to colored symbol
+                node.append('path')
+                    .attr('d', () => {
+                        const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
+                        return d3.symbol().type(sym).size(SYMBOL_SIZE)();
+                    })
+                    .style('fill', companyColorMap[d.company] || '#999')
+                    .style('stroke', '#fff')
+                    .style('stroke-width', 1.2);
+            }
+        });
+    } else {
+        // Default: colored domain-shaped symbols
+        blipNodes.append('path')
+            .attr('d', d => {
+                const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
+                return d3.symbol().type(sym).size(SYMBOL_SIZE)();
+            })
+            .style('fill', d => companyColorMap[d.company] || '#999')
+            .style('stroke', '#fff')
+            .style('stroke-width', 1.2);
+    }
 
     // Add small text label to blip
     blipNodes.append("text")

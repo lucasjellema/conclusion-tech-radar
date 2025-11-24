@@ -377,6 +377,15 @@ function setupEventListeners(updateCallback) {
         updateCallback(newData);
     });
 
+    // Toggle: show logos on blips vs colored symbols
+    const blipLogoToggle = document.getElementById('toggle-blip-logos');
+    if (blipLogoToggle) {
+        blipLogoToggle.addEventListener('change', () => {
+            // Force radar to re-render using the current processed data
+            try { updateCallback(getProcessedData()); } catch (e) { /* ignore */ }
+        });
+    }
+
     // Search Filter
     const searchInput = document.getElementById('search-filter');
     if (searchInput) {
