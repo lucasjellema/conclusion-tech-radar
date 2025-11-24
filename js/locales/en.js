@@ -18,8 +18,9 @@ export default {
     date_label: "Show ratings after",
     tags: "Tags",
     visibility: "Visibility",
-    show_rings: "Show Rings",
-    show_segments: "Show Segments",
+    show_rings: "Show Rings (phases)",
+    show_segments: "Show Segments (categories)",
+    show_blip_logos: "Show Logos on Blips", // show_blip_logos
     all: "All",
     none: "None"
   },

@@ -18,8 +18,9 @@ export default {
     date_label: "Toon beoordelingen na",
     tags: "Tags",
     visibility: "Zichtbaarheid",
-    show_rings: "Ringen tonen",
-    show_segments: "Segmenten tonen",
+    show_rings: "Ringen (fases) tonen",
+    show_segments: "Segmenten (categorieën) tonen",
+    show_blip_logos: "Logo's op blips tonen", // show_blip_logos
     all: "Alle",
     none: "Geen"
   },
