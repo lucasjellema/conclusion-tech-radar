@@ -34,7 +34,10 @@ export async function loadData() {
     rawData.companies = companiesData.companies || [];
 
     // Initialise all companies as active
-    const companies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
+    // Include companies from companies.json even if they have no ratings
+    const ratingCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
+    const metaCompanies = (rawData.companies || []).map(c => c.name).filter(Boolean);
+    const companies = [...new Set([...ratingCompanies, ...metaCompanies])];
     for (const c of companies) activeFilters.companies.add(c);
 
     // Initialise all categories as active
@@ -49,7 +52,10 @@ export async function loadData() {
 }
 
 export function getFilters() {
-    const companies = [...new Set(rawData.ratings.map(r => r.bedrijf))].sort((a, b) => a.localeCompare(b));
+    // Combine companies that have ratings with company metadata so sidebar shows all companies
+    const ratingCompanies = rawData.ratings.map(r => r.bedrijf || '').filter(Boolean);
+    const metaCompanies = (rawData.companies || []).map(c => c.name).filter(Boolean);
+    const companies = [...new Set([...ratingCompanies, ...metaCompanies])].sort((a, b) => a.localeCompare(b));
     const allTags = rawData.technologies.flatMap(t => t.tags);
     const tags = [...new Set(allTags)].sort((a, b) => a.localeCompare(b));
     const categories = [...new Set(rawData.technologies.map(t => t.category))].sort((a, b) => a.localeCompare(b));
