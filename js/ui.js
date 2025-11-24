@@ -1,6 +1,15 @@
 import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData, getCompanyByName, getRatingsForCompany, getRatingCountsByCategoryForCompany } from './data.js';
 import { t, translatePage } from './i18n.js';
 
+// CSS classes for styling different states
+const UI_CLASSES = {
+  authenticated: 'authenticated',
+  unauthenticated: 'unauthenticated',
+  loading: 'loading',
+  error: 'error',
+  success: 'success'
+};
+
 // Helper to produce an SVG path for domain symbol shapes matching radar's DOMAIN_SYMBOLS
 function getSymbolPathForDomain(name) {
     const MAP = {
@@ -17,6 +26,49 @@ function getSymbolPathForDomain(name) {
 export function initUI(data, updateCallback) {
     renderFilters(updateCallback);
     setupEventListeners(updateCallback);
+}
+
+export function initializeUI(signInCallback, signOutCallback) {
+  // Check if DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setupLoginEventListeners(signInCallback, signOutCallback));
+  } else {
+    setupLoginEventListeners(signInCallback, signOutCallback);
+  }
+}
+
+/**
+ * Set up event listeners for buttons
+ * @param {Function} signInCallback - Function to call when sign-in button is clicked
+ * @param {Function} signOutCallback - Function to call when sign-out button is clicked
+ */
+function setupLoginEventListeners(signInCallback, signOutCallback) {
+  // Re-assign DOM elements to ensure they're available
+    const elements = {
+        welcomeMessage: document.getElementById('welcome-message'),
+        signInButton: document.getElementById('signin-button'),
+        signOutButton: document.getElementById('signout-button'),
+    };
+  
+  // Set up sign in button
+  if (elements.signInButton) {
+    elements.signInButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (typeof signInCallback === 'function') {
+        signInCallback();
+      }
+    });
+  }
+  
+  // Set up sign out button
+  if (elements.signOutButton) {
+    elements.signOutButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (typeof signOutCallback === 'function') {
+        signOutCallback();
+      }
+    });
+  }
 }
 
 function renderFilters(updateCallback) {
@@ -594,4 +646,100 @@ function openModal(data) {
 
 function closeModal() {
     document.getElementById('modal-overlay').classList.add('hidden');
+}
+
+
+/**
+ * Update UI to show authenticated user with user information
+ * @param {Object} user - The user object containing profile information
+ * @param {Object|null} tokenClaims - The parsed ID token claims
+ */
+export function showAuthenticatedUser(user, tokenClaims) {
+  const elements = {
+    welcomeMessage: document.getElementById('welcome-message'),
+    signInButton: document.getElementById('signin-button'),
+    signOutButton: document.getElementById('signout-button'),
+    tokenSection: document.getElementById('token-section'),
+    tokenData: document.getElementById('token-data'),
+    dataSection: document.getElementById('data-section')
+  };
+  
+  // Update welcome message with user's name
+  if (elements.welcomeMessage) {
+    const displayName = user.displayName || user.name || 'Authenticated User';
+    elements.welcomeMessage.innerHTML = `
+      <p>Welcome, <strong>${displayName}</strong>!</p>
+      <p class="user-info">You are signed in with Microsoft Entra ID</p>
+    `;
+  }
+  
+  // Update button visibility
+  if (elements.signInButton) {
+    elements.signInButton.style.display = 'none';
+  }
+  
+  if (elements.signOutButton) {
+    elements.signOutButton.style.display = 'inline-block';
+  }
+  
+  // Show token section and update token data
+  if (elements.tokenSection) {
+    elements.tokenSection.style.display = 'block';
+    
+    // Update token data if available
+    if (elements.tokenData && tokenClaims) {
+      elements.tokenData.value = JSON.stringify(tokenClaims, null, 2);
+    }
+  }
+  
+  // Show data section
+  if (elements.dataSection) {
+    elements.dataSection.style.display = 'block';
+  }
+  
+  // Add authenticated class to body
+  document.body.classList.add(UI_CLASSES.authenticated);
+  document.body.classList.remove(UI_CLASSES.unauthenticated);
+}
+
+export function showUnauthenticatedState() {
+  const elements = {
+    welcomeMessage: document.getElementById('welcome-message'),
+    signInButton: document.getElementById('signin-button'),
+    signOutButton: document.getElementById('signout-button'),
+    tokenSection: document.getElementById('token-section')
+  };
+  
+  // Reset welcome message
+  if (elements.welcomeMessage) {
+    elements.welcomeMessage.innerHTML = `
+      <p>Welcome, please sign in</p>
+    `;
+  }
+  
+  // Update button visibility
+  if (elements.signInButton) {
+    elements.signInButton.style.display = 'inline-block';
+  }
+  
+  if (elements.signOutButton) {
+    elements.signOutButton.style.display = 'none';
+  }
+  
+  // Hide token section and data section
+  if (elements.tokenSection) {
+    elements.tokenSection.style.display = 'none';
+  }
+  
+  if (elements.dataSection) {
+    elements.dataSection.style.display = 'none';
+  }
+  
+  if (elements.userDataSection) {
+    elements.userDataSection.style.display = 'none';
+  }
+  
+  // Update body class
+  document.body.classList.add(UI_CLASSES.unauthenticated);
+  document.body.classList.remove(UI_CLASSES.authenticated);
 }

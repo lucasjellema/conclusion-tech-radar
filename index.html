@@ -18,6 +18,11 @@
         <div class="logo" data-i18n-key="header.logo">Conclusion Tech Radar</div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <button id="theme-toggle" class="tag" data-i18n-key="header.theme">Theme</button>
+            <div id="auth-area" style="display:flex; gap:0.5rem; align-items:center;">
+                <div id="welcome-message" class="sr-only">&nbsp;</div>
+                <button id="signin-button" class="filter-btn" data-i18n-key="header.login">Sign in</button>
+                <button id="signout-button" class="filter-btn" data-i18n-key="header.logout">Sign out</button>
+            </div>
             <label for="lang-select" class="sr-only" data-i18n-key="header.lang_label">Language</label>
             <select id="lang-select" aria-label="Language">
                 <option value="en">EN</option>
@@ -104,6 +109,7 @@
         </div>
     </div>
 
+    <script src="https://alcdn.msauth.net/browser/2.40.0/js/msal-browser.min.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 

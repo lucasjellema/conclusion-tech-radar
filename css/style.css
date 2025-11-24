@@ -55,6 +55,10 @@ header {
     color: var(--accent-color);
 }
 
+/* Auth buttons: default to showing Sign in and hide Sign out until authenticated */
+#signout-button { display: none; }
+#signin-button { display: inline-block; }
+
 .container {
     display: flex;
     flex: 1;

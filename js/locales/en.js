@@ -3,6 +3,8 @@ export default {
     logo: "Conclusion Tech Radar",
     filters: "Filters",
     theme: "Theme",
+    login: "Sign in",
+    logout: "Sign out",
     theme_dark: "Dark",
     theme_light: "Light",
     lang_label: "Language"
