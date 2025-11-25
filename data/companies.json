@@ -25,7 +25,7 @@
       "name": "4net",
       "description": "Network and managed hosting provider offering connectivity and cloud services.",
       "homepage": "https://www.4net.com/",
-      "logo": "",
+      "logo": "logos/logo-4net.svg",
       "domain": "Experience & Software"
     },
     {
@@ -200,14 +200,14 @@
       "name": "Nexwork",
       "description": "Integration and connectivity specialist delivering enterprise-grade messaging solutions.",
       "homepage": "https://www.nexwork.nl/",
-      "logo": "",
+      "logo": "logos/Logo_Nexwork_Conclusion.svg",
       "domain": "Experience & Software"
     },
     {
       "name": "PossibilIT",
       "description": "Consultancy offering software development and IT advisory services.",
       "homepage": "https://www.possibilit.nl/en/",
-      "logo": "",
+      "logo": "logos/logo_01_conclusion_possibilit_DEF_klein.png",
       "domain": "Experience & Software"
     },
     {
@@ -235,7 +235,7 @@
       "name": "Netvlies",
       "description": "Digital agency specialising in web development, design and e-commerce solutions.",
       "homepage": "https://www.netvlies.nl/",
-      "logo": "",
+      "logo": "logos/logo-netvlies.jpg",
       "domain": "Experience & Software"
     }
   ]
