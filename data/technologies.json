@@ -138,10 +138,11 @@
     "logo": "https://cdn.simpleicons.org/apachekafka",
     "vendor": "Apache Software Foundation",
     "homepage": "https://kafka.apache.org/"
-  },   {
+  },
+  {
     "identifier": "windsurf",
-    "name": "Windsurf AI Coding Assistant",
-    "category": "Development",
+    "name": "Windsurf",
+    "category": "Tools",
     "tags": [
       "AI",
       "coding assistant",
@@ -155,7 +156,7 @@
   },
   {
     "identifier": "microsoft-azure-ai-foundry",
-    "name": "Microsoft Azure AI Foundry",
+    "name": "Azure AI Foundry",
     "category": "Infrastructure",
     "tags": [
       "AI",
@@ -170,7 +171,7 @@
   {
     "identifier": "windows-copilot",
     "name": "Windows Copilot",
-    "category": "Productivity",
+    "category": "Tools",
     "tags": [
       "AI",
       "assistant",
@@ -211,11 +212,12 @@
   {
     "identifier": "visual-studio-copilot",
     "name": "Visual Studio Copilot",
-    "category": "Development",
+    "category": "Tools",
     "tags": [
       "AI",
       "coding assistant",
-      "Visual Studio","copilot"
+      "Visual Studio",
+      "copilot"
     ],
     "description": "AI-coding assistant geïntegreerd in Visual Studio.",
     "logo": "",
@@ -224,8 +226,8 @@
   },
   {
     "identifier": "visual-studio-code-agentforce",
-    "name": "Visual Studio Code Agentforce",
-    "category": "Development",
+    "name": "VS Code Agentforce",
+    "category": "Tools",
     "tags": [
       "AI",
       "coding assistant",
@@ -252,7 +254,7 @@
   {
     "identifier": "elmah-io",
     "name": "Elmah.io",
-    "category": "Monitoring",
+    "category": "Observability",
     "tags": [
       "logging",
       "monitoring",
@@ -265,7 +267,7 @@
   },
   {
     "identifier": "azure-devops-board",
-    "name": "Azure DevOps Board",
+    "name": "Azure DevOps",
     "category": "Project Management",
     "tags": [
       "devops",
@@ -275,6 +277,103 @@
     "logo": "https://cdn.simpleicons.org/azuredevops",
     "vendor": "Microsoft",
     "homepage": "https://azure.microsoft.com/services/devops/"
+  },
+  {
+    "identifier": "optimizely-opal",
+    "name": "Optimizely Opal",
+    "category": "Productivity",
+    "tags": [
+      "AI",
+      "marketing",
+      "assistant"
+    ],
+    "description": "AI-driven assistant integrated across the Optimizely One digital experience platform.",
+    "logo": "https://cdn.simpleicons.org/optimizely",
+    "vendor": "Optimizely",
+    "homepage": "https://www.optimizely.com/ai/"
+  },
+  {
+    "identifier": "sanity",
+    "name": "Sanity.io",
+    "category": "Data",
+    "tags": [
+      "cms",
+      "headless",
+      "content-platform"
+    ],
+    "description": "The Composable Content Cloud. A headless CMS that treats content as data.",
+    "logo": "https://cdn.simpleicons.org/sanity",
+    "vendor": "Sanity",
+    "homepage": "https://www.sanity.io/"
+  },
+  {
+    "identifier": "laravel",
+    "name": "Laravel",
+    "category": "Development",
+    "tags": [
+      "php",
+      "framework",
+      "backend"
+    ],
+    "description": "The PHP Framework for Web Artisans.",
+    "logo": "https://cdn.simpleicons.org/laravel",
+    "vendor": "Laravel",
+    "homepage": "https://laravel.com/"
+  },
+  {
+    "identifier": "preact",
+    "name": "Preact",
+    "category": "Tools",
+    "tags": [
+      "javascript",
+      "library",
+      "frontend"
+    ],
+    "description": "Fast 3kB alternative to React with the same modern API.",
+    "logo": "https://cdn.simpleicons.org/preact",
+    "vendor": "Preact Team",
+    "homepage": "https://preactjs.com/"
+  },
+  {
+    "identifier": "github-copilot",
+    "name": "GitHub Copilot",
+    "category": "Tools",
+    "tags": [
+      "AI",
+      "coding assistant",
+      "productivity"
+    ],
+    "description": "AI pair programmer that helps you write code faster.",
+    "logo": "https://cdn.simpleicons.org/github",
+    "vendor": "GitHub",
+    "homepage": "https://github.com/features/copilot"
+  },
+  {
+    "identifier": "chatgpt",
+    "name": "ChatGPT",
+    "category": "Tools",
+    "tags": [
+      "AI",
+      "assistant",
+      "LLM"
+    ],
+    "description": "AI-powered conversational agent by OpenAI.",
+    "logo": "https://cdn.simpleicons.org/openai",
+    "vendor": "OpenAI",
+    "homepage": "https://chat.openai.com/"
+  },
+  {
+    "identifier": "claude-code",
+    "name": "Claude Code",
+    "category": "Tools",
+    "tags": [
+      "AI",
+      "coding assistant",
+      "terminal"
+    ],
+    "description": "Agentic coding tool that lives in your terminal, developed by Anthropic.",
+    "logo": "https://cdn.simpleicons.org/anthropic",
+    "vendor": "Anthropic",
+    "homepage": "https://www.anthropic.com/"
   }
-
 ]
