@@ -86,7 +86,7 @@
   {
     "identifier": "gitlab",
     "name": "GitLab",
-    "category": "Platforms",
+    "category": "Platform",
     "tags": [
       "scm",
       "ci/cd",
@@ -682,7 +682,7 @@
   {
     "identifier": "uniserver",
     "name": "Uniserver",
-    "category": "Cloud Provider",
+    "category": "Cloud",
     "tags": [
       "dutch-cloud",
       "hosting",
@@ -697,7 +697,7 @@
   {
     "identifier": "nextcloud",
     "name": "NextCloud",
-    "category": "Collaboration & File Sync",
+    "category": "Collaboration",
     "tags": [
       "file-sharing",
       "collaboration",
@@ -712,7 +712,7 @@
   {
     "identifier": "cursor",
     "name": "Cursor",
-    "category": "Developer Tools & AI",
+    "category": "Tools",
     "tags": [
       "ide",
       "ai-coding",
@@ -773,7 +773,7 @@
   {
     "identifier": "wasm",
     "name": "WebAssembly (WASM)",
-    "category": "Platform & Runtime",
+    "category": "Platform",
     "tags": [
       "web-platform",
       "runtime",
