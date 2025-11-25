@@ -42,20 +42,6 @@
     "homepage": "https://www.terraform.io/"
   },
   {
-    "identifier": "ansible",
-    "name": "Ansible",
-    "category": "Tools",
-    "tags": [
-      "automation",
-      "configuration-management",
-      "provisioning"
-    ],
-    "description": "Open-source software provisioning, configuration management, and application-deployment tool.",
-    "logo": "https://cdn.simpleicons.org/ansible",
-    "vendor": "Red Hat",
-    "homepage": "https://www.ansible.com/"
-  },
-  {
     "identifier": "prometheus",
     "name": "Prometheus",
     "category": "Observability",
@@ -379,7 +365,7 @@
   {
     "identifier": "ansible",
     "name": "Ansible",
-    "category": "Automation & Configuration Management",
+    "category": "Automation",
     "tags": [
       "configuration-management",
       "automation",
@@ -409,7 +395,7 @@
   {
     "identifier": "rhacm",
     "name": "Red Hat Advanced Cluster Management",
-    "category": "Kubernetes Management",
+    "category": "Platform",
     "tags": [
       "kubernetes",
       "multi-cluster",
@@ -439,7 +425,7 @@
   {
     "identifier": "dynatrace",
     "name": "Dynatrace",
-    "category": "Observability & Monitoring",
+    "category": "Observability",
     "tags": [
       "apm",
       "observability",
@@ -514,7 +500,7 @@
   {
     "identifier": "ansible-automation-platform",
     "name": "Ansible Automation Platform",
-    "category": "Automation & Configuration Management",
+    "category": "Automation",
     "tags": [
       "automation",
       "enterprise-automation",
@@ -529,7 +515,7 @@
   {
     "identifier": "n8n",
     "name": "N8N",
-    "category": "Automation & Integration",
+    "category": "Automation",
     "tags": [
       "workflow-automation",
       "integration",
@@ -544,7 +530,7 @@
   {
     "identifier": "copilot-studio-power-automate",
     "name": "CoPilot Studio/Power Automate",
-    "category": "Automation & Low-Code",
+    "category": "Automation",
     "tags": [
       "rpa",
       "low-code",
@@ -560,7 +546,7 @@
   {
     "identifier": "eks",
     "name": "EKS",
-    "category": "Cloud & Containerization",
+    "category": "Platform",
     "tags": [
       "kubernetes",
       "aws",
@@ -575,7 +561,7 @@
   {
     "identifier": "aks",
     "name": "AKS",
-    "category": "Cloud & Containerization",
+    "category": "Platform",
     "tags": [
       "kubernetes",
       "microsoft-azure",
@@ -620,7 +606,7 @@
   {
     "identifier": "pki-ejbca",
     "name": "PKI (EJBCA)",
-    "category": "Security & Infrastructure",
+    "category": "Security",
     "tags": [
       "pki",
       "certificate-management",
@@ -635,7 +621,7 @@
   {
     "identifier": "azure-local",
     "name": "Azure Local",
-    "category": "Cloud & Infrastructure",
+    "category": "Platform",
     "tags": [
       "hybrid-cloud",
       "on-premise",
@@ -650,7 +636,7 @@
   {
     "identifier": "puppet",
     "name": "Puppet",
-    "category": "Automation & Configuration Management",
+    "category": "Automation",
     "tags": [
       "configuration-management",
       "automation",
@@ -665,7 +651,7 @@
   {
     "identifier": "developer-portal-rh",
     "name": "Developer Portal (Red Hat)",
-    "category": "Developer Tools & Documentation",
+    "category": "Tools",
     "tags": [
       "api-management",
       "developer-experience",
