@@ -375,5 +375,321 @@
     "logo": "https://cdn.simpleicons.org/anthropic",
     "vendor": "Anthropic",
     "homepage": "https://www.anthropic.com/"
-  }
+  },
+  {
+    "identifier": "ansible",
+    "name": "Ansible",
+    "category": "Automation & Configuration Management",
+    "tags": [
+      "configuration-management",
+      "automation",
+      "devops",
+      "orchestration"
+    ],
+    "description": "Open-source software provisioning, configuration management, and application-deployment tool.",
+    "logo": "https://cdn.simpleicons.org/ansible",
+    "vendor": "Red Hat",
+    "homepage": "https://www.ansible.com/"
+  },
+  {
+    "identifier": "cortex-xdr",
+    "name": "Palo Alto Cortex XDR",
+    "category": "Security",
+    "tags": [
+      "edr",
+      "xdr",
+      "security-analytics",
+      "threat-detection"
+    ],
+    "description": "Extended Detection and Response (XDR) platform that unifies security data and applies analytics to stop modern attacks.",
+    "logo": "https://cdn.simpleicons.org/paloaltosoftware",
+    "vendor": "Palo Alto Networks",
+    "homepage": "https://www.paloaltonetworks.com/cortex/xdr"
+  },
+  {
+    "identifier": "rhacm",
+    "name": "Red Hat Advanced Cluster Management",
+    "category": "Kubernetes Management",
+    "tags": [
+      "kubernetes",
+      "multi-cluster",
+      "management",
+      "hybrid-cloud"
+    ],
+    "description": "Provides end-to-end visibility and control to manage your Kubernetes clusters across hybrid and multicloud environments.",
+    "logo": "https://cdn.simpleicons.org/redhat",
+    "vendor": "Red Hat",
+    "homepage": "https://www.redhat.com/en/technologies/cloud-computing/advanced-cluster-management"
+  },
+  {
+    "identifier": "rhacs",
+    "name": "Red Hat Advanced Cluster Security",
+    "category": "Security",
+    "tags": [
+      "kubernetes-security",
+      "container-security",
+      "devsecops",
+      "container-platform"
+    ],
+    "description": "Kubernetes-native security platform for container and application security across the entire development lifecycle and runtime.",
+    "logo": "https://cdn.simpleicons.org/redhat",
+    "vendor": "Red Hat",
+    "homepage": "https://www.redhat.com/en/technologies/cloud-computing/advanced-cluster-security"
+  },
+  {
+    "identifier": "dynatrace",
+    "name": "Dynatrace",
+    "category": "Observability & Monitoring",
+    "tags": [
+      "apm",
+      "observability",
+      "monitoring",
+      "aiops"
+    ],
+    "description": "Software intelligence platform that uses AI and automation to monitor, optimize, and secure applications and infrastructure.",
+    "logo": "https://cdn.simpleicons.org/dynatrace",
+    "vendor": "Dynatrace",
+    "homepage": "https://www.dynatrace.com/"
+  },
+  {
+    "identifier": "azure-sentinel",
+    "name": "Azure Sentinel",
+    "category": "Security",
+    "tags": [
+      "siem",
+      "security-analytics",
+      "security-orchestration",
+      "microsoft-azure"
+    ],
+    "description": "A scalable, cloud-native Security Information and Event Management (SIEM) and Security Orchestration, Automation, and Response (SOAR) solution.",
+    "logo": "https://cdn.simpleicons.org/microsoftazure",
+    "vendor": "Microsoft",
+    "homepage": "https://azure.microsoft.com/en-us/services/azure-sentinel/"
+  },
+  {
+    "identifier": "vectra",
+    "name": "Vectra (NDR)",
+    "category": "Security",
+    "tags": [
+      "ndr",
+      "network-detection",
+      "ai-security",
+      "threat-hunting"
+    ],
+    "description": "Network Detection and Response (NDR) platform that uses AI to detect and hunt for hidden threats across the cloud, data center, and enterprise.",
+    "logo": "https://cdn.simpleicons.org/vectraai",
+    "vendor": "Vectra AI",
+    "homepage": "https://www.vectra.ai/"
+  },
+  {
+    "identifier": "darktrace",
+    "name": "Darktrace (NDR)",
+    "category": "Security",
+    "tags": [
+      "ndr",
+      "ai-security",
+      "cyber-security",
+      "self-learning"
+    ],
+    "description": "Cyber AI company that uses self-learning AI to detect and respond to in-progress cyber-attacks across the digital environment.",
+    "logo": "https://cdn.simpleicons.org/darktrace",
+    "vendor": "Darktrace",
+    "homepage": "https://www.darktrace.com/"
+  },
+  {
+    "identifier": "netskope",
+    "name": "Netskope (ZTNA)",
+    "category": "Security",
+    "tags": [
+      "ztna",
+      "sase",
+      "cloud-security",
+      "zero-trust"
+    ],
+    "description": "A security cloud that provides Zero Trust Network Access (ZTNA), CASB, and other SASE components to secure data and control access.",
+    "logo": "https://cdn.simpleicons.org/netskope",
+    "vendor": "Netskope",
+    "homepage": "https://www.netskope.com/"
+  },
+  {
+    "identifier": "ansible-automation-platform",
+    "name": "Ansible Automation Platform",
+    "category": "Automation & Configuration Management",
+    "tags": [
+      "automation",
+      "enterprise-automation",
+      "devops",
+      "ansible"
+    ],
+    "description": "An enterprise-grade platform for automation, providing centralized control, security, and management for Ansible deployments.",
+    "logo": "https://cdn.simpleicons.org/ansible",
+    "vendor": "Red Hat",
+    "homepage": "https://www.ansible.com/products/automation-platform"
+  },
+  {
+    "identifier": "n8n",
+    "name": "N8N",
+    "category": "Automation & Integration",
+    "tags": [
+      "workflow-automation",
+      "integration",
+      "low-code",
+      "open-source"
+    ],
+    "description": "Open-source workflow automation tool that helps to connect apps and services with a focus on ease of use and flexibility.",
+    "logo": "https://cdn.simpleicons.org/n8n",
+    "vendor": "n8n.io GmbH",
+    "homepage": "https://n8n.io/"
+  },
+  {
+    "identifier": "copilot-studio-power-automate",
+    "name": "CoPilot Studio/Power Automate",
+    "category": "Automation & Low-Code",
+    "tags": [
+      "rpa",
+      "low-code",
+      "automation",
+      "ai-assistant",
+      "microsoft-power-platform"
+    ],
+    "description": "Power Automate is a service that helps you create automated workflows, and CoPilot Studio is a platform for creating AI assistants and copilots.",
+    "logo": "https://cdn.simpleicons.org/microsoftpowerautomate",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/power-platform/products/power-automate"
+  },
+  {
+    "identifier": "eks",
+    "name": "EKS",
+    "category": "Cloud & Containerization",
+    "tags": [
+      "kubernetes",
+      "aws",
+      "container-service",
+      "cloud-native"
+    ],
+    "description": "Amazon Elastic Kubernetes Service (EKS) is a managed Kubernetes service on AWS.",
+    "logo": "https://cdn.simpleicons.org/amazonwebservices",
+    "vendor": "Amazon Web Services (AWS)",
+    "homepage": "https://aws.amazon.com/eks/"
+  },
+  {
+    "identifier": "aks",
+    "name": "AKS",
+    "category": "Cloud & Containerization",
+    "tags": [
+      "kubernetes",
+      "microsoft-azure",
+      "container-service",
+      "cloud-native"
+    ],
+    "description": "Azure Kubernetes Service (AKS) is a managed Kubernetes service on Microsoft Azure.",
+    "logo": "https://cdn.simpleicons.org/microsoftazure",
+    "vendor": "Microsoft",
+    "homepage": "https://azure.microsoft.com/en-us/services/kubernetes-service/"
+  },
+  {
+    "identifier": "elastic-siem",
+    "name": "Elastic SIEM",
+    "category": "Security",
+    "tags": [
+      "siem",
+      "security-analytics",
+      "log-management",
+      "elastic-stack"
+    ],
+    "description": "Security Information and Event Management (SIEM) solution built on the Elastic Stack (Elasticsearch, Kibana, Beats, and Logstash).",
+    "logo": "https://cdn.simpleicons.org/elastic",
+    "vendor": "Elastic",
+    "homepage": "https://www.elastic.co/security/siem"
+  },
+  {
+    "identifier": "elastic-edr",
+    "name": "Elastic EDR",
+    "category": "Security",
+    "tags": [
+      "edr",
+      "endpoint-security",
+      "threat-detection",
+      "elastic-stack"
+    ],
+    "description": "Endpoint Detection and Response (EDR) capabilities integrated into the Elastic Security platform for endpoint prevention and response.",
+    "logo": "https://cdn.simpleicons.org/elastic",
+    "vendor": "Elastic",
+    "homepage": "https://www.elastic.co/security"
+  },
+  {
+    "identifier": "pki-ejbca",
+    "name": "PKI (EJBCA)",
+    "category": "Security & Infrastructure",
+    "tags": [
+      "pki",
+      "certificate-management",
+      "security",
+      "cryptography"
+    ],
+    "description": "Public Key Infrastructure (PKI) solution, often referencing EJBCA as a flexible, high-performance CA software package.",
+    "logo": "https://cdn.simpleicons.org/certificateauthority",
+    "vendor": "Various (e.g., PrimeKey for EJBCA)",
+    "homepage": "https://www.ejbca.org/"
+  },
+  {
+    "identifier": "azure-local",
+    "name": "Azure Local",
+    "category": "Cloud & Infrastructure",
+    "tags": [
+      "hybrid-cloud",
+      "on-premise",
+      "microsoft-azure",
+      "local-infrastructure"
+    ],
+    "description": "Refers to local, on-premise infrastructure components or services that integrate with Azure, like Azure Stack or local development environments.",
+    "logo": "https://cdn.simpleicons.org/microsoftazure",
+    "vendor": "Microsoft",
+    "homepage": "https://azure.microsoft.com/"
+  },
+  {
+    "identifier": "puppet",
+    "name": "Puppet",
+    "category": "Automation & Configuration Management",
+    "tags": [
+      "configuration-management",
+      "automation",
+      "infrastructure-as-code",
+      "devops"
+    ],
+    "description": "Software for automating configuration, deployment, and management across infrastructure.",
+    "logo": "https://cdn.simpleicons.org/puppet",
+    "vendor": "Perforce Software",
+    "homepage": "https://www.puppet.com/"
+  },
+  {
+    "identifier": "developer-portal-rh",
+    "name": "Developer Portal (Red Hat)",
+    "category": "Developer Tools & Documentation",
+    "tags": [
+      "api-management",
+      "developer-experience",
+      "documentation",
+      "redhat"
+    ],
+    "description": "A centralized, self-service platform provided by Red Hat to help developers discover, access, and utilize APIs and development resources.",
+    "logo": "https://cdn.simpleicons.org/redhat",
+    "vendor": "Red Hat",
+    "homepage": "https://developers.redhat.com/"
+  },{
+  "identifier": "zabbix",
+  "name": "Zabbix",
+  "category": "Observability",
+  "tags": [
+    "network-monitoring",
+    "server-monitoring",
+    "application-monitoring",
+    "observability",
+    "open-source"
+  ],
+  "description": "Open-source enterprise-class monitoring solution for networks and applications, providing real-time metrics, problem detection, and alerts.",
+  "logo": "https://cdn.simpleicons.org/zabbix",
+  "vendor": "Zabbix LLC",
+  "homepage": "https://www.zabbix.com/"
+}
 ]
