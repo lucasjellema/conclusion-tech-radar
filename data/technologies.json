@@ -662,20 +662,127 @@
     "logo": "https://cdn.simpleicons.org/redhat",
     "vendor": "Red Hat",
     "homepage": "https://developers.redhat.com/"
-  },{
-  "identifier": "zabbix",
-  "name": "Zabbix",
-  "category": "Observability",
-  "tags": [
-    "network-monitoring",
-    "server-monitoring",
-    "application-monitoring",
-    "observability",
-    "open-source"
-  ],
-  "description": "Open-source enterprise-class monitoring solution for networks and applications, providing real-time metrics, problem detection, and alerts.",
-  "logo": "https://cdn.simpleicons.org/zabbix",
-  "vendor": "Zabbix LLC",
-  "homepage": "https://www.zabbix.com/"
-}
+  },
+  {
+    "identifier": "zabbix",
+    "name": "Zabbix",
+    "category": "Observability",
+    "tags": [
+      "network-monitoring",
+      "server-monitoring",
+      "application-monitoring",
+      "observability",
+      "open-source"
+    ],
+    "description": "Open-source enterprise-class monitoring solution for networks and applications, providing real-time metrics, problem detection, and alerts.",
+    "logo": "https://cdn.simpleicons.org/zabbix",
+    "vendor": "Zabbix LLC",
+    "homepage": "https://www.zabbix.com/"
+  },
+  {
+    "identifier": "uniserver",
+    "name": "Uniserver",
+    "category": "Cloud Provider",
+    "tags": [
+      "dutch-cloud",
+      "hosting",
+      "iaas",
+      "managed-services"
+    ],
+    "description": "Nederlandse cloudprovider gespecialiseerd in IaaS en managed cloud-oplossingen, vaak gericht op de channel en MKB.",
+    "logo": "https://cdn.simpleicons.org/cloud",
+    "vendor": "Uniserver B.V.",
+    "homepage": "https://www.uniserver.nl/"
+  },
+  {
+    "identifier": "nextcloud",
+    "name": "NextCloud",
+    "category": "Collaboration & File Sync",
+    "tags": [
+      "file-sharing",
+      "collaboration",
+      "self-hosted",
+      "open-source"
+    ],
+    "description": "Open-source, zelf-hostable suite voor bestandssynchronisatie, delen, en communicatie, als alternatief voor publieke clouddiensten.",
+    "logo": "https://cdn.simpleicons.org/nextcloud",
+    "vendor": "Nextcloud GmbH",
+    "homepage": "https://nextcloud.com/"
+  },
+  {
+    "identifier": "cursor",
+    "name": "Cursor",
+    "category": "Developer Tools & AI",
+    "tags": [
+      "ide",
+      "ai-coding",
+      "editor",
+      "programming"
+    ],
+    "description": "Een AI-gedreven code-editor die gebaseerd is op VS Code, ontworpen om sneller te coderen en debuggen met behulp van AI-assistentie.",
+    "logo": "https://cdn.simpleicons.org/visualstudiocode",
+    "vendor": "Cursor",
+    "homepage": "https://www.cursor.so/"
+  },
+  {
+    "identifier": "scaleway",
+    "name": "Scaleway",
+    "category": "Cloud Provider",
+    "tags": [
+      "european-cloud",
+      "iaas",
+      "cloud-computing",
+      "hosting"
+    ],
+    "description": "Een Europese cloud-infrastructuurprovider die een breed scala aan diensten biedt, waaronder compute, storage en bare metal.",
+    "logo": "https://cdn.simpleicons.org/scaleway",
+    "vendor": "Scaleway",
+    "homepage": "https://www.scaleway.com/"
+  },
+  {
+    "identifier": "ovh-cloud",
+    "name": "OVHcloud",
+    "category": "Cloud Provider",
+    "tags": [
+      "european-cloud",
+      "iaas",
+      "paas",
+      "hosting",
+      "dedicated-servers"
+    ],
+    "description": "Een Franse wereldwijde cloudprovider die publieke en private cloudoplossingen, hosting en dedicated servers aanbiedt, met een focus op Europese data-soevereiniteit.",
+    "logo": "https://cdn.simpleicons.org/ovh",
+    "vendor": "OVHcloud",
+    "homepage": "https://www.ovhcloud.com/"
+  },
+  {
+    "identifier": "stackit",
+    "name": "StackIT",
+    "category": "Cloud Provider",
+    "tags": [
+      "european-cloud",
+      "cloud-computing",
+      "iaas",
+      "data-sovereignty"
+    ],
+    "description": "De cloudprovider van de Schwarz Group (o.a. Lidl), gericht op veilige en soevereine cloudoplossingen, voornamelijk in Europa.",
+    "logo": "https://cdn.simpleicons.org/cloud",
+    "vendor": "Schwarz IT",
+    "homepage": "https://www.stackit.cloud/"
+  },
+  {
+    "identifier": "wasm",
+    "name": "WebAssembly (WASM)",
+    "category": "Platform & Runtime",
+    "tags": [
+      "web-platform",
+      "runtime",
+      "performance",
+      "compilation-target"
+    ],
+    "description": "Een binaire instructie-formaat voor een stack-based virtuele machine. Ontworpen als een draagbare compilatie-target voor talen op het web en daarbuiten.",
+    "logo": "https://cdn.simpleicons.org/webassembly",
+    "vendor": "W3C (WebAssembly Community Group)",
+    "homepage": "https://webassembly.org/"
+  }
 ]
