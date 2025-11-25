@@ -851,7 +851,373 @@ export function showUnauthenticatedState() {
         elements.userDataSection.style.display = 'none';
     }
 
+
     // Update body class
     document.body.classList.add(UI_CLASSES.unauthenticated);
     document.body.classList.remove(UI_CLASSES.authenticated);
+}
+
+// ============================================================================
+// LOCAL RATINGS MANAGEMENT
+// ============================================================================
+
+import * as localRatings from './localRatings.js';
+import { refreshLocalData } from './data.js';
+import { getAccount } from './auth.js';
+
+let currentCompany = '';
+let currentUser = null;
+
+/**
+ * Initialize local ratings UI
+ * @param {Function} updateRadarCallback - Callback to update the radar
+ */
+export function initLocalRatingsUI(updateRadarCallback) {
+    setupTabNavigation(updateRadarCallback);
+    setupLocalRatingsEventListeners(updateRadarCallback);
+    populateCompanySelector();
+}
+
+/**
+ * Setup tab navigation
+ */
+function setupTabNavigation(updateRadarCallback) {
+    const radarTabBtn = document.getElementById('radar-tab-btn');
+    const manageTabBtn = document.getElementById('manage-ratings-tab-btn');
+    const radarContent = document.getElementById('radar-tab-content');
+    const manageContent = document.getElementById('manage-ratings-tab-content');
+
+    if (!radarTabBtn || !manageTabBtn) return;
+
+    radarTabBtn.addEventListener('click', () => {
+        radarTabBtn.classList.add('active');
+        manageTabBtn.classList.remove('active');
+        radarContent.style.display = 'block';
+        manageContent.style.display = 'none';
+    });
+
+    manageTabBtn.addEventListener('click', () => {
+        manageTabBtn.classList.add('active');
+        radarTabBtn.classList.remove('active');
+        radarContent.style.display = 'none';
+        manageContent.style.display = 'block';
+        renderLocalRatingsTable();
+    });
+}
+
+/**
+ * Setup event listeners for local ratings management
+ */
+function setupLocalRatingsEventListeners(updateRadarCallback) {
+    const addBtn = document.getElementById('add-rating-btn');
+    const downloadBtn = document.getElementById('download-ratings-btn');
+    const companyInput = document.getElementById('local-company-input');
+
+    if (addBtn) {
+        addBtn.addEventListener('click', () => openRatingModal(null, updateRadarCallback));
+    }
+
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            const company = companyInput?.value || '';
+            localRatings.downloadRatingsJSON(company);
+        });
+    }
+
+    if (companyInput) {
+        companyInput.addEventListener('change', (e) => {
+            currentCompany = e.target.value;
+            renderLocalRatingsTable();
+        });
+    }
+}
+
+/**
+ * Populate company selector with existing companies
+ */
+function populateCompanySelector() {
+    const datalist = document.getElementById('companies-datalist');
+    if (!datalist) return;
+
+    const { companies } = getFilters();
+    datalist.innerHTML = '';
+
+    companies.forEach(company => {
+        const option = document.createElement('option');
+        option.value = company;
+        datalist.appendChild(option);
+    });
+}
+
+/**
+ * Render local ratings table
+ */
+function renderLocalRatingsTable() {
+    const tbody = document.getElementById('local-ratings-tbody');
+    const noRatingsMsg = document.getElementById('no-ratings-message');
+    const companyInput = document.getElementById('local-company-input');
+
+    if (!tbody) return;
+
+    const allRatings = localRatings.getLocalRatings();
+    const company = companyInput?.value || '';
+
+    // Filter by company if specified
+    const ratings = company
+        ? allRatings.filter(r => r.bedrijf === company)
+        : allRatings;
+
+    tbody.innerHTML = '';
+
+    if (ratings.length === 0) {
+        if (noRatingsMsg) noRatingsMsg.style.display = 'block';
+        return;
+    }
+
+    if (noRatingsMsg) noRatingsMsg.style.display = 'none';
+
+    ratings.forEach(rating => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${rating.identifier}</td>
+            <td><span class="rating-phase ${rating.fase.toLowerCase()}">${rating.fase.toUpperCase()}</span></td>
+            <td>${rating.datumBeoordeling}</td>
+            <td>${(rating.toelichting || '').substring(0, 50)}${rating.toelichting?.length > 50 ? '...' : ''}</td>
+            <td class="actions-cell">
+                <button class="edit-btn filter-btn small" data-id="${rating._localId}">Edit</button>
+                <button class="delete-btn filter-btn small" data-id="${rating._localId}">Delete</button>
+            </td>
+        `;
+
+        // Add event listeners
+        const editBtn = row.querySelector('.edit-btn');
+        const deleteBtn = row.querySelector('.delete-btn');
+
+        editBtn.addEventListener('click', () => openRatingModal(rating, null));
+        deleteBtn.addEventListener('click', () => deleteRating(rating._localId));
+
+        tbody.appendChild(row);
+    });
+}
+
+/**
+ * Open rating modal for add/edit
+ * @param {Object|null} rating - Rating to edit, or null for new rating
+ * @param {Function} updateRadarCallback - Callback to update radar
+ */
+function openRatingModal(rating, updateRadarCallback) {
+    const modal = document.getElementById('modal-overlay');
+    const content = document.getElementById('modal-content');
+
+    if (!modal || !content) return;
+
+    const isEdit = !!rating;
+    const title = isEdit ? 'Edit Rating' : 'Add New Rating';
+
+    // Get all technologies for dropdown
+    const { technologies } = getProcessedData();
+    const customTechs = localRatings.getCustomTechnologies();
+    const allTechs = [...new Set([...technologies, ...customTechs])];
+
+    // Sort technologies alphabetically by name
+    allTechs.sort((a, b) => a.name.localeCompare(b.name));
+
+    content.innerHTML = `
+        <h2>${title}</h2>
+        <form id="rating-form" class="rating-form">
+            <div class="form-group">
+                <label for="tech-select">Technology:</label>
+                <select id="tech-select" required>
+                    <option value="">Select technology...</option>
+                    ${allTechs.map(t => `
+                        <option value="${t.identifier}" ${rating?.identifier === t.identifier ? 'selected' : ''}>
+                            ${t.name}
+                        </option>
+                    `).join('')}
+                    <option value="__custom__">+ Add new technology</option>
+                </select>
+            </div>
+
+            <div id="custom-tech-fields" style="display: none;">
+                <div class="form-group">
+                    <label for="custom-tech-name">Technology Name:</label>
+                    <input type="text" id="custom-tech-name" />
+                </div>
+                <div class="form-group">
+                    <label for="custom-tech-category">Category:</label>
+                    <input type="text" id="custom-tech-category" />
+                </div>
+                <div class="form-group">
+                    <label for="custom-tech-description">Description:</label>
+                    <textarea id="custom-tech-description" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fase-select">Phase:</label>
+                <select id="fase-select" required>
+                    <option value="adopt" ${rating?.fase === 'adopt' ? 'selected' : ''}>Adopt</option>
+                    <option value="trial" ${rating?.fase === 'trial' ? 'selected' : ''}>Trial</option>
+                    <option value="assess" ${rating?.fase === 'assess' ? 'selected' : ''}>Assess</option>
+                    <option value="hold" ${rating?.fase === 'hold' ? 'selected' : ''}>Hold</option>
+                    <option value="deprecate" ${rating?.fase === 'deprecate' ? 'selected' : ''}>Deprecate</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="toelichting-input">Comment:</label>
+                <textarea id="toelichting-input" rows="4" required>${rating?.toelichting || ''}</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="filter-btn">Save</button>
+                <button type="button" id="cancel-rating-btn" class="filter-btn">Cancel</button>
+            </div>
+        </form>
+    `;
+
+    // Setup custom technology toggle
+    const techSelect = document.getElementById('tech-select');
+    const customFields = document.getElementById('custom-tech-fields');
+
+    techSelect.addEventListener('change', (e) => {
+        if (e.target.value === '__custom__') {
+            customFields.style.display = 'block';
+        } else {
+            customFields.style.display = 'none';
+        }
+    });
+
+    // Setup form submission
+    const form = document.getElementById('rating-form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        saveRating(rating, updateRadarCallback);
+    });
+
+    // Setup cancel button
+    const cancelBtn = document.getElementById('cancel-rating-btn');
+    cancelBtn.addEventListener('click', closeModal);
+
+    modal.classList.remove('hidden');
+}
+
+/**
+ * Save rating (add or update)
+ * @param {Object|null} existingRating - Existing rating to update, or null for new
+ * @param {Function} updateRadarCallback - Callback to update radar
+ */
+function saveRating(existingRating, updateRadarCallback) {
+    const techSelect = document.getElementById('tech-select');
+    const faseSelect = document.getElementById('fase-select');
+    const toelichtingInput = document.getElementById('toelichting-input');
+    const companyInput = document.getElementById('local-company-input');
+
+    let identifier = techSelect.value;
+
+    // Handle custom technology
+    if (identifier === '__custom__') {
+        const nameInput = document.getElementById('custom-tech-name');
+        const categoryInput = document.getElementById('custom-tech-category');
+        const descInput = document.getElementById('custom-tech-description');
+
+        if (!nameInput.value) {
+            alert('Please enter a technology name');
+            return;
+        }
+
+        const customTech = localRatings.addCustomTechnology({
+            name: nameInput.value,
+            category: categoryInput.value || 'Other',
+            description: descInput.value || ''
+        });
+
+        identifier = customTech.identifier;
+    }
+
+    // Get current user info
+    const account = getAccount();
+    const userName = account?.name || account?.username || 'Local User';
+
+    const ratingData = {
+        identifier,
+        bedrijf: companyInput?.value || currentCompany || 'My Company',
+        fase: faseSelect.value,
+        datumBeoordeling: new Date().toISOString().split('T')[0],
+        toelichting: toelichtingInput.value,
+        beoordelaars: [userName]
+    };
+
+    if (existingRating) {
+        // Update existing
+        localRatings.updateLocalRating(existingRating._localId, ratingData);
+    } else {
+        // Add new
+        localRatings.addLocalRating(ratingData);
+    }
+
+    // Refresh data and UI
+    const newData = refreshLocalData();
+    if (updateRadarCallback) {
+        updateRadarCallback(newData);
+    }
+    renderLocalRatingsTable();
+    closeModal();
+}
+
+/**
+ * Delete a rating
+ * @param {string} id - Local ID of rating to delete
+ */
+async function deleteRating(id) {
+    if (!confirm('Are you sure you want to delete this rating?')) {
+        return;
+    }
+
+    localRatings.deleteLocalRating(id);
+    const newData = refreshLocalData();
+    renderLocalRatingsTable();
+
+    // Update radar if visible
+    try {
+        const radarContent = document.getElementById('radar-tab-content');
+        if (radarContent && radarContent.style.display !== 'none') {
+            const { updateRadar } = await import('./radar.js');
+            updateRadar(newData);
+        }
+    } catch (e) {
+        console.error('Error updating radar:', e);
+    }
+}
+
+/**
+ * Show the Manage Ratings tab (called when user authenticates)
+ */
+export function showManageRatingsTab() {
+    const tabBtn = document.getElementById('manage-ratings-tab-btn');
+    if (tabBtn) {
+        tabBtn.style.display = 'inline-block';
+    }
+}
+
+/**
+ * Hide the Manage Ratings tab (called when user signs out)
+ */
+export function hideManageRatingsTab() {
+    const tabBtn = document.getElementById('manage-ratings-tab-btn');
+    const radarTabBtn = document.getElementById('radar-tab-btn');
+    const radarContent = document.getElementById('radar-tab-content');
+    const manageContent = document.getElementById('manage-ratings-tab-content');
+
+    if (tabBtn) {
+        tabBtn.style.display = 'none';
+    }
+
+    // Switch back to radar tab
+    if (radarTabBtn && radarContent && manageContent) {
+        radarTabBtn.classList.add('active');
+        if (tabBtn) tabBtn.classList.remove('active');
+        radarContent.style.display = 'block';
+        manageContent.style.display = 'none';
+    }
 }

@@ -49,5 +49,25 @@ export default {
     process: "Process — practices, methodologies and ways of working.",
     tools: "Tools — developer tools, frameworks and libraries that aid delivery.",
     data: "Data — storage, processing and analysis technologies."
+  },
+  tabs: {
+    radar: "Radar",
+    manage_ratings: "Manage Ratings"
+  },
+  manage: {
+    title: "Manage Local Ratings",
+    description: "Create and manage your own technology ratings. These ratings are stored locally in your browser and will appear in the radar alongside company ratings.",
+    company_label: "Company:",
+    company_placeholder: "Select or enter company name",
+    add_rating: "+ Add Rating",
+    download_json: "Download JSON",
+    no_ratings: "No local ratings yet. Click \"Add Rating\" to create your first rating.",
+    table: {
+      technology: "Technology",
+      phase: "Phase",
+      date: "Date",
+      comment: "Comment",
+      actions: "Actions"
+    }
   }
 };

@@ -1,6 +1,6 @@
 export default {
   header: {
-    logo: "Conclusion Technology Radar - Changes in 2025",
+    logo: "Conclusion Technology Radar - Verschuivingen in 2025",
     filters: "Filters",
     theme: "Thema",
     login: "Inloggen",
@@ -49,5 +49,25 @@ export default {
     process: "Proces — werkwijzen, methodieken en manieren van werken.",
     tools: "Tools — ontwikkeltools, frameworks en libraries die delivery ondersteunen.",
     data: "Data — opslag-, verwerkings- en analysetechnologieën."
+  },
+  tabs: {
+    radar: "Radar",
+    manage_ratings: "Beoordelingen Beheren"
+  },
+  manage: {
+    title: "Lokale Beoordelingen Beheren",
+    description: "Maak en beheer je eigen technologie beoordelingen. Deze beoordelingen worden lokaal in je browser opgeslagen en verschijnen in de radar naast bedrijfsbeoordelingen.",
+    company_label: "Bedrijf:",
+    company_placeholder: "Selecteer of voer bedrijfsnaam in",
+    add_rating: "+ Beoordeling Toevoegen",
+    download_json: "Download JSON",
+    no_ratings: "Nog geen lokale beoordelingen. Klik op \"Beoordeling Toevoegen\" om je eerste beoordeling te maken.",
+    table: {
+      technology: "Technologie",
+      phase: "Fase (Ring)",
+      date: "Datum",
+      comment: "Toelichting",
+      actions: "Acties"
+    }
   }
 };

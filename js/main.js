@@ -14,68 +14,72 @@ const APP_STATE = {
 };
 
 async function init() {
-    try {
-        // Initialize i18n first so static labels are translated before UI builds
-        initI18n();
+  try {
+    // Initialize i18n first so static labels are translated before UI builds
+    initI18n();
 
-        // Wire language selector to change locale and notify UI modules
-        const langSelect = document.getElementById('lang-select');
-        if (langSelect) {
-            langSelect.addEventListener('change', (e) => {
-                setLocale(e.target.value);
-                // Notify other modules to refresh dynamic text
-                document.dispatchEvent(new CustomEvent('language-changed'));
-            });
-        }
+    // Wire language selector to change locale and notify UI modules
+    const langSelect = document.getElementById('lang-select');
+    if (langSelect) {
+      langSelect.addEventListener('change', (e) => {
+        setLocale(e.target.value);
+        // Notify other modules to refresh dynamic text
+        document.dispatchEvent(new CustomEvent('language-changed'));
+      });
+    }
 
 
-        const data = await loadData();
-        console.log('Data loaded:', data);
+    const data = await loadData();
+    console.log('Data loaded:', data);
 
-        initRadar(data);
-        ui.initUI(data, updateRadar);
+    initRadar(data);
+    ui.initUI(data, updateRadar);
 
-// Authentication related initialization
-  // Add MSAL script to the page if not present
-  await ensureMsalLoaded();
+    // Initialize local ratings UI
+    ui.initLocalRatingsUI(updateRadar);
 
-  // Initialize the authentication module
-  APP_STATE.initialized = auth.initializeAuth();
+    // Authentication related initialization
+    // Add MSAL script to the page if not present
+    await ensureMsalLoaded();
 
-  if (!APP_STATE.initialized) {
-    ui.showError("Failed to initialize authentication system");
-    return;
+    // Initialize the authentication module
+    APP_STATE.initialized = auth.initializeAuth();
+
+    if (!APP_STATE.initialized) {
+      ui.showError("Failed to initialize authentication system");
+      return;
+    }
+
+    // Set up UI with auth callbacks and admin functionality
+    ui.initializeUI(handleSignIn, handleSignOut);
+
+
+    // Check for authentication event
+    // Add MSAL login success listener, broadcast from auth.js
+    window.addEventListener('msalLoginSuccess', async (event) => {
+      console.log('MSAL Login Success Event:', event.detail);
+      // Update UI or perform actions after successful login
+      const { account } = event.detail.payload;
+      if (account) {
+        console.log(`User ${account.username} logged in successfully`);
+        console.log("Successful authentication response received");
+        await updateUserState();
+        ui.showManageRatingsTab(); // Show the Manage Ratings tab
+        fetchData();
+      }
+    })
+
+    //   // Check if user is already signed in
+    await checkExistingAuth();
+
+
+    // Authentication UI is handled by `ui.initializeUI(handleSignIn, handleSignOut)`
+    // and the auth module events (`msalLoginSuccess`) which call `updateUserState()`.
+    // The legacy `login-btn` wiring was removed to avoid duplicate/contradictory handlers.
+
+  } catch (error) {
+    console.error('Failed to initialize application:', error);
   }
-
-  // Set up UI with auth callbacks and admin functionality
-  ui.initializeUI(handleSignIn, handleSignOut);
-
-
-  // Check for authentication event
-  // Add MSAL login success listener, broadcast from auth.js
-  window.addEventListener('msalLoginSuccess', async (event) => {
-    console.log('MSAL Login Success Event:', event.detail);
-    // Update UI or perform actions after successful login
-    const { account } = event.detail.payload;
-    if (account) {
-      console.log(`User ${account.username} logged in successfully`);
-      console.log("Successful authentication response received");
-      await updateUserState();
-      fetchData();
-    }
-  })
-  
-  //   // Check if user is already signed in
-  await checkExistingAuth();
-
-
-        // Authentication UI is handled by `ui.initializeUI(handleSignIn, handleSignOut)`
-        // and the auth module events (`msalLoginSuccess`) which call `updateUserState()`.
-        // The legacy `login-btn` wiring was removed to avoid duplicate/contradictory handlers.
-
-    } catch (error) {
-        console.error('Failed to initialize application:', error);
-    }
 }
 
 /**
@@ -120,10 +124,12 @@ async function checkExistingAuth() {
   if (account) {
     console.log("Found existing account", account.username);
     await updateUserState();
+    ui.showManageRatingsTab(); // Show tab if already authenticated
   } else {
     // No account found, show unauthenticated state
     APP_STATE.authenticated = false;
     ui.showUnauthenticatedState();
+    ui.hideManageRatingsTab(); // Hide tab when not authenticated
   }
 }
 
@@ -149,6 +155,7 @@ async function updateUserState() {
     console.error("Error updating user state:", error);
     APP_STATE.authenticated = false;
     ui.showUnauthenticatedState();
+    ui.hideManageRatingsTab(); // Hide tab on error
   }
 }
 
@@ -181,6 +188,7 @@ function handleSignOut() {
     auth.signOut();
     APP_STATE.authenticated = false;
     ui.showUnauthenticatedState();
+    ui.hideManageRatingsTab(); // Hide tab when signing out
   } catch (error) {
     console.error("Sign out error:", error);
     ui.showError("Failed to sign out");

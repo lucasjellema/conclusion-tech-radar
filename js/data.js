@@ -1,7 +1,11 @@
 // Data handling for Technology Radar
+import { loadLocalRatings, loadCustomTechnologies } from './localRatings.js';
+
 let rawData = {
     technologies: [],
-    ratings: []
+    ratings: [],
+    localRatings: [],
+    customTechnologies: []
 };
 
 let activeFilters = {
@@ -33,6 +37,10 @@ export async function loadData() {
     rawData.ratings = ratingsData.statusPerBedrijf;
     rawData.companies = companiesData.companies || [];
 
+    // Load local ratings and custom technologies from localStorage
+    rawData.localRatings = loadLocalRatings();
+    rawData.customTechnologies = loadCustomTechnologies();
+
     // Initialise all companies as active
     // Include companies from companies.json even if they have no ratings
     return processRadarData();
@@ -43,18 +51,31 @@ export function handleFreshRatings(newRatings) {
     return processRadarData();
 }
 
+// Refresh local ratings and custom technologies from localStorage
+export function refreshLocalData() {
+    rawData.localRatings = loadLocalRatings();
+    rawData.customTechnologies = loadCustomTechnologies();
+    return processRadarData();
+}
+
 function processRadarData() {
-    const ratingCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
+    // Merge server ratings with local ratings
+    const allRatings = [...rawData.ratings, ...rawData.localRatings];
+
+    const ratingCompanies = [...new Set(allRatings.map(r => r.bedrijf))];
     const metaCompanies = (rawData.companies || []).map(c => c.name).filter(Boolean);
     const companies = [...new Set([...ratingCompanies, ...metaCompanies])];
     for (const c of companies) activeFilters.companies.add(c);
 
+    // Merge server technologies with custom technologies
+    const allTechnologies = [...rawData.technologies, ...rawData.customTechnologies];
+
     // Initialise all categories as active
-    const categories = [...new Set(rawData.technologies.map(t => t.category))];
+    const categories = [...new Set(allTechnologies.map(t => t.category))];
     for (const c of categories) activeFilters.categories.add(c);
 
     // Initialise all phases as active (from ratings data)
-    const phases = [...new Set(rawData.ratings.map(r => (r.fase || '').toLowerCase()))].filter(p => p);
+    const phases = [...new Set(allRatings.map(r => (r.fase || '').toLowerCase()))].filter(p => p);
     for (const p of phases) activeFilters.phases.add(p);
 
     return processData();
@@ -214,8 +235,12 @@ export function getProcessedData() {
 }
 
 function processData() {
+    // Merge server and local data
+    const allRatings = [...rawData.ratings, ...rawData.localRatings];
+    const allTechnologies = [...rawData.technologies, ...rawData.customTechnologies];
+
     // 1. Filter Ratings (company & date)
-    const filteredRatings = rawData.ratings.filter(r => {
+    const filteredRatings = allRatings.filter(r => {
         if (!activeFilters.companies.has(r.bedrijf)) return false;
         if (activeFilters.date) {
             const ratingDate = new Date(r.datumBeoordeling);
@@ -226,7 +251,7 @@ function processData() {
 
     // 2. Map Ratings to Technologies with additional filters
     const blips = filteredRatings.map(rating => {
-        const tech = rawData.technologies.find(t => t.identifier === rating.identifier);
+        const tech = allTechnologies.find(t => t.identifier === rating.identifier);
         if (!tech) return null;
         if (!activeFilters.categories.has(tech.category)) return null;
         const phase = (rating.fase || '').toLowerCase();
@@ -259,6 +284,7 @@ function processData() {
         categories: [...activeFilters.categories].sort((a, b) => a.localeCompare(b)),
         // Return only the active phases in the canonical order so the radar redraws
         // as if unselected rings do not exist.
-        phases: ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p))
+        phases: ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p)),
+        technologies: allTechnologies
     };
 }

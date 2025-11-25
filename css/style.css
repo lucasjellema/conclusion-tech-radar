@@ -610,6 +610,201 @@ header {
     width: 100%;
     padding: 0.5rem;
     border-radius: 4px;
+    stroke: var(--segment-color);
+    stroke-width: 1;
+    stroke-dasharray: 4;
+    transition: opacity 0.3s;
+}
+
+.blip {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.blip:hover circle {
+    stroke-width: 3px;
+    stroke: #fff;
+}
+
+.blip circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+.legend-text {
+    fill: var(--text-color);
+    font-size: 12px;
+    text-anchor: middle;
+    opacity: 0.9;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    background-color: var(--tooltip-bg);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    font-size: 0.9rem;
+}
+
+.tooltip.hidden {
+    display: none;
+}
+
+.tooltip h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-color);
+}
+
+.tooltip-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal {
+    background-color: var(--sidebar-bg);
+    width: 600px;
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.modal-header img {
+    width: 48px;
+    height: 48px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--accent-color);
+}
+
+.rating-card {
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--accent-color);
+}
+
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* Make the rating header more visually outstanding so it's clear whose rating it is */
+.rating-card .rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.03), rgba(99, 102, 241, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.rating-card .rating-header .company-name {
+    font-weight: 700;
+    color: var(--accent-color);
+    background: rgba(56, 189, 248, 0.06);
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    font-size: 1.4rem;
+}
+
+.rating-card .rating-header span:last-child {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.rating-phase {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.rating-phase.adopt {
+    color: var(--color-adopt);
+}
+
+.rating-phase.trial {
+    color: var(--color-trial);
+}
+
+.rating-phase.assess {
+    color: var(--color-assess);
+}
+
+.rating-phase.hold {
+    color: var(--color-hold);
+}
+
+.rating-phase.deprecate {
+    color: var(--color-deprecated);
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
     border: 1px solid var(--border-color);
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -625,4 +820,250 @@ header {
     border: 0;
     padding: 0;
     margin: -1px;
+}
+
+/* ============================================================================
+   TAB NAVIGATION & LOCAL RATINGS MANAGEMENT
+   ============================================================================ */
+
+.main-content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-navigation {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background-color: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.tab-btn.active {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+}
+
+.tab-content {
+    flex: 1;
+    overflow: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Radar tab content */
+#radar-tab-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Manage Ratings Container */
+.manage-ratings-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.manage-ratings-header {
+    margin-bottom: 2rem;
+}
+
+.manage-ratings-header h2 {
+    color: var(--accent-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.manage-ratings-header p {
+    color: #94a3b8;
+    margin: 0;
+}
+
+/* Company Selector */
+.company-selector-section {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.company-selector-section label {
+    font-weight: 600;
+    min-width: 100px;
+}
+
+.company-selector-wrapper {
+    flex: 1;
+    max-width: 400px;
+}
+
+#local-company-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+/* Action Buttons */
+.manage-ratings-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Ratings Table */
+.ratings-table-container {
+    background-color: var(--sidebar-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.ratings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ratings-table thead {
+    background-color: var(--bg-color);
+}
+
+.ratings-table th {
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.ratings-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ratings-table tbody tr:hover {
+    background-color: var(--bg-color);
+}
+
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-btn.small {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.no-ratings-message {
+    text-align: center;
+    padding: 3rem;
+    color: #94a3b8;
+}
+
+/* Rating Form in Modal */
+.rating-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* Filter button styles */
+.filter-btn {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: 1px solid var(--accent-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.visibility-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.visibility-controls label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
 }
