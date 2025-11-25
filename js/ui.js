@@ -911,6 +911,7 @@ function setupTabNavigation(updateRadarCallback) {
 function setupLocalRatingsEventListeners(updateRadarCallback) {
     const addBtn = document.getElementById('add-rating-btn');
     const downloadBtn = document.getElementById('download-ratings-btn');
+    const clearAllBtn = document.getElementById('clear-all-ratings-btn');
     const companyInput = document.getElementById('local-company-input');
 
     if (addBtn) {
@@ -921,6 +922,28 @@ function setupLocalRatingsEventListeners(updateRadarCallback) {
         downloadBtn.addEventListener('click', () => {
             const company = companyInput?.value || '';
             localRatings.downloadRatingsJSON(company);
+        });
+    }
+
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', async () => {
+            const count = localRatings.getLocalRatings().length;
+            if (count === 0) {
+                alert('No local ratings to clear.');
+                return;
+            }
+
+            const confirmed = confirm(`Are you sure you want to delete all ${count} local rating(s)? This action cannot be undone.`);
+            if (!confirmed) return;
+
+            localRatings.clearLocalRatings();
+            const newData = refreshLocalData();
+            renderLocalRatingsTable();
+
+            // Update radar if callback is available
+            if (updateRadarCallback) {
+                updateRadarCallback(newData);
+            }
         });
     }
 

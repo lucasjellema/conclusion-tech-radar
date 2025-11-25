@@ -61,6 +61,7 @@ export default {
     company_placeholder: "Select or enter company name",
     add_rating: "+ Add Rating",
     download_json: "Download JSON",
+    clear_all: "Clear All Ratings",
     no_ratings: "No local ratings yet. Click \"Add Rating\" to create your first rating.",
     table: {
       technology: "Technology",

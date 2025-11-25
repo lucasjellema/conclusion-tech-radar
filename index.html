@@ -2,193 +2,192 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Conclusion Technology Radar 2025 </title>
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="stylesheet" href="css/style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
-rel="stylesheet">
-<script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Conclusion Technology Radar 2025 </title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
-<header>
-<div class="logo" data-i18n-key="header.logo">Conclusion Technology Radar - Changes in 2025</div>
-<div style="display: flex; gap: 1rem; align-items: center;">
-<button id="theme-toggle" class="tag" data-i18n-key="header.theme">Theme</button>
-<div id="auth-area" style="display:flex; gap:0.5rem; align-items:center;">
-<div id="welcome-message" class="sr-only">&nbsp;</div>
-<button id="signin-button" class="filter-btn" data-i18n-key="header.login">Sign in</button>
-<button id="signout-button" class="filter-btn" data-i18n-key="header.logout">Sign out</button>
-</div>
-<label for="lang-select" class="sr-only" data-i18n-key="header.lang_label">Language</label>
-<select id="lang-select" aria-label="Language">
-<option value="en">EN</option>
-<option value="nl">NL</option>
-</select>
-</div>
-</header>
+    <header>
+        <div class="logo" data-i18n-key="header.logo">Conclusion Technology Radar - Changes in 2025</div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <button id="theme-toggle" class="tag" data-i18n-key="header.theme">Theme</button>
+            <div id="auth-area" style="display:flex; gap:0.5rem; align-items:center;">
+                <div id="welcome-message" class="sr-only">&nbsp;</div>
+                <button id="signin-button" class="filter-btn" data-i18n-key="header.login">Sign in</button>
+                <button id="signout-button" class="filter-btn" data-i18n-key="header.logout">Sign out</button>
+            </div>
+            <label for="lang-select" class="sr-only" data-i18n-key="header.lang_label">Language</label>
+            <select id="lang-select" aria-label="Language">
+                <option value="en">EN</option>
+                <option value="nl">NL</option>
+            </select>
+        </div>
+    </header>
 
-<div class="container">
-<aside class="sidebar">
-<div class="filter-section">
-<button id="reset-filters" class="filter-btn" data-i18n-key="filter.reset">Reset Filters</button>
-</div>
-<div class="filter-section">
-<h3 data-i18n-key="filter.search">Search</h3>
-<input type="text" id="search-filter" data-i18n-key="filter.search_placeholder" placeholder=""
-class="search-input">
-</div>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <button id="reset-filters" class="filter-btn" data-i18n-key="filter.reset">Reset Filters</button>
+            </div>
+            <div class="filter-section">
+                <h3 data-i18n-key="filter.search">Search</h3>
+                <input type="text" id="search-filter" data-i18n-key="filter.search_placeholder" placeholder=""
+                    class="search-input">
+            </div>
 
-<div class="filter-section">
-<h3><span data-i18n-key="filter.companies">Companies</span> <button
-id="company-collapse-toggle" class="collapse-toggle" aria-expanded="false">▸</button></h3>
-<div id="company-filter-body" class="collapsible hidden">
-<div id="company-filter" class="tag-cloud">
-<!-- Checkboxes will be injected here -->
-</div>
-</div>
-</div>
+            <div class="filter-section">
+                <h3><span data-i18n-key="filter.companies">Companies</span> <button id="company-collapse-toggle"
+                        class="collapse-toggle" aria-expanded="false">▸</button></h3>
+                <div id="company-filter-body" class="collapsible hidden">
+                    <div id="company-filter" class="tag-cloud">
+                        <!-- Checkboxes will be injected here -->
+                    </div>
+                </div>
+            </div>
 
-<div class="filter-section">
-<h3><span data-i18n-key="filter.categories">Categories</span></h3>
-<div id="category-filter" class="tag-cloud">
-<!-- Categories will be injected here -->
-</div>
-</div>
+            <div class="filter-section">
+                <h3><span data-i18n-key="filter.categories">Categories</span></h3>
+                <div id="category-filter" class="tag-cloud">
+                    <!-- Categories will be injected here -->
+                </div>
+            </div>
 
-<div class="filter-section">
-<h3><span data-i18n-key="filter.phases">Phases</span></h3>
-<div id="phase-filter" class="tag-cloud">
-<!-- Phases (rings) will be injected here -->
-</div>
-</div>
+            <div class="filter-section">
+                <h3><span data-i18n-key="filter.phases">Phases</span></h3>
+                <div id="phase-filter" class="tag-cloud">
+                    <!-- Phases (rings) will be injected here -->
+                </div>
+            </div>
 
-<div class="filter-section">
-<h3><span data-i18n-key="filter.date">Date</span></h3>
-<input type="date" id="date-filter">
-<label for="date-filter" data-i18n-key="filter.date_label">Show ratings after</label>
-</div>
+            <div class="filter-section">
+                <h3><span data-i18n-key="filter.date">Date</span></h3>
+                <input type="date" id="date-filter">
+                <label for="date-filter" data-i18n-key="filter.date_label">Show ratings after</label>
+            </div>
 
-<div class="filter-section">
-<h3><span data-i18n-key="filter.tags">Tags</span> <button id="tag-collapse-toggle"
-class="collapse-toggle" aria-expanded="false">▸</button></h3>
-<div id="tag-filter-body" class="collapsible hidden">
-<div id="tag-cloud" class="tag-cloud">
-<!-- Tags will be injected here -->
-</div>
-</div>
-</div>
+            <div class="filter-section">
+                <h3><span data-i18n-key="filter.tags">Tags</span> <button id="tag-collapse-toggle"
+                        class="collapse-toggle" aria-expanded="false">▸</button></h3>
+                <div id="tag-filter-body" class="collapsible hidden">
+                    <div id="tag-cloud" class="tag-cloud">
+                        <!-- Tags will be injected here -->
+                    </div>
+                </div>
+            </div>
 
-<div class="filter-section">
-<h3><span data-i18n-key="filter.visibility">Visibility</span></h3>
-<div class="visibility-controls">
-<label><input type="checkbox" id="toggle-rings" checked> <span
-data-i18n-key="filter.show_rings">Show Rings</span></label>
-<label><input type="checkbox" id="toggle-segments" checked> <span
-data-i18n-key="filter.show_segments">Show Segments</span></label>
-<label><input type="checkbox" id="toggle-blip-logos"> <span
-data-i18n-key="filter.show_blip_logos">Show Logos on Blips</span></label>
-</div>
-</div>
-</aside>
+            <div class="filter-section">
+                <h3><span data-i18n-key="filter.visibility">Visibility</span></h3>
+                <div class="visibility-controls">
+                    <label><input type="checkbox" id="toggle-rings" checked> <span
+                            data-i18n-key="filter.show_rings">Show Rings</span></label>
+                    <label><input type="checkbox" id="toggle-segments" checked> <span
+                            data-i18n-key="filter.show_segments">Show Segments</span></label>
+                    <label><input type="checkbox" id="toggle-blip-logos"> <span
+                            data-i18n-key="filter.show_blip_logos">Show Logos on Blips</span></label>
+                </div>
+            </div>
+        </aside>
 
-<div id="sidebar-resizer" title="Resize sidebar" aria-hidden="false"></div>
+        <div id="sidebar-resizer" title="Resize sidebar" aria-hidden="false"></div>
 
-<main class="main-content">
-<!-- Tab Navigation -->
-<div class="tab-navigation">
-<button id="radar-tab-btn" class="tab-btn active" data-tab="radar">
-<span data-i18n-key="tabs.radar">Radar</span>
-</button>
-<button id="manage-ratings-tab-btn" class="tab-btn" data-tab="manage-ratings" style="display: none;">
-<span data-i18n-key="tabs.manage_ratings">Manage Ratings</span>
-</button>
-</div>
+        <main class="main-content">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button id="radar-tab-btn" class="tab-btn active" data-tab="radar">
+                    <span data-i18n-key="tabs.radar">Radar</span>
+                </button>
+                <button id="manage-ratings-tab-btn" class="tab-btn" data-tab="manage-ratings" style="display: none;">
+                    <span data-i18n-key="tabs.manage_ratings">Manage Ratings</span>
+                </button>
+            </div>
 
-<!-- Radar Tab Content -->
-<div id="radar-tab-content" class="tab-content active">
-<div id="radar"></div>
-</div>
+            <!-- Radar Tab Content -->
+            <div id="radar-tab-content" class="tab-content active">
+                <div id="radar"></div>
+            </div>
 
-<!-- Manage Ratings Tab Content -->
-<div id="manage-ratings-tab-content" class="tab-content" style="display: none;">
-<div class="manage-ratings-container">
-<div class="manage-ratings-header">
-<h2 data-i18n-key="manage.title">Manage Local Ratings</h2>
-<p data-i18n-key="manage.description">Create and manage your own technology ratings. These ratings are stored
-locally in your browser and will appear in the radar alongside company ratings.</p>
-</div>
+            <!-- Manage Ratings Tab Content -->
+            <div id="manage-ratings-tab-content" class="tab-content" style="display: none;">
+                <div class="manage-ratings-container">
+                    <div class="manage-ratings-header">
+                        <h2 data-i18n-key="manage.title">Manage Local Ratings</h2>
+                        <p data-i18n-key="manage.description">Create and manage your own technology ratings. These
+                            ratings are stored
+                            locally in your browser and will appear in the radar alongside company ratings.</p>
+                    </div>
 
-<!-- Company Selector -->
-<div class="company-selector-section">
-<label for="local-company-input" data-i18n-key="manage.company_label">Company:</label>
-<div class="company-selector-wrapper">
-<input
-type="text"
-id="local-company-input"
-list="companies-datalist"
-placeholder="Select or enter company name"
-data-i18n-key="manage.company_placeholder"
-/>
-<datalist id="companies-datalist">
-<!-- Companies will be populated here -->
-</datalist>
-</div>
-</div>
+                    <!-- Company Selector -->
+                    <div class="company-selector-section">
+                        <label for="local-company-input" data-i18n-key="manage.company_label">Company:</label>
+                        <div class="company-selector-wrapper">
+                            <input type="text" id="local-company-input" list="companies-datalist"
+                                placeholder="Select or enter company name" data-i18n-key="manage.company_placeholder" />
+                            <datalist id="companies-datalist">
+                                <!-- Companies will be populated here -->
+                            </datalist>
+                        </div>
+                    </div>
 
-<!-- Action Buttons -->
-<div class="manage-ratings-actions">
-<button id="add-rating-btn" class="filter-btn">
-<span data-i18n-key="manage.add_rating">+ Add Rating</span>
-</button>
-<button id="download-ratings-btn" class="filter-btn">
-<span data-i18n-key="manage.download_json">Download JSON</span>
-</button>
-</div>
+                    <!-- Action Buttons -->
+                    <div class="manage-ratings-actions">
+                        <button id="add-rating-btn" class="filter-btn">
+                            <span data-i18n-key="manage.add_rating">+ Add Rating</span>
+                        </button>
+                        <button id="download-ratings-btn" class="filter-btn">
+                            <span data-i18n-key="manage.download_json">Download JSON</span>
+                        </button>
+                        <button id="clear-all-ratings-btn" class="filter-btn" style="background-color: #dc2626;">
+                            <span data-i18n-key="manage.clear_all">Clear All Ratings</span>
+                        </button>
+                    </div>
 
-<!-- Ratings Table -->
-<div class="ratings-table-container">
-<table id="local-ratings-table" class="ratings-table">
-<thead>
-<tr>
-<th data-i18n-key="manage.table.technology">Technology</th>
-<th data-i18n-key="manage.table.phase">Phase</th>
-<th data-i18n-key="manage.table.date">Date</th>
-<th data-i18n-key="manage.table.comment">Comment</th>
-<th data-i18n-key="manage.table.actions">Actions</th>
-</tr>
-</thead>
-<tbody id="local-ratings-tbody">
-<!-- Ratings will be populated here -->
-</tbody>
-</table>
-<div id="no-ratings-message" class="no-ratings-message" style="display: none;">
-<p data-i18n-key="manage.no_ratings">No local ratings yet. Click "Add Rating" to create your first
-rating.</p>
-</div>
-</div>
-</div>
-</div>
-</main>
-</div>
+                    <!-- Ratings Table -->
+                    <div class="ratings-table-container">
+                        <table id="local-ratings-table" class="ratings-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n-key="manage.table.technology">Technology</th>
+                                    <th data-i18n-key="manage.table.phase">Phase</th>
+                                    <th data-i18n-key="manage.table.date">Date</th>
+                                    <th data-i18n-key="manage.table.comment">Comment</th>
+                                    <th data-i18n-key="manage.table.actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="local-ratings-tbody">
+                                <!-- Ratings will be populated here -->
+                            </tbody>
+                        </table>
+                        <div id="no-ratings-message" class="no-ratings-message" style="display: none;">
+                            <p data-i18n-key="manage.no_ratings">No local ratings yet. Click "Add Rating" to create your
+                                first
+                                rating.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-<!-- Tooltip -->
-<div id="tooltip" class="tooltip hidden"></div>
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip hidden"></div>
 
-<!-- Modal -->
-<div id="modal-overlay" class="modal-overlay hidden">
-<div class="modal">
-<button id="modal-close" class="modal-close">&times;</button>
-<div id="modal-content"></div>
-</div>
-</div>
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <button id="modal-close" class="modal-close">&times;</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
 
-<script src="https://alcdn.msauth.net/browser/2.40.0/js/msal-browser.min.js"></script>
-<script type="module" src="js/main.js"></script>
+    <script src="https://alcdn.msauth.net/browser/2.40.0/js/msal-browser.min.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

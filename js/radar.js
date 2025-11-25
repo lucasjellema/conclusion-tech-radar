@@ -146,8 +146,8 @@ export function updateRadar(data) {
             nextIdx++;
         }
 
-            for (const cat of categoriesList) {
-                if (!Object.hasOwn(map, cat)) {
+        for (const cat of categoriesList) {
+            if (!Object.hasOwn(map, cat)) {
                 // Pick color from base palette if available, otherwise generate via d3.interpolateRainbow
                 let color;
                 if (nextIdx < BASE_SEGMENT_COLORS.length) {
@@ -158,7 +158,7 @@ export function updateRadar(data) {
                     const idx = Object.keys(map).length;
                     color = d3.interpolateRainbow((idx % 12) / 12);
                     // make it semi-transparent to match palette style
-                    color = (function(c) { return c.replace('rgb', 'rgba').replace(')', ',0.28)'); })((d3.color(color).formatRgb()));
+                    color = (function (c) { return c.replace('rgb', 'rgba').replace(')', ',0.28)'); })((d3.color(color).formatRgb()));
                 }
                 map[cat] = color;
             }
@@ -386,16 +386,16 @@ export function updateRadar(data) {
     const ICON_SIZE = Math.max(18, config.dotRadius * 4);
 
     if (showLogos) {
-            // Debug: log attempt to load logos so users can inspect console when Network shows nothing
-            try { console.debug('[radar] showLogos enabled - preparing to load logos for', blips.length, 'blips'); } catch (e) {}
+        // Debug: log attempt to load logos so users can inspect console when Network shows nothing
+        try { console.debug('[radar] showLogos enabled - preparing to load logos for', blips.length, 'blips'); } catch (e) { }
         // When logos are enabled, render the company logo image centered on the blip.
         // If no logo is available, fall back to colored symbol.
-        blipNodes.each(function(d, i) {
+        blipNodes.each(function (d, i) {
             const node = d3.select(this);
             // Prefer technology logo (from technologies.json) over company logo
             const logoUrl = d.logo || d.logoUrl || d.companyLogo || '';
             if (logoUrl) {
-                try { console.debug('[radar] attempting logo for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) {}
+                try { console.debug('[radar] attempting logo for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) { }
                 // Preload the image to detect load failure and avoid broken icons.
                 const imgEl = new Image();
                 // Do not force CORS; loading without crossOrigin matches how modal <img> works
@@ -405,22 +405,20 @@ export function updateRadar(data) {
                         .attr('r', ICON_SIZE / 2 + 2)
                         .style('fill', 'none')
                         .style('stroke', '#fff')
-                        .style('stroke-width', 1.2)
-                        .style('pointer-events', 'none');
+                        .style('stroke-width', 1.2);
 
                     const img = node.append('image')
                         .attr('width', ICON_SIZE)
                         .attr('height', ICON_SIZE)
                         .attr('x', -ICON_SIZE / 2)
                         .attr('y', -ICON_SIZE / 2)
-                        .attr('preserveAspectRatio', 'xMidYMid meet')
-                        .style('pointer-events', 'none');
+                        .attr('preserveAspectRatio', 'xMidYMid meet');
                     img.attr('href', logoUrl).attr('xlink:href', logoUrl);
-                    try { console.debug('[radar] logo loaded for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) {}
+                    try { console.debug('[radar] logo loaded for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) { }
                 };
                 imgEl.onerror = function () {
                     // fallback: render colored domain-shaped symbol
-                    try { console.debug('[radar] logo failed to load for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) {}
+                    try { console.debug('[radar] logo failed to load for tech=', d.identifier || d.name, 'company=', d.company, logoUrl); } catch (e) { }
                     node.append('path')
                         .attr('d', () => {
                             const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
