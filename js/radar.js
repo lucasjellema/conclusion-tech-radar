@@ -153,6 +153,60 @@ function renderCompanyLegend(blips) {
         item.className = 'legend-item';
         item.dataset.company = company;
 
+        // Domain symbol mapping (same as radar)
+        const DOMAIN_SYMBOLS = {
+            'Cloud & Mission Critical': 'square',
+            'Strategy & Business Consultany': 'triangle',
+            'Enterprise Applications': 'diamond',
+            'Data & AI': 'star',
+            'Experience & Software': 'circle'
+        };
+
+        // Add blip symbol (SVG) - 2.5x size
+        const symbolSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        symbolSvg.setAttribute('width', '40');
+        symbolSvg.setAttribute('height', '40');
+        symbolSvg.setAttribute('viewBox', '-20 -20 40 40');
+        symbolSvg.style.marginRight = '8px';
+        symbolSvg.style.flexShrink = '0';
+
+        const symbolShape = DOMAIN_SYMBOLS[meta.domain] || 'circle';
+        let pathData = '';
+
+        // Generate path data for each shape (scaled 2.5x)
+        switch (symbolShape) {
+            case 'circle':
+                pathData = 'M 0,-12.5 A 12.5,12.5 0 1,1 0,12.5 A 12.5,12.5 0 1,1 0,-12.5';
+                break;
+            case 'square':
+                pathData = 'M -10,-10 L 10,-10 L 10,10 L -10,10 Z';
+                break;
+            case 'triangle':
+                pathData = 'M 0,-12.5 L 10.825,6.25 L -10.825,6.25 Z';
+                break;
+            case 'diamond':
+                pathData = 'M 0,-12.5 L 12.5,0 L 0,12.5 L -12.5,0 Z';
+                break;
+            case 'star':
+                // 5-pointed star
+                const points = [];
+                for (let i = 0; i < 10; i++) {
+                    const radius = i % 2 === 0 ? 12.5 : 5;
+                    const angle = (i * Math.PI / 5) - Math.PI / 2;
+                    points.push(`${radius * Math.cos(angle)},${radius * Math.sin(angle)}`);
+                }
+                pathData = `M ${points.join(' L ')} Z`;
+                break;
+        }
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathData);
+        path.setAttribute('fill', meta.color || '#999');
+        path.setAttribute('stroke', '#fff');
+        path.setAttribute('stroke-width', '1');
+        symbolSvg.appendChild(path);
+        item.appendChild(symbolSvg);
+
         // Logo or Symbol
         if (meta.logo) {
             const img = document.createElement('img');
@@ -160,17 +214,6 @@ function renderCompanyLegend(blips) {
             img.className = 'legend-logo';
             img.alt = company;
             item.appendChild(img);
-        } else {
-            const symbolContainer = document.createElement('div');
-            symbolContainer.className = 'legend-symbol';
-            // Use a simple colored dot or similar if no logo
-            const dot = document.createElement('div');
-            dot.style.width = '12px';
-            dot.style.height = '12px';
-            dot.style.borderRadius = '50%';
-            dot.style.backgroundColor = meta.color || '#999';
-            symbolContainer.appendChild(dot);
-            item.appendChild(symbolContainer);
         }
 
         // Name
@@ -186,10 +229,10 @@ function renderCompanyLegend(blips) {
             const tEl = document.getElementById('tooltip');
             tEl.innerHTML = `<strong>${company}</strong><div style="margin-top:4px; font-size:0.8rem; color:#94a3b8">(${meta.domain})</div>`;
             tEl.classList.remove('hidden');
-            // Position tooltip near the legend item
+            // Position tooltip near the legend item (to the left)
             const rect = item.getBoundingClientRect();
-            tEl.style.left = (rect.left - 310) + 'px'; // Show to the left of legend
-            tEl.style.top = rect.top + 'px';
+            tEl.style.left = (rect.left - tEl.offsetWidth + 8) + 'px'; // 10px gap to the left
+            tEl.style.top = (rect.top + 0.3 * rect.height - tEl.offsetHeight / 2) + 'px'; // Vertically a little higher than the center
         });
         item.addEventListener('mouseleave', () => {
             resetHighlight();
