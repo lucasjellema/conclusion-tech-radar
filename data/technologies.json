@@ -727,7 +727,7 @@
   {
     "identifier": "scaleway",
     "name": "Scaleway",
-    "category": "Cloud Provider",
+    "category": "Cloud",
     "tags": [
       "european-cloud",
       "iaas",
@@ -742,7 +742,7 @@
   {
     "identifier": "ovh-cloud",
     "name": "OVHcloud",
-    "category": "Cloud Provider",
+    "category": "Cloud",
     "tags": [
       "european-cloud",
       "iaas",
@@ -758,7 +758,7 @@
   {
     "identifier": "stackit",
     "name": "StackIT",
-    "category": "Cloud Provider",
+    "category": "Cloud",
     "tags": [
       "european-cloud",
       "cloud-computing",
