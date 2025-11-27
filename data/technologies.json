@@ -142,7 +142,7 @@
   },
   {
     "identifier": "microsoft-azure-ai-foundry",
-    "name": "Azure AI Foundry",
+    "name": " Azure Foundry IQ (pka Azure AI Foundry)",
     "category": "Infrastructure",
     "tags": [
       "AI",
@@ -267,7 +267,7 @@
   {
     "identifier": "optimizely-opal",
     "name": "Optimizely Opal",
-    "category": "Productivity",
+    "category": "Tools",
     "tags": [
       "AI",
       "marketing",
@@ -784,5 +784,127 @@
     "logo": "https://cdn.simpleicons.org/webassembly",
     "vendor": "W3C (WebAssembly Community Group)",
     "homepage": "https://webassembly.org/"
+  },
+  {
+    "identifier": "copilot-dynamics365",
+    "name": "Copilot for Dynamics 365",
+    "category": "Business Applications",
+    "tags": [
+      "crm",
+      "erp",
+      "ai-assistant",
+      "microsoft-dynamics",
+      "copilot"
+    ],
+    "description": "AI-assistenten geïntegreerd in Dynamics 365-applicaties (zoals Sales, Customer Service, Marketing, etc.) om taken te automatiseren, inzichten te bieden en workflows te stroomlijnen.",
+    "logo": "https://cdn.simpleicons.org/microsoftdynamics365",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/microsoft-copilot/copilot-dynamics-365"
+  },
+  {
+    "identifier": "copilot-studio",
+    "name": "Copilot Studio",
+    "category": "Automation",
+    "tags": [
+      "chatbot",
+      "low-code",
+      "ai-assistant-building",
+      "microsoft-power-platform"
+    ],
+    "description": "Een platform waarmee je je eigen aangepaste Copilots, GPT's en autonome werkstroomagents kunt creëren en aanpassen, en deze kunt integreren in verschillende Microsoft-producten en diensten.",
+    "logo": "https://cdn.simpleicons.org/microsoftcopilot",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/power-platform/products/copilot-studio"
+  },
+  {
+    "identifier": "copilot-m365",
+    "name": "Copilot for Microsoft 365",
+    "category": "",
+    "tags": [
+      "office-productivity",
+      "ai-assistant",
+      "microsoft-365",
+      "generative-ai"
+    ],
+    "description": "Een AI-aangedreven assistent die is geïntegreerd in Microsoft 365-apps (zoals Word, Excel, PowerPoint, Outlook en Teams) om de productiviteit te verhogen door documenten, e-mails en presentaties te helpen creëren, samenvatten en analyseren.",
+    "logo": "https://cdn.simpleicons.org/microsoft365",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-365-copilot"
+  },
+  {
+    "identifier": "erp-mcp-server",
+    "name": "ERP MCP Server",
+    "category": "Tools",
+    "tags": [
+      "erp",
+      "backend",
+      "server-infrastructure",
+      "enterprise-software"
+    ],
+    "description": "Een generieke verwijzing naar de servers of infrastructuur (mogelijk Managed Cloud Platform, 'MCP') die de bedrijfskritische Enterprise Resource Planning (ERP) systemen hosten en ondersteunen.",
+    "logo": "https://cdn.simpleicons.org/serverless",
+    "vendor": "N/A (Afhankelijk van de specifieke ERP-vendor)",
+    "homepage": ""
+  },
+  {
+    "identifier": "dataverse-mcp-server",
+    "name": "Dataverse MCP Server",
+    "category": "Tools",
+    "tags": [
+      "data-platform",
+      "microsoft-dataverse",
+      "backend",
+      "server-infrastructure"
+    ],
+    "description": "De servers of infrastructuur (mogelijk Managed Cloud Platform, 'MCP') die Microsoft Dataverse (voorheen Common Data Service) hosten, de datalaag voor Power Platform en Dynamics 365-applicaties.",
+    "logo": "https://cdn.simpleicons.org/powerbi",
+    "vendor": "Microsoft",
+    "homepage": "https://powerplatform.microsoft.com/en-us/dataverse/"
+  },
+  {
+    "identifier": "work-iq",
+    "name": "Work IQ",
+    "category": "Data",
+    "tags": [
+      "business-intelligence",
+      "workflow-optimization",
+      "analytics",
+      "process-mining"
+    ],
+    "description": "Een platform of suite gericht op het bieden van intelligente inzichten in werkprocessen en workflows om efficiëntie en productiviteit te optimaliseren (mogelijk een productnaam van een specifieke vendor).",
+    "logo": "https://cdn.simpleicons.org/intelligence",
+    "vendor": "N/A (Generieke/Specifieke Vendor)",
+    "homepage": ""
+  },
+  {
+    "identifier": "azure-fabric-iq",
+    "name": "Azure Fabric IQ (pka Azure Fabric)",
+    "category": "Data",
+    "tags": [
+      "data-mesh",
+      "data-analytics",
+      "data-science",
+      "microsoft-azure",
+      "data-fabric"
+    ],
+    "description": "Verwijst naar **Microsoft Fabric**, een uniforme, AI-aangedreven data- en analyseplatform dat alle data-tools en -services van de organisatie samenbrengt (de 'IQ' term kan een interne of verouderde naam zijn).",
+    "logo": "https://cdn.simpleicons.org/microsoftazure",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/microsoft-fabric"
+  },
+  {
+    "identifier": "prosci-adkar",
+    "name": "PROSCI-ADKAR Veranderaanpak",
+    "category": "Methodology & Framework",
+    "tags": [
+      "change-management",
+      "adkar",
+      "project-management",
+      "organizational-change"
+    ],
+    "description": "Een gestructureerde en holistische benadering van verandermanagement, ontwikkeld door Prosci, gericht op de individuele veranderingen die nodig zijn voor succesvolle projectresultaten. ADKAR staat voor Awareness, Desire, Knowledge, Ability en Reinforcement.",
+    "logo": "https://cdn.simpleicons.org/strategy",
+    "vendor": "Prosci",
+    "homepage": "https://www.prosci.com/"
   }
 ]
