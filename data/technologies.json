@@ -887,6 +887,201 @@
       "microsoft-azure",
       "data-fabric"
     ],
+    "homepage": "https://www.uniserver.nl/"
+  },
+  {
+    "identifier": "nextcloud",
+    "name": "NextCloud",
+    "category": "Collaboration",
+    "tags": [
+      "file-sharing",
+      "collaboration",
+      "self-hosted",
+      "open-source"
+    ],
+    "description": "Open-source, zelf-hostable suite voor bestandssynchronisatie, delen, en communicatie, als alternatief voor publieke clouddiensten.",
+    "logo": "https://cdn.simpleicons.org/nextcloud",
+    "vendor": "Nextcloud GmbH",
+    "homepage": "https://nextcloud.com/"
+  },
+  {
+    "identifier": "cursor",
+    "name": "Cursor",
+    "category": "Tools",
+    "tags": [
+      "ide",
+      "ai-coding",
+      "editor",
+      "programming"
+    ],
+    "description": "Een AI-gedreven code-editor die gebaseerd is op VS Code, ontworpen om sneller te coderen en debuggen met behulp van AI-assistentie.",
+    "logo": "https://cdn.simpleicons.org/visualstudiocode",
+    "vendor": "Cursor",
+    "homepage": "https://www.cursor.so/"
+  },
+  {
+    "identifier": "scaleway",
+    "name": "Scaleway",
+    "category": "Cloud",
+    "tags": [
+      "european-cloud",
+      "iaas",
+      "cloud-computing",
+      "hosting"
+    ],
+    "description": "Een Europese cloud-infrastructuurprovider die een breed scala aan diensten biedt, waaronder compute, storage en bare metal.",
+    "logo": "https://cdn.simpleicons.org/scaleway",
+    "vendor": "Scaleway",
+    "homepage": "https://www.scaleway.com/"
+  },
+  {
+    "identifier": "ovh-cloud",
+    "name": "OVHcloud",
+    "category": "Cloud",
+    "tags": [
+      "european-cloud",
+      "iaas",
+      "paas",
+      "hosting",
+      "dedicated-servers"
+    ],
+    "description": "Een Franse wereldwijde cloudprovider die publieke en private cloudoplossingen, hosting en dedicated servers aanbiedt, met een focus op Europese data-soevereiniteit.",
+    "logo": "https://cdn.simpleicons.org/ovh",
+    "vendor": "OVHcloud",
+    "homepage": "https://www.ovhcloud.com/"
+  },
+  {
+    "identifier": "stackit",
+    "name": "StackIT",
+    "category": "Cloud",
+    "tags": [
+      "european-cloud",
+      "cloud-computing",
+      "iaas",
+      "data-sovereignty"
+    ],
+    "description": "De cloudprovider van de Schwarz Group (o.a. Lidl), gericht op veilige en soevereine cloudoplossingen, voornamelijk in Europa.",
+    "logo": "https://cdn.simpleicons.org/cloud",
+    "vendor": "Schwarz IT",
+    "homepage": "https://www.stackit.cloud/"
+  },
+  {
+    "identifier": "wasm",
+    "name": "WebAssembly (WASM)",
+    "category": "Platform",
+    "tags": [
+      "web-platform",
+      "runtime",
+      "performance",
+      "compilation-target"
+    ],
+    "description": "Een binaire instructie-formaat voor een stack-based virtuele machine. Ontworpen als een draagbare compilatie-target voor talen op het web en daarbuiten.",
+    "logo": "https://cdn.simpleicons.org/webassembly",
+    "vendor": "W3C (WebAssembly Community Group)",
+    "homepage": "https://webassembly.org/"
+  },
+  {
+    "identifier": "copilot-dynamics365",
+    "name": "Copilot for Dynamics 365",
+    "category": "Business Applications",
+    "tags": [
+      "crm",
+      "erp",
+      "ai-assistant",
+      "microsoft-dynamics",
+      "copilot"
+    ],
+    "description": "AI-assistenten geïntegreerd in Dynamics 365-applicaties (zoals Sales, Customer Service, Marketing, etc.) om taken te automatiseren, inzichten te bieden en workflows te stroomlijnen.",
+    "logo": "https://cdn.simpleicons.org/microsoftdynamics365",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/microsoft-copilot/copilot-dynamics-365"
+  },
+  {
+    "identifier": "copilot-studio",
+    "name": "Copilot Studio",
+    "category": "Automation",
+    "tags": [
+      "chatbot",
+      "low-code",
+      "ai-assistant-building",
+      "microsoft-power-platform"
+    ],
+    "description": "Een platform waarmee je je eigen aangepaste Copilots, GPT's en autonome werkstroomagents kunt creëren en aanpassen, en deze kunt integreren in verschillende Microsoft-producten en diensten.",
+    "logo": "https://cdn.simpleicons.org/microsoftcopilot",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/power-platform/products/copilot-studio"
+  },
+  {
+    "identifier": "copilot-m365",
+    "name": "Copilot for Microsoft 365",
+    "category": "",
+    "tags": [
+      "office-productivity",
+      "ai-assistant",
+      "microsoft-365",
+      "generative-ai"
+    ],
+    "description": "Een AI-aangedreven assistent die is geïntegreerd in Microsoft 365-apps (zoals Word, Excel, PowerPoint, Outlook en Teams) om de productiviteit te verhogen door documenten, e-mails en presentaties te helpen creëren, samenvatten en analyseren.",
+    "logo": "https://cdn.simpleicons.org/microsoft365",
+    "vendor": "Microsoft",
+    "homepage": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-365-copilot"
+  },
+  {
+    "identifier": "erp-mcp-server",
+    "name": "ERP MCP Server",
+    "category": "Tools",
+    "tags": [
+      "erp",
+      "backend",
+      "server-infrastructure",
+      "enterprise-software"
+    ],
+    "description": "Een generieke verwijzing naar de servers of infrastructuur (mogelijk Managed Cloud Platform, 'MCP') die de bedrijfskritische Enterprise Resource Planning (ERP) systemen hosten en ondersteunen.",
+    "logo": "https://cdn.simpleicons.org/serverless",
+    "vendor": "N/A (Afhankelijk van de specifieke ERP-vendor)",
+    "homepage": ""
+  },
+  {
+    "identifier": "dataverse-mcp-server",
+    "name": "Dataverse MCP Server",
+    "category": "Tools",
+    "tags": [
+      "data-platform",
+      "microsoft-dataverse",
+      "backend",
+      "server-infrastructure"
+    ],
+    "description": "De servers of infrastructuur (mogelijk Managed Cloud Platform, 'MCP') die Microsoft Dataverse (voorheen Common Data Service) hosten, de datalaag voor Power Platform en Dynamics 365-applicaties.",
+    "logo": "https://cdn.simpleicons.org/powerbi",
+    "vendor": "Microsoft",
+    "homepage": "https://powerplatform.microsoft.com/en-us/dataverse/"
+  },
+  {
+    "identifier": "work-iq",
+    "name": "Work IQ",
+    "category": "Data",
+    "tags": [
+      "business-intelligence",
+      "workflow-optimization",
+      "analytics",
+      "process-mining"
+    ],
+    "description": "Een platform of suite gericht op het bieden van intelligente inzichten in werkprocessen en workflows om efficiëntie en productiviteit te optimaliseren (mogelijk een productnaam van een specifieke vendor).",
+    "logo": "https://cdn.simpleicons.org/intelligence",
+    "vendor": "N/A (Generieke/Specifieke Vendor)",
+    "homepage": ""
+  },
+  {
+    "identifier": "azure-fabric-iq",
+    "name": "Azure Fabric IQ (pka Azure Fabric)",
+    "category": "Data",
+    "tags": [
+      "data-mesh",
+      "data-analytics",
+      "data-science",
+      "microsoft-azure",
+      "data-fabric"
+    ],
     "description": "Verwijst naar **Microsoft Fabric**, een uniforme, AI-aangedreven data- en analyseplatform dat alle data-tools en -services van de organisatie samenbrengt (de 'IQ' term kan een interne of verouderde naam zijn).",
     "logo": "https://cdn.simpleicons.org/microsoftazure",
     "vendor": "Microsoft",
@@ -906,5 +1101,49 @@
     "logo": "https://cdn.simpleicons.org/strategy",
     "vendor": "Prosci",
     "homepage": "https://www.prosci.com/"
+  },
+  {
+    "identifier": "ai-agents",
+    "name": "AI Agents",
+    "category": "Tools",
+    "tags": [
+      "AI",
+      "Agents",
+      "Automation",
+      "LLM"
+    ],
+    "description": "Autonomous or semi-autonomous software agents powered by AI to perform tasks.",
+    "logo": "https://cdn.simpleicons.org/robotframework",
+    "vendor": "Various",
+    "homepage": ""
+  },
+  {
+    "identifier": "gen-ai",
+    "name": "Generative AI",
+    "category": "Tools",
+    "tags": [
+      "AI",
+      "Generative AI",
+      "LLM",
+      "Content Creation"
+    ],
+    "description": "Artificial intelligence capable of generating text, images, or other media.",
+    "logo": "https://cdn.simpleicons.org/openai",
+    "vendor": "Various",
+    "homepage": ""
+  },
+  {
+    "identifier": "model-netwerksamenwerking",
+    "name": "Model Netwerksamenwerking",
+    "category": "Methodology",
+    "tags": [
+      "Collaboration",
+      "Network",
+      "Organizational Model"
+    ],
+    "description": "Een model voor samenwerking in netwerken, gericht op flexibiliteit en gedeelde doelen.",
+    "logo": "https://cdn.simpleicons.org/diagrams",
+    "vendor": "Morgens",
+    "homepage": ""
   }
 ]
