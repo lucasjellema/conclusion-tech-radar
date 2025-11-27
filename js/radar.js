@@ -1,6 +1,7 @@
 // D3 Radar Visualization
 
 import { t } from './i18n.js';
+import { getCompanyByName, getRatingCountsByCategoryForCompany, getRatingsForCompany } from './data.js';
 
 let svg, width, height, radius;
 let g;
@@ -83,6 +84,143 @@ export function initRadar(data) {
     }
 
     updateRadar(data);
+}
+
+function renderCompanyLegend(blips) {
+    let legendContainer = document.getElementById('company-legend');
+    if (!legendContainer) {
+        const radarContainer = document.getElementById('radar').parentElement;
+        // Ensure parent has relative positioning for absolute child
+        if (getComputedStyle(radarContainer).position === 'static') {
+            radarContainer.style.position = 'relative';
+        }
+        legendContainer = document.createElement('div');
+        legendContainer.id = 'company-legend';
+        legendContainer.className = 'company-legend';
+        radarContainer.appendChild(legendContainer);
+    }
+    // 1. Filter companies by visible blips
+    const companyCounts = {};
+    const companyMeta = {}; // Store metadata (logo, domain)
+
+    blips.forEach(blip => {
+        const company = blip.company;
+        if (!company) {
+            return;
+        }
+        companyCounts[company] = (companyCounts[company] || 0) + 1;
+        if (!companyMeta[company]) {
+            companyMeta[company] = {
+                name: company,
+                logo: blip.companyLogo,
+                domain: blip.companyDomain,
+                color: blip.companyColor,
+                homepage: blip.companyHomepage
+            };
+        }
+    });
+
+    const sortedCompanies = Object.keys(companyCounts).sort((a, b) => {
+        // Sort by count (desc)
+        const countDiff = companyCounts[b] - companyCounts[a];
+        if (countDiff !== 0) return countDiff;
+        // Then by name (asc)
+        return a.localeCompare(b);
+    });
+
+    legendContainer.innerHTML = '';
+
+    if (sortedCompanies.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'legend-item';
+        emptyMsg.style.cursor = 'default';
+        emptyMsg.style.color = '#94a3b8';
+        emptyMsg.textContent = 'No companies visible';
+        legendContainer.appendChild(emptyMsg);
+        return;
+    }
+
+    sortedCompanies.forEach(company => {
+        const meta = companyMeta[company];
+        const item = document.createElement('div');
+        item.className = 'legend-item';
+        item.dataset.company = company;
+
+        // Logo or Symbol
+        if (meta.logo) {
+            const img = document.createElement('img');
+            img.src = meta.logo;
+            img.className = 'legend-logo';
+            img.alt = company;
+            item.appendChild(img);
+        } else {
+            const symbolContainer = document.createElement('div');
+            symbolContainer.className = 'legend-symbol';
+            // Use a simple colored dot or similar if no logo
+            const dot = document.createElement('div');
+            dot.style.width = '12px';
+            dot.style.height = '12px';
+            dot.style.borderRadius = '50%';
+            dot.style.backgroundColor = meta.color || '#999';
+            symbolContainer.appendChild(dot);
+            item.appendChild(symbolContainer);
+        }
+
+        // Name
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'legend-name';
+        nameSpan.textContent = company;
+        item.appendChild(nameSpan);
+
+        // Events
+        item.addEventListener('mouseenter', () => {
+            highlightCompany(company);
+            // Show tooltip
+            const tEl = document.getElementById('tooltip');
+            tEl.innerHTML = `<strong>${company}</strong><div style="margin-top:4px; font-size:0.8rem; color:#94a3b8">(${meta.domain})</div>`;
+            tEl.classList.remove('hidden');
+            // Position tooltip near the legend item
+            const rect = item.getBoundingClientRect();
+            tEl.style.left = (rect.left - 310) + 'px'; // Show to the left of legend
+            tEl.style.top = rect.top + 'px';
+        });
+        item.addEventListener('mouseleave', () => {
+            resetHighlight();
+            document.getElementById('tooltip').classList.add('hidden');
+        });
+        item.addEventListener('click', () => {
+            const meta = getCompanyByName(company) || { name: company };
+            const counts = getRatingCountsByCategoryForCompany(company);
+            const ratings = getRatingsForCompany(company);
+            const modalData = {
+                type: 'company',
+                name: meta.name || company,
+                description: meta.description || '',
+                logo: meta.logo || '',
+                homepage: meta.homepage || '',
+                domain: meta.domain || '',
+                ratingCounts: counts,
+                ratings: ratings
+            };
+            document.dispatchEvent(new CustomEvent('open-modal', { detail: modalData }));
+        });
+        legendContainer.appendChild(item);
+    });
+}
+
+function highlightCompany(companyName) {
+    d3.selectAll('.blip')
+        .classed('dimmed', true)
+        .filter(d => d.company === companyName)
+        .classed('dimmed', false)
+        .classed('highlighted', true)
+        .raise();
+}
+
+function resetHighlight() {
+    d3.selectAll('.blip')
+        .classed('highlighted', false)
+        .classed('dimmed', false);
 }
 
 function resizeCanvas(container) {
@@ -487,6 +625,8 @@ export function updateRadar(data) {
     } catch (e) {
         // ignore legend errors
     }
+
+    renderCompanyLegend(blips);
 }
 
 function getPhaseColor(phase) {

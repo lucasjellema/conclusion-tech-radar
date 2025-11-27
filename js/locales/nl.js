@@ -61,7 +61,7 @@ export default {
     company_placeholder: "Selecteer of voer bedrijfsnaam in",
     add_rating: "+ Beoordeling Toevoegen",
     download_json: "Download JSON",
-    clear_all: "Alle Beoordelingen Wissen",
+    clear_all: "Lokale Beoordelingen Wissen",
     no_ratings: "Nog geen lokale beoordelingen. Klik op \"Beoordeling Toevoegen\" om je eerste beoordeling te maken.",
     table: {
       technology: "Technologie",
