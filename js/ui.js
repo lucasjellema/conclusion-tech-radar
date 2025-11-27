@@ -1,4 +1,5 @@
 import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData, getCompanyByName, getRatingsForCompany, getRatingCountsByCategoryForCompany } from './data.js';
+import { toggleOptimization } from './radar.js';
 import { t, translatePage } from './i18n.js';
 
 // CSS classes for styling different states
@@ -432,6 +433,20 @@ function setupEventListeners(updateCallback) {
             if (dateInput) dateInput.value = '';
             const searchInput = document.getElementById('search-filter');
             if (searchInput) searchInput.value = '';
+        });
+    }
+
+    // Optimize Radar button
+    const optimizeBtn = document.getElementById('optimize-radar');
+    if (optimizeBtn) {
+        optimizeBtn.addEventListener('click', () => {
+            const isOptimized = toggleOptimization();
+            optimizeBtn.classList.toggle('active', isOptimized);
+            optimizeBtn.style.backgroundColor = isOptimized ? '#10b981' : 'var(--accent-color)';
+            const label = optimizeBtn.querySelector('span');
+            if (label) {
+                label.textContent = isOptimized ? t('filter.reset_view', 'Reset View') : t('filter.optimize', 'Optimize');
+            }
         });
     }
 

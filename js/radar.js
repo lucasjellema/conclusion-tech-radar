@@ -7,6 +7,13 @@ let svg, width, height, radius;
 let g;
 let currentData = null;
 let resizeObserver = null;
+let isOptimized = false;
+
+export function toggleOptimization() {
+    isOptimized = !isOptimized;
+    if (currentData) updateRadar(currentData);
+    return isOptimized;
+}
 
 const config = {
     margin: 50,
@@ -235,26 +242,34 @@ export function updateRadar(data) {
     currentData = data;
     g.selectAll("*").remove(); // Clear canvas
 
-    const { blips, categories, phases } = data;
-    // If there are no active phases, don't draw rings or blips
-    if (!phases || phases.length === 0) return;
-
-    // Compute ring radius based on number of active phases so removed phases compress layout
-    const ringRadius = radius / phases.length;
-    const angleSlice = (Math.PI * 2) / categories.length;
+    let { blips, categories, phases } = data;
 
     // 1. Draw Segments (Categories)
-    const showSegments = document.getElementById('toggle-segments').checked;
+    const showSegments = document.getElementById('toggle-segments') ? document.getElementById('toggle-segments').checked : true;
 
-    // Define subtle colors for segments. We keep a stable mapping between
-    // category -> color for the duration of the browser session so colors
-    // don't shift when categories are hidden/shown or when drilling down.
     const BASE_SEGMENT_COLORS = [
         "rgba(59, 130, 246, 0.3)",
         "rgba(16, 185, 129, 0.3)",
         "rgba(245, 158, 11, 0.3)",
         "rgba(239, 68, 68, 0.3)",
         "rgba(139, 92, 246, 0.3)"];
+
+    // If optimized, filter out empty categories and phases
+    if (isOptimized) {
+        // Find all used categories and phases from blips
+        const usedCategories = new Set(blips.map(b => b.category));
+        const usedPhases = new Set(blips.map(b => (b.rating.fase || '').toLowerCase()));
+
+        categories = categories.filter(c => usedCategories.has(c));
+        phases = phases.filter(p => usedPhases.has(p));
+    }
+
+    // If there are no active phases, don't draw rings or blips
+    if (!phases || phases.length === 0) return;
+
+    // Compute ring radius and angle slice based on number of active phases/categories
+    const angleSlice = Math.PI * 2 / (categories.length || 1);
+    const ringRadius = radius / (phases.length || 1);
 
     // Read or initialize category->color mapping in sessionStorage
     function loadCategoryColorMap() {
@@ -439,7 +454,72 @@ export function updateRadar(data) {
         blip.x = r * Math.cos(theta);
         blip.y = r * Math.sin(theta);
 
-        // companyColor will be assigned later based on domain/company mapping
+        // Store polar coordinates for force simulation constraints
+        blip.r = r;
+        blip.theta = theta;
+        blip.innerR = innerR;
+        blip.outerR = outerR;
+        blip.startAngle = startAngle;
+        blip.endAngle = endAngle;
+    }
+
+
+    if (isOptimized) {
+        // Run a force simulation to distribute blips with stronger repulsion
+        const simulation = d3.forceSimulation(blips)
+            .force("charge", d3.forceManyBody().strength(-50)) // Repel blips from each other
+            .force("collide", d3.forceCollide(25).strength(1).iterations(3)) // Prevent overlap with larger radius
+            .stop();
+
+        // Custom constraint to keep blips within their sector/ring
+        // Run more iterations for better distribution
+        for (let i = 0; i < 200; ++i) {
+            simulation.tick();
+            blips.forEach(d => {
+                // Convert back to polar
+                let r = Math.sqrt(d.x * d.x + d.y * d.y);
+                let theta = Math.atan2(d.y, d.x);
+
+                // Clamp radius to keep within ring bounds
+                r = Math.max(d.innerR + 12, Math.min(d.outerR - 12, r));
+
+                // Clamp angle to keep within sector bounds
+                // Normalize theta to match our angle range
+                if (theta < d.startAngle) {
+                    theta = d.startAngle + 0.05;
+                } else if (theta > d.endAngle) {
+                    theta = d.endAngle - 0.05;
+                }
+
+                // Push blips away from vertical center axis (where ring labels are)
+                // Ring labels are at x=0, so we want to avoid the region around x=0
+                const labelExclusionWidth = 60; // pixels on either side of center
+                let x = r * Math.cos(theta);
+                let y = r * Math.sin(theta);
+
+                if (Math.abs(x) < labelExclusionWidth && y < 0) {
+                    // Blip is too close to the vertical axis in the upper half
+                    // Push it left or right depending on which side it's on
+                    if (x >= 0) {
+                        x = labelExclusionWidth;
+                    } else {
+                        x = -labelExclusionWidth;
+                    }
+                    // Recalculate theta and r from the new x,y
+                    theta = Math.atan2(y, x);
+                    r = Math.sqrt(x * x + y * y);
+
+                    // Re-clamp to ensure we're still in bounds
+                    r = Math.max(d.innerR + 12, Math.min(d.outerR - 12, r));
+                    if (theta < d.startAngle) theta = d.startAngle + 0.05;
+                    if (theta > d.endAngle) theta = d.endAngle - 0.05;
+                }
+
+                // Update position
+                d.x = r * Math.cos(theta);
+                d.y = r * Math.sin(theta);
+            });
+        }
     }
 
     // Prepare company color mapping per-domain and domain->symbol mapping
