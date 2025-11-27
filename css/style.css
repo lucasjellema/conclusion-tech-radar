@@ -205,8 +205,9 @@ header {
     position: relative;
     overflow: hidden;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-left: 50px;
 }
 
 /* SVG Styles */
@@ -1073,7 +1074,7 @@ header {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    width: 250px;
+    width: 170px;
     max-height: calc(100% - 2rem);
     overflow-y: auto;
     background-color: rgba(15, 23, 42, 0.8);
@@ -1081,11 +1082,11 @@ header {
     backdrop-filter: blur(4px);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 0.5rem;
+    padding: 0.3rem;
     z-index: 50;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.15rem;
 }
 
 [data-theme="light"] .company-legend {
@@ -1095,7 +1096,7 @@ header {
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.25rem;
     padding: 0.1rem;
     border-radius: 6px;
     cursor: pointer;
@@ -1290,8 +1291,8 @@ header {
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem;
+    gap: 0.25rem;
+    padding: 0.05rem;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -1324,7 +1325,7 @@ header {
 }
 
 .legend-name {
-    font-size: 0.85rem;
+    font-size: 0.65rem;
     font-weight: 500;
     color: var(--text-color);
     white-space: nowrap;
