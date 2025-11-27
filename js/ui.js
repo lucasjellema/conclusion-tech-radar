@@ -1055,10 +1055,21 @@ function openRatingModal(rating, updateRadarCallback) {
     // Get all technologies for dropdown
     const { technologies } = getProcessedData();
     const customTechs = localRatings.getCustomTechnologies();
-    const allTechs = [...new Set([...technologies, ...customTechs])];
+    // const allTechs = [...new Set([...technologies, ...customTechs])];
 
     // Sort technologies alphabetically by name
+    const uniqueTechs = new Map();
+    [...technologies, ...customTechs].forEach(tech => {
+        // Prioritize the first encountered technology for a given name
+        if (!uniqueTechs.has(tech.name)) {
+            uniqueTechs.set(tech.name, tech);
+        }
+    });
+    const allTechs = Array.from(uniqueTechs.values());
     allTechs.sort((a, b) => a.name.localeCompare(b.name));
+
+    // Get unique categories for the datalist
+    const uniqueCategories = [...new Set(technologies.map(t => t.category))].sort((a, b) => a.localeCompare(b));
 
     content.innerHTML = `
         <h2>${title}</h2>
@@ -1083,7 +1094,10 @@ function openRatingModal(rating, updateRadarCallback) {
                 </div>
                 <div class="form-group">
                     <label for="custom-tech-category">Category:</label>
-                    <input type="text" id="custom-tech-category" />
+                    <input type="text" id="custom-tech-category" list="custom-tech-category-list" placeholder="Select or type new category" />
+                    <datalist id="custom-tech-category-list">
+                        ${uniqueCategories.map(c => `<option value="${c}"></option>`).join('')}
+                    </datalist>
                 </div>
                 <div class="form-group">
                     <label for="custom-tech-description">Description:</label>
