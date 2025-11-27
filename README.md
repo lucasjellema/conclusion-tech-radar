@@ -5,12 +5,15 @@
 **Key Features**
 - Interactive radar visualization with D3.js.
 - Filters for categories, phases (rings), companies (grouped by domain), and tags.
+- **Company Legend:** Visual list of companies on the right, sorted by blip count. Hover to highlight.
+- **Radar Optimization:** "Optimize" button to hide empty sectors and improve blip distribution using a polar grid layout.
+- **Local Ratings:** Authenticated users can create and manage their own ratings locally via the "Manage Ratings" tab.
 - Drill-down by double-clicking category or phase labels.
 - Sidebar with resizable width and collapsible sections.
 - Session-sticky color mapping for categories and companies.
 - EN/NL localization and dynamic UI translations.
-- Company details modal: double-click a company tag in the sidebar to open a modal with description, domain, logo, homepage and the number of ratings per category.
-- Companies without ratings are now included in the company filter panel (so you can discover and open metadata-driven company pages even before any ratings exist).
+- Company details modal: double-click a company tag in the sidebar or legend to open a modal with details.
+- Companies without ratings are now included in the company filter panel.
 
 **Authentication (Microsoft Entra ID / MSAL)**
 - The app includes an optional Microsoft Entra ID (Azure AD / MSAL) sign-in flow using `msal-browser` (popup flow). A `Sign in` button appears in the header when unauthenticated; after sign-in the header shows `Sign out` and a short welcome message with the authenticated user's display name.
@@ -22,24 +25,29 @@
 - Third-party libraries: D3.js and MSAL (msal-browser) — both loaded via CDN in `index.html`.
 
 Main source files
-- `index.html` — app shell and UI layout (header includes `Sign in` / `Sign out` buttons and a `#welcome-message` area).
+- `index.html` — app shell and UI layout.
 - `css/style.css` — application styles and theme variables.
 - `js/main.js` — app bootstrap (initialize i18n, data, UI and radar) and auth bootstrap.
 - `js/auth.js` — MSAL wrapper for sign-in/sign-out and token/profile retrieval.
-- `js/data.js` — loads JSON data and manages filter state and processing (includes helpers to compute rating counts by company/category).
-- `js/ui.js` — renders filters, sidebar interactions, modal, and event wiring (handles showing/hiding authenticated UI and welcome message).
-- `js/radar.js` — D3 radar rendering, responsive sizing, legend and blips.
+- `js/data.js` — loads JSON data, manages filter state, and handles local ratings merging.
+- `js/ui.js` — renders filters, sidebar interactions, modal, and event wiring.
+- `js/radar.js` — Main entry point for radar visualization.
+- `js/radar/` — Directory containing radar modules:
+  - `radar-colors.js` — Color management.
+  - `radar-legend.js` — Company legend rendering.
+  - `radar-layout.js` — Blip positioning and layout logic.
 - `js/i18n.js`, `js/locales/en.js`, `js/locales/nl.js` — localization helpers and translation files.
 
 Data files
 - `data/ratings.json` — core ratings and blip definitions used to plot the radar.
 - `data/technologies.json` — supporting metadata about technologies (if present).
-- `data/companies.json` — company metadata (name, domain, logo, homepage) used to group companies and enrich modals. Several company records were recently added; new metadata entries (including `Netvlies`) may contain placeholder homepages/logos that you can update later.
+- `data/companies.json` — company metadata (name, domain, logo, homepage).
 
 Session / Local storage keys
 - `sessionStorage.radarCategoryColors` — saved category → color map for the session.
 - `sessionStorage.radarCompanyColors` — saved company → color map for the session.
 - `localStorage.theme` — persisted theme (`dark`/`light`).
+- `localStorage.radarLocalRatings` — locally stored user ratings.
 
 Running locally
 - No build step required. Serve the repository root over a static HTTP server and open `index.html` in your browser.
