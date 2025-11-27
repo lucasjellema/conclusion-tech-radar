@@ -948,10 +948,11 @@ function setupLocalRatingsEventListeners(updateRadarCallback) {
                 return;
             }
 
-            const confirmed = confirm(`Are you sure you want to delete all ${count} local rating(s)? This action cannot be undone.`);
+            const confirmed = confirm(`Are you sure you want to delete all ${count} local rating(s) and any custom technologies? This action cannot be undone.`);
             if (!confirmed) return;
 
             localRatings.clearLocalRatings();
+            localRatings.clearCustomTechnologies();
             const newData = refreshLocalData();
             renderLocalRatingsTable();
 

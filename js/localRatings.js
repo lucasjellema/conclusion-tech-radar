@@ -228,6 +228,30 @@ export function downloadRatingsJSON(companyName) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
+    // Also download custom technologies if any exist
+    downloadCustomTechnologiesJSON();
+}
+
+/**
+ * Download custom technologies as JSON file
+ */
+export function downloadCustomTechnologiesJSON() {
+    const technologies = loadCustomTechnologies();
+    if (technologies.length === 0) return;
+
+    const json = JSON.stringify(technologies, null, 2);
+    const filename = 'custom-technologies.json';
+
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 
 /**
