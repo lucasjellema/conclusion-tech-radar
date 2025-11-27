@@ -57,13 +57,13 @@ export function initRadar(data) {
             resizeCanvas(containerNode);
             if (svg) {
                 svg.attr('width', width).attr('height', height);
-                g.attr('transform', `translate(${width / 2},${height / 2})`);
+                g.attr('transform', `translate(${0.4 * width},${height / 2})`);
             }
             if (resizeTimer) clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 if (svg) {
                     svg.attr('width', width).attr('height', height);
-                    g.attr('transform', `translate(${width / 2},${height / 2})`);
+                    g.attr('transform', `translate(${0.4 * width},${height / 2})`);
                 }
                 if (currentData) updateRadar(currentData);
             }, RESIZE_DEBOUNCE_MS);
@@ -77,13 +77,13 @@ export function initRadar(data) {
             resizeCanvas(container);
             if (svg) {
                 svg.attr('width', width).attr('height', height);
-                g.attr('transform', `translate(${width / 2},${height / 2})`);
+                g.attr('transform', `translate(${0.4 * width},${height / 2})`);
             }
             if (resizeTimerWin) clearTimeout(resizeTimerWin);
             resizeTimerWin = setTimeout(() => {
                 if (svg) {
                     svg.attr('width', width).attr('height', height);
-                    g.attr('transform', `translate(${width / 2},${height / 2})`);
+                    g.attr('transform', `translate(${0.4 * width},${height / 2})`);
                 }
                 if (currentData) updateRadar(currentData);
             }, RESIZE_DEBOUNCE_MS);
@@ -473,97 +473,80 @@ export function updateRadar(data) {
             });
     }
 
-    // 3. Calculate Blip Positions
+    // 3. Calculate Blip Positions using polar grid distribution
+    // Group blips by sector (ring + category) for better distribution
+    const sectorBlips = {};
     for (const blip of blips) {
         const phaseIndex = phases.indexOf((blip.rating.fase || '').toLowerCase());
         const catIndex = categories.indexOf(blip.category);
 
-        if (catIndex === -1) return; // Should not happen if data is consistent
-        if (phaseIndex === -1) return; // Phase was filtered out
+        if (catIndex === -1) continue;
+        if (phaseIndex === -1) continue;
 
-        // Radial bounds for this phase (compressed according to active phases)
         const innerR = phaseIndex * ringRadius;
         const outerR = (phaseIndex + 1) * ringRadius;
-
-        // Angular bounds for this category
-        // -PI/2 to rotate 0 to top
         const startAngle = catIndex * angleSlice - Math.PI / 2;
         const endAngle = (catIndex + 1) * angleSlice - Math.PI / 2;
 
-        // Random position within the sector
-        const r = Math.random() * (outerR - innerR - 20) + innerR + 10;
-        const theta = Math.random() * (endAngle - startAngle - 0.2) + startAngle + 0.1;
-
-        blip.x = r * Math.cos(theta);
-        blip.y = r * Math.sin(theta);
-
-        // Store polar coordinates for force simulation constraints
-        blip.r = r;
-        blip.theta = theta;
         blip.innerR = innerR;
         blip.outerR = outerR;
         blip.startAngle = startAngle;
         blip.endAngle = endAngle;
-    }
 
-
-    if (isOptimized) {
-        // Run a force simulation to distribute blips with stronger repulsion
-        const simulation = d3.forceSimulation(blips)
-            .force("charge", d3.forceManyBody().strength(-50)) // Repel blips from each other
-            .force("collide", d3.forceCollide(25).strength(1).iterations(3)) // Prevent overlap with larger radius
-            .stop();
-
-        // Custom constraint to keep blips within their sector/ring
-        // Run more iterations for better distribution
-        for (let i = 0; i < 200; ++i) {
-            simulation.tick();
-            blips.forEach(d => {
-                // Convert back to polar
-                let r = Math.sqrt(d.x * d.x + d.y * d.y);
-                let theta = Math.atan2(d.y, d.x);
-
-                // Clamp radius to keep within ring bounds
-                r = Math.max(d.innerR + 12, Math.min(d.outerR - 12, r));
-
-                // Clamp angle to keep within sector bounds
-                // Normalize theta to match our angle range
-                if (theta < d.startAngle) {
-                    theta = d.startAngle + 0.05;
-                } else if (theta > d.endAngle) {
-                    theta = d.endAngle - 0.05;
-                }
-
-                // Push blips away from vertical center axis (where ring labels are)
-                // Ring labels are at x=0, so we want to avoid the region around x=0
-                const labelExclusionWidth = 60; // pixels on either side of center
-                let x = r * Math.cos(theta);
-                let y = r * Math.sin(theta);
-
-                if (Math.abs(x) < labelExclusionWidth && y < 0) {
-                    // Blip is too close to the vertical axis in the upper half
-                    // Push it left or right depending on which side it's on
-                    if (x >= 0) {
-                        x = labelExclusionWidth;
-                    } else {
-                        x = -labelExclusionWidth;
-                    }
-                    // Recalculate theta and r from the new x,y
-                    theta = Math.atan2(y, x);
-                    r = Math.sqrt(x * x + y * y);
-
-                    // Re-clamp to ensure we're still in bounds
-                    r = Math.max(d.innerR + 12, Math.min(d.outerR - 12, r));
-                    if (theta < d.startAngle) theta = d.startAngle + 0.05;
-                    if (theta > d.endAngle) theta = d.endAngle - 0.05;
-                }
-
-                // Update position
-                d.x = r * Math.cos(theta);
-                d.y = r * Math.sin(theta);
-            });
+        const key = `${phaseIndex}_${catIndex}`;
+        if (!sectorBlips[key]) {
+            sectorBlips[key] = [];
         }
+        sectorBlips[key].push(blip);
     }
+
+    // Distribute blips within each sector using polar grid
+    Object.values(sectorBlips).forEach(sectorBlipList => {
+        if (sectorBlipList.length === 0) return;
+
+        const firstBlip = sectorBlipList[0];
+        const innerR = firstBlip.innerR;
+        const outerR = firstBlip.outerR;
+        const startAngle = firstBlip.startAngle;
+        const endAngle = firstBlip.endAngle;
+
+        // Calculate grid dimensions in polar coordinates
+        const count = sectorBlipList.length;
+        const radialLevels = Math.ceil(Math.sqrt(count));
+        const angularDivisions = Math.ceil(count / radialLevels);
+
+        // Available space with margins
+        const radialSpace = outerR - innerR - 30;
+        const angularSpace = endAngle - startAngle - 0.15;
+
+        // Grid spacing
+        const radialStep = radialSpace / Math.max(1, radialLevels);
+        const angularStep = angularSpace / Math.max(1, angularDivisions);
+
+        // Distribute blips in polar grid
+        sectorBlipList.forEach((blip, idx) => {
+            const radialLevel = Math.floor(idx / angularDivisions);
+            const angularPos = idx % angularDivisions;
+
+            // Base position in polar grid
+            let r = innerR + 15 + (radialLevel + 0.5) * radialStep;
+            let theta = startAngle + 0.075 + (angularPos + 0.5) * angularStep;
+
+            // Add small jitter to avoid perfect grid (more natural)
+            r += (Math.random() - 0.5) * Math.min(radialStep * 0.3, 8);
+            theta += (Math.random() - 0.5) * Math.min(angularStep * 0.3, 0.08);
+
+            // Clamp to bounds
+            r = Math.max(innerR + 15, Math.min(outerR - 15, r));
+            theta = Math.max(startAngle + 0.05, Math.min(endAngle - 0.05, theta));
+
+            // Convert to Cartesian
+            blip.x = r * Math.cos(theta);
+            blip.y = r * Math.sin(theta);
+            blip.r = r;
+            blip.theta = theta;
+        });
+    });
 
     // Prepare company color mapping per-domain and domain->symbol mapping
     function loadCompanyColorMap() {
