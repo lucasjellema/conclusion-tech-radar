@@ -159,6 +159,8 @@ export function renderCompanyLegend(blips) {
                 logo: meta.logo || '',
                 homepage: meta.homepage || '',
                 domain: meta.domain || '',
+                belangrijksteOnderwerpen: meta.belangrijksteOnderwerpen || '',
+                toelichting: meta.toelichting || '',
                 ratingCounts: counts,
                 ratings: ratings
             };

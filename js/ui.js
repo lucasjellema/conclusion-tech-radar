@@ -180,6 +180,8 @@ function renderFilters(updateCallback) {
                     logo: meta.logo || '',
                     homepage: meta.homepage || '',
                     domain: meta.domain || '',
+                    belangrijksteOnderwerpen: meta.belangrijksteOnderwerpen || '',
+                    toelichting: meta.toelichting || '',
                     ratingCounts: counts,
                     ratings: ratings
                 };
@@ -634,6 +636,30 @@ function openModal(data) {
         const desc = document.createElement('p');
         desc.textContent = data.description || '';
         content.appendChild(desc);
+
+        // Add belangrijksteOnderwerpen if present
+        if (data.belangrijksteOnderwerpen) {
+            const h3Topics = document.createElement('h3');
+            h3Topics.textContent = 'Belangrijkste Onderwerpen';
+            h3Topics.style.marginTop = '1.5rem';
+            content.appendChild(h3Topics);
+
+            const topicsP = document.createElement('p');
+            topicsP.textContent = data.belangrijksteOnderwerpen;
+            content.appendChild(topicsP);
+        }
+
+        // Add toelichting if present
+        if (data.toelichting) {
+            const h3Explanation = document.createElement('h3');
+            h3Explanation.textContent = 'Toelichting';
+            h3Explanation.style.marginTop = '1.5rem';
+            content.appendChild(h3Explanation);
+
+            const explanationP = document.createElement('p');
+            explanationP.textContent = data.toelichting;
+            content.appendChild(explanationP);
+        }
 
         const h3Counts = document.createElement('h3');
         h3Counts.textContent = t('modal.rating_counts');

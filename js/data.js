@@ -37,6 +37,29 @@ export async function loadData() {
     rawData.ratings = ratingsData.statusPerBedrijf;
     rawData.companies = companiesData.companies || [];
 
+    // Merge toelichtingPerBedrijf into company metadata
+    const companyDetails = ratingsData.toelichtingPerBedrijf || {};
+
+    // 1. Enrich existing companies in rawData.companies
+    for (const company of rawData.companies) {
+        if (companyDetails[company.name]) {
+            Object.assign(company, companyDetails[company.name]);
+        }
+    }
+
+    // 2. Add companies from toelichtingPerBedrijf that are missing in rawData.companies
+    //    (This ensures getCompanyByName finds them even if companies.json is incomplete)
+    const existingNames = new Set(rawData.companies.map(c => c.name));
+    for (const [name, details] of Object.entries(companyDetails)) {
+        if (!existingNames.has(name)) {
+            rawData.companies.push({
+                name: name,
+                ...details
+            });
+            existingNames.add(name);
+        }
+    }
+
     // Load local ratings and custom technologies from localStorage
     rawData.localRatings = loadLocalRatings();
     rawData.customTechnologies = loadCustomTechnologies();
