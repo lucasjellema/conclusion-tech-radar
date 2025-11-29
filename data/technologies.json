@@ -1145,5 +1145,26 @@
     "logo": "https://cdn.simpleicons.org/diagrams",
     "vendor": "Morgens",
     "homepage": ""
+  },{
+    "identifier": "workshop-gen-ai",
+    "name": "Workshop Gen AI",
+    "category": "Tools",
+    "tags": [],
+    "description": "",
+    "logo": "",
+    "vendor": "",
+    "homepage": "",
+    "_isCustom": true
+  },
+  {
+    "identifier": "it-architecture-consulting",
+    "name": "IT Architecture Consulting",
+    "category": "Methodology",
+    "tags": [],
+    "description": "",
+    "logo": "",
+    "vendor": "",
+    "homepage": "",
+    "_isCustom": true
   }
 ]
