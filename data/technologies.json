@@ -819,7 +819,7 @@
   {
     "identifier": "copilot-m365",
     "name": "Copilot for Microsoft 365",
-    "category": "",
+    "category": "Tools",
     "tags": [
       "office-productivity",
       "ai-assistant",
@@ -1090,7 +1090,7 @@
   {
     "identifier": "prosci-adkar",
     "name": "PROSCI-ADKAR Veranderaanpak",
-    "category": "Methodology & Framework",
+    "category": "Methodology",
     "tags": [
       "change-management",
       "adkar",
