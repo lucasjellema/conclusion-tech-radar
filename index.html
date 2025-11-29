@@ -144,6 +144,35 @@
                         </div>
                     </div>
 
+                    <!-- Company Details Section -->
+                    <div class="company-details-section" id="company-details-section"
+                        style="display: none; margin-top: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                        <h3 style="margin-top: 0; margin-bottom: 1rem;">Company Details</h3>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label for="company-topics-input"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                                Belangrijkste Onderwerpen:
+                            </label>
+                            <input type="text" id="company-topics-input" placeholder="Enter key topics"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-color); color: var(--text-color);" />
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label for="company-explanation-input"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                                Toelichting:
+                            </label>
+                            <textarea id="company-explanation-input" placeholder="Enter explanation" rows="4"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-color); color: var(--text-color); resize: vertical;"></textarea>
+                        </div>
+
+                        <button id="save-company-details-btn" class="filter-btn"
+                            style="background-color: var(--accent-color); color: white;">
+                            Save Company Details
+                        </button>
+                    </div>
+
                     <!-- Action Buttons -->
                     <div class="manage-ratings-actions">
                         <button id="add-rating-btn" class="filter-btn">

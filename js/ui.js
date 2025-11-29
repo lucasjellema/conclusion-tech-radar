@@ -979,6 +979,7 @@ function setupLocalRatingsEventListeners(updateRadarCallback) {
 
             localRatings.clearLocalRatings();
             localRatings.clearCustomTechnologies();
+            localRatings.clearCompanyDetails();
             const newData = refreshLocalData();
             renderLocalRatingsTable();
 
@@ -986,6 +987,66 @@ function setupLocalRatingsEventListeners(updateRadarCallback) {
             if (updateRadarCallback) {
                 updateRadarCallback(newData);
             }
+        });
+    }
+
+    // Company input change handler - load and display company details
+    if (companyInput) {
+        companyInput.addEventListener('input', () => {
+            const companyName = companyInput.value.trim();
+            const detailsSection = document.getElementById('company-details-section');
+            const topicsInput = document.getElementById('company-topics-input');
+            const explanationInput = document.getElementById('company-explanation-input');
+
+            if (companyName) {
+                // Show the details section
+                detailsSection.style.display = 'block';
+
+                // Load current details (from local storage or server data)
+                const localDetails = localRatings.getCompanyDetails(companyName);
+                const serverCompany = getCompanyByName(companyName);
+
+                // Local storage takes precedence
+                topicsInput.value = localDetails.belangrijksteOnderwerpen ||
+                    (serverCompany?.belangrijksteOnderwerpen || '');
+                explanationInput.value = localDetails.toelichting ||
+                    (serverCompany?.toelichting || '');
+            } else {
+                // Hide the details section if no company selected
+                detailsSection.style.display = 'none';
+                topicsInput.value = '';
+                explanationInput.value = '';
+            }
+        });
+    }
+
+    // Save company details button
+    const saveDetailsBtn = document.getElementById('save-company-details-btn');
+    if (saveDetailsBtn) {
+        saveDetailsBtn.addEventListener('click', () => {
+            const companyName = companyInput?.value.trim();
+            if (!companyName) {
+                alert('Please enter a company name first.');
+                return;
+            }
+
+            const topicsInput = document.getElementById('company-topics-input');
+            const explanationInput = document.getElementById('company-explanation-input');
+
+            const details = {
+                belangrijksteOnderwerpen: topicsInput.value.trim(),
+                toelichting: explanationInput.value.trim()
+            };
+
+            localRatings.setCompanyDetails(companyName, details);
+
+            // Refresh the data to merge local company details
+            const newData = refreshLocalData();
+            if (updateRadarCallback) {
+                updateRadarCallback(newData);
+            }
+
+            alert(`Company details saved for ${companyName}`);
         });
     }
 

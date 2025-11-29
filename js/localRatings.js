@@ -15,6 +15,7 @@
 
 const STORAGE_KEY = 'local-ratings';
 const CUSTOM_TECH_KEY = 'local-technologies';
+const COMPANY_DETAILS_KEY = 'local-company-details';
 
 /**
  * Load local ratings from localStorage
@@ -184,10 +185,11 @@ export function getCustomTechnologies() {
 /**
  * Export ratings to JSON format matching server ratings structure
  * @param {string} companyName - Name of the company for the export
- * @returns {Object} JSON object with statusPerBedrijf array
+ * @returns {Object} JSON object with statusPerBedrijf array and toelichtingPerBedrijf
  */
 export function exportRatingsJSON(companyName) {
     const ratings = loadLocalRatings();
+    const companyDetails = loadCompanyDetails();
 
     // Filter ratings for the specified company
     const companyRatings = companyName
@@ -200,7 +202,20 @@ export function exportRatingsJSON(companyName) {
         return cleanRating;
     });
 
+    // Build toelichtingPerBedrijf object
+    const toelichtingPerBedrijf = {};
+    if (companyName) {
+        // Export only the specified company's details
+        if (companyDetails[companyName]) {
+            toelichtingPerBedrijf[companyName] = companyDetails[companyName];
+        }
+    } else {
+        // Export all company details
+        Object.assign(toelichtingPerBedrijf, companyDetails);
+    }
+
     return {
+        toelichtingPerBedrijf,
         statusPerBedrijf: cleanedRatings
     };
 }
@@ -259,6 +274,66 @@ export function downloadCustomTechnologiesJSON() {
  */
 export function clearLocalRatings() {
     localStorage.removeItem(STORAGE_KEY);
+}
+
+/**
+ * Load company details from localStorage
+ * @returns {Object} Object mapping company names to their details
+ */
+export function loadCompanyDetails() {
+    try {
+        const data = localStorage.getItem(COMPANY_DETAILS_KEY);
+        return data ? JSON.parse(data) : {};
+    } catch (error) {
+        console.error('Error loading company details:', error);
+        return {};
+    }
+}
+
+/**
+ * Save company details to localStorage
+ * @param {Object} details - Object mapping company names to their details
+ */
+export function saveCompanyDetails(details) {
+    try {
+        localStorage.setItem(COMPANY_DETAILS_KEY, JSON.stringify(details));
+    } catch (error) {
+        console.error('Error saving company details:', error);
+    }
+}
+
+/**
+ * Get details for a specific company
+ * @param {string} companyName - Name of the company
+ * @returns {Object} Company details object with belangrijksteOnderwerpen and toelichting
+ */
+export function getCompanyDetails(companyName) {
+    const allDetails = loadCompanyDetails();
+    return allDetails[companyName] || {
+        belangrijksteOnderwerpen: '',
+        toelichting: ''
+    };
+}
+
+/**
+ * Set details for a specific company
+ * @param {string} companyName - Name of the company
+ * @param {Object} details - Details object with belangrijksteOnderwerpen and toelichting
+ */
+export function setCompanyDetails(companyName, details) {
+    const allDetails = loadCompanyDetails();
+    allDetails[companyName] = {
+        belangrijksteOnderwerpen: details.belangrijksteOnderwerpen || '',
+        toelichting: details.toelichting || ''
+    };
+    saveCompanyDetails(allDetails);
+}
+
+/**
+ * Clear all company details (for testing/reset)
+ */
+export function clearCompanyDetails() {
+    localStorage.removeItem(COMPANY_DETAILS_KEY);
 }
 
 /**

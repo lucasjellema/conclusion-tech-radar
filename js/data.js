@@ -64,6 +64,28 @@ export async function loadData() {
     rawData.localRatings = loadLocalRatings();
     rawData.customTechnologies = loadCustomTechnologies();
 
+    // Load and merge local company details (local overrides server)
+    const { loadCompanyDetails } = await import('./localRatings.js');
+    const localCompanyDetails = loadCompanyDetails();
+
+    // Merge local company details into existing companies (local takes precedence)
+    for (const company of rawData.companies) {
+        if (localCompanyDetails[company.name]) {
+            Object.assign(company, localCompanyDetails[company.name]);
+        }
+    }
+
+    // Add companies from local storage that don't exist in rawData.companies
+    const existingCompanyNames = new Set(rawData.companies.map(c => c.name));
+    for (const [name, details] of Object.entries(localCompanyDetails)) {
+        if (!existingCompanyNames.has(name)) {
+            rawData.companies.push({
+                name: name,
+                ...details
+            });
+        }
+    }
+
     // Initialise all companies as active
     // Include companies from companies.json even if they have no ratings
     return processRadarData();
