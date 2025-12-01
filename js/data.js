@@ -36,21 +36,20 @@ export async function loadData() {
     rawData.technologies = technologies;
     rawData.ratings = ratingsData.statusPerBedrijf;
     rawData.companies = companiesData.companies || [];
-
+    rawData.toelichtingPerBedrijf = ratingsData.toelichtingPerBedrijf || {};
     // Merge toelichtingPerBedrijf into company metadata
-    const companyDetails = ratingsData.toelichtingPerBedrijf || {};
 
     // 1. Enrich existing companies in rawData.companies
     for (const company of rawData.companies) {
-        if (companyDetails[company.name]) {
-            Object.assign(company, companyDetails[company.name]);
+        if (rawData.toelichtingPerBedrijf[company.name]) {
+            Object.assign(company, rawData.toelichtingPerBedrijf[company.name]);
         }
     }
 
     // 2. Add companies from toelichtingPerBedrijf that are missing in rawData.companies
     //    (This ensures getCompanyByName finds them even if companies.json is incomplete)
     const existingNames = new Set(rawData.companies.map(c => c.name));
-    for (const [name, details] of Object.entries(companyDetails)) {
+    for (const [name, details] of Object.entries(rawData.toelichtingPerBedrijf)) {
         if (!existingNames.has(name)) {
             rawData.companies.push({
                 name: name,
@@ -106,10 +105,35 @@ export function refreshLocalData() {
 function processRadarData() {
     // Merge server ratings with local ratings
     const allRatings = [...rawData.ratings, ...rawData.localRatings];
-
     const ratingCompanies = [...new Set(allRatings.map(r => r.bedrijf))];
+
+
+    // 1. Enrich existing companies in rawData.companies
+    for (const company of rawData.companies) {
+        if (rawData.toelichtingPerBedrijf[company.name]) {
+            Object.assign(company, rawData.toelichtingPerBedrijf[company.name]);
+        }
+    }
+
+    // 2. Add companies from toelichtingPerBedrijf that are missing in rawData.companies
+    //    (This ensures getCompanyByName finds them even if companies.json is incomplete)
+    const existingNames = new Set(rawData.companies.map(c => c.name));
+    for (const [name, details] of Object.entries(rawData.toelichtingPerBedrijf)) {
+        if (!existingNames.has(name)) {
+            rawData.companies.push({
+                name: name,
+                ...details
+            });
+            existingNames.add(name);
+        }
+    }
+
     const metaCompanies = (rawData.companies || []).map(c => c.name).filter(Boolean);
     const companies = [...new Set([...ratingCompanies, ...metaCompanies])];
+
+
+
+
     for (const c of companies) activeFilters.companies.add(c);
 
     // Merge server technologies with custom technologies
