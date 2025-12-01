@@ -4,6 +4,7 @@ import { loadLocalRatings, loadCustomTechnologies } from './localRatings.js';
 let rawData = {
     technologies: [],
     ratings: [],
+    toelichtingPerBedrijf: {},
     localRatings: [],
     customTechnologies: []
 };
@@ -90,8 +91,9 @@ export async function loadData() {
     return processRadarData();
 }
 
-export function handleFreshRatings(newRatings) {
+export function handleFreshRatings( newRatings, newToelichtingPerBedrijf) {
     rawData.ratings = newRatings;
+    rawData.toelichtingPerBedrijf = newToelichtingPerBedrijf || {};
     return processRadarData();
 }
 

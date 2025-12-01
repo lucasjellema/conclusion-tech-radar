@@ -204,7 +204,7 @@ async function fetchData() {
   try {
     // Get data from the API
     const data = await dataService.getData();
-    handleFreshRatings(data.statusPerBedrijf);
+    handleFreshRatings(data.statusPerBedrijf, data.toelichtingPerBedrijf);
     console.log("Fetched data:", data);
     // use the data in the radar
   } catch (error) {
