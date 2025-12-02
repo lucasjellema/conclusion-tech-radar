@@ -1166,5 +1166,89 @@
     "vendor": "",
     "homepage": "",
     "_isCustom": true
+  },{
+    "identifier": "openehr",
+    "name": "OpenEHR",
+    "category": "Healthcare Standards",
+    "tags": [
+      "electronic-health-record",
+      "clinical-data-modelling",
+      "interoperability",
+      "archetypes"
+    ],
+    "description": "Een open standaard specificatie voor de definitie, opslag, beheer en uitwisseling van klinische data in Electronic Health Records (EHR's), gebaseerd op een tweekoppig model (informatiemodel en archetypes).",
+    "logo": "https://cdn.simpleicons.org/openehr",
+    "vendor": "openEHR Foundation",
+    "homepage": "https://www.openehr.org/"
+  },
+  {
+    "identifier": "fhir",
+    "name": "FHIR",
+    "category": "Healthcare Standards",
+    "tags": [
+      "interoperability",
+      "health-data-exchange",
+      "api",
+      "resources"
+    ],
+    "description": "Fast Healthcare Interoperability Resources (FHIR) is een standaard van HL7 voor de uitwisseling van elektronische medische gegevens. Het gebruikt moderne webstandaarden en is gebaseerd op het concept van 'resources'.",
+    "logo": "https://cdn.simpleicons.org/hl7",
+    "vendor": "HL7 International",
+    "homepage": "https://www.hl7.org/fhir/"
+  },
+  {
+    "identifier": "openfhir",
+    "name": "openFHIR",
+    "category": "Healthcare Standards",
+    "tags": [
+      "interoperability",
+      "health-data-exchange",
+      "api",
+      "resources"
+    ],
+    "description": "By combining openEHR with FHIR, you can create a clinical data repository that ensures long-term reliability while leveraging FHIR’s widespread adoption for accessibility and interoperability.",
+    "logo": "https://open-fhir.com/images/openFIHR-logo-color-dark-horizontal-1.svg",
+    "vendor": "openFHIR",
+    "homepage": "https://open-fhir.com/"
+  },
+  {
+    "identifier": "fhir",
+    "name": "FHIR",
+    "category": "Healthcare Standards",
+    "tags": [
+      "interoperability",
+      "health-data-exchange",
+      "api",
+      "resources"
+    ],
+    "description": "Fast Healthcare Interoperability Resources (FHIR) is een standaard van HL7 voor de uitwisseling van elektronische medische gegevens. Het gebruikt moderne webstandaarden en is gebaseerd op het concept van 'resources'.",
+    "logo": "https://cdn.simpleicons.org/hl7",
+    "vendor": "HL7 International",
+    "homepage": "https://www.hl7.org/fhir/"
+  },
+  {
+    "identifier": "ai-assisted-engineering",
+    "name": "AI Assisted Software Engineering",
+    "category": "werkwijze",
+    "tags": [
+      "ai","software engineering","development","automation"
+    ],
+    "description": "Software engineering met hulp van Gen AI hulpmiddelen, LLM gebaseerd",
+    "logo": "",
+    "vendor": "meerdere",
+    "homepage": ""
+  },
+  {
+    "identifier": "securing-coding",
+    "name": "Secure Coding Policy",
+    "category": "werkwijze",
+    "tags": [
+      "security",
+      "software engineering"
+    ],
+    "description": "secure coding policy is een formeel beleid binnen een organisatie dat voorschrijft hoe software veilig ontwikkeld moet worden. Het doel is om kwetsbaarheden in software te voorkomen door vanaf het ontwerp tot en met de oplevering en het onderhoud structureel aandacht te besteden aan security. Dit beleid is vaak gebaseerd op internationale standaarden zoals ISO 27001/27002 en OWASP. ",
+    "logo": "",
+    "vendor": "meerdere",
+    "homepage": ""
   }
 ]
