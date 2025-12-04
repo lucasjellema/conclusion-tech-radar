@@ -1127,7 +1127,7 @@
       "LLM",
       "Content Creation"
     ],
-    "description": "Artificial intelligence capable of generating text, images, or other media.",
+    "description": "AI capable of generating text, images, or other media.",
     "logo": "https://cdn.simpleicons.org/openai",
     "vendor": "Various",
     "homepage": ""
@@ -1250,5 +1250,285 @@
     "logo": "",
     "vendor": "meerdere",
     "homepage": ""
+  },
+  {
+    "identifier": "bruno",
+    "name": "Bruno",
+    "category": "API Development",
+    "tags": [
+      "api-client",
+      "open-source",
+      "offline-first",
+      "git-integration"
+    ],
+    "description": "Een open-source en offline-first API-client (vergelijkbaar met Postman/Insomnia) die collecties opslaat in platte tekstbestanden voor eenvoudige versiebeheer.",
+    "logo": "https://cdn.simpleicons.org/bruno",
+    "vendor": "Bruno",
+    "homepage": "https://www.usebruno.com/"
+  },
+  {
+    "identifier": "podman",
+    "name": "Podman",
+    "category": "Infrastructure",
+    "tags": [
+      "containerization",
+      "container-engine",
+      "daemonless",
+      "linux"
+    ],
+    "description": "Een daemonloze container-engine voor het ontwikkelen, beheren en uitvoeren van OCI-containers en -pods op een Linux-systeem.",
+    "logo": "https://cdn.simpleicons.org/podman",
+    "vendor": "Red Hat",
+    "homepage": "https://podman.io/"
+  },
+  {
+    "identifier": "argocd",
+    "name": "Argo CD",
+    "category": "DevOps",
+    "tags": [
+      "gitops",
+      "kubernetes",
+      "deployment",
+      "cd"
+    ],
+    "description": "Een declaratieve, GitOps continue delivery tool voor Kubernetes die de gewenste applicatietoestand bewaakt en synchroniseert.",
+    "logo": "https://cdn.simpleicons.org/argocd",
+    "vendor": "CNCF",
+    "homepage": "https://argo-cd.readthedocs.io/"
+  },
+  {
+    "identifier": "genai",
+    "name": "Generatieve AI (GenAI)",
+    "category": "AI",
+    "tags": [
+      "llm",
+      "ai",
+      "machine-learning",
+      "content-creation"
+    ],
+    "description": "Een brede term voor kunstmatige intelligentie die nieuwe content, data, code of beelden kan genereren (bijv. ChatGPT, DALL-E, Claude).",
+    "logo": "https://cdn.simpleicons.org/openai",
+    "vendor": "Verschillende",
+    "homepage": "N/A"
+  },
+  {
+    "identifier": "claude-codex",
+    "name": "AI Code Assistants (Claude Code, Codex)",
+    "category": "AI",
+    "tags": [
+      "code-generation",
+      "programming",
+      "llm",
+      "developer-tools"
+    ],
+    "description": "Grote taalmodellen (LLM's) die specifiek zijn getraind voor het genereren, verklaren, en debuggen van code (bijv. Anthropic's Claude-modellen en OpenAI's Codex-model).",
+    "logo": "https://cdn.simpleicons.org/anthropic",
+    "vendor": "Anthropic, OpenAI, etc.",
+    "homepage": "N/A"
+  },
+  {
+    "identifier": "cursor",
+    "name": "Cursor",
+    "category": "Tools",
+    "tags": [
+      "ide",
+      "ai-assistant",
+      "code-editor",
+      "programming"
+    ],
+    "description": "Een AI-gedreven code-editor gebouwd op VS Code, met ingebouwde functies voor chatten, bewerken en genereren van code met behulp van AI-modellen.",
+    "logo": "https://cdn.simpleicons.org/visualstudiocode",
+    "vendor": "Cursor",
+    "homepage": "https://www.cursor.so/"
+  },
+  {
+    "identifier": "dapr",
+    "name": "Dapr",
+    "category": "Distributed Systems",
+    "tags": [
+      "microservices",
+      "event-driven",
+      "service-mesh",
+      "sidecar"
+    ],
+    "description": "Distributed Application Runtime (Dapr) is een draagbare, gebeurtenisgestuurde runtime die het eenvoudig maakt om veerkrachtige, stateful, microservices-gebaseerde applicaties te bouwen die draaien op de cloud en edge.",
+    "logo": "https://cdn.simpleicons.org/dapr",
+    "vendor": "CNCF",
+    "homepage": "https://dapr.io/"
+  },
+  {
+    "identifier": "cert-manager",
+    "name": "cert-manager",
+    "category": "Security",
+    "tags": [
+      "kubernetes",
+      "tls",
+      "certificates",
+      "automation"
+    ],
+    "description": "Een Kubernetes-add-on die het beheer en de uitgifte van TLS-certificaten automatiseert vanuit verschillende uitgevende bronnen (bijv. Let's Encrypt).",
+    "logo": "https://cdn.simpleicons.org/kubernetes",
+    "vendor": "Jetstack (nu Venafi)",
+    "homepage": "https://cert-manager.io/"
+  },
+  {
+    "identifier": "eventcatalog",
+    "name": "EventCatalog",
+    "category": "Documentation",
+    "tags": [
+      "event-driven-architecture",
+      "documentation",
+      "microservices",
+      "discovery"
+    ],
+    "description": "Een tool om een overzichtelijke, doorzoekbare catalogus te genereren en te onderhouden van events, services en domeinen in een Event-Driven Architectuur (EDA).",
+    "logo": "https://cdn.simpleicons.org/eventstore",
+    "vendor": "EventCatalog",
+    "homepage": "https://www.eventcatalog.dev/"
+  },
+  {
+    "identifier": "mcp",
+    "name": "MCP (Model Context Protocol)",
+    "category": "AI",
+    "tags": ["ai","Agents","llm","model-integration"
+    ],
+    "description": "Model Context Protocol (MCP) is een open standaard die is ontwikkeld om AI-modellen (zoals LLMs) op een consistente manier toegang te geven tot externe context, data en functionaliteit. Het doel is om interoperabiliteit en uitbreidbaarheid te bevorderen, zodat verschillende AI-systemen en tools veilig en uniform kunnen samenwerken.",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Model_Context_Protocol_logo.svg",
+    "vendor": "Verschillende",
+    "homepage": "https://modelcontextprotocol.io/"
+  },{
+  "identifier": "openai-codex",
+  "name": "Codex",
+  "category": "AI",
+  "tags": [
+    "code-generation",
+    "programming",
+    "llm",
+    "openai"
+  ],
+  "description": "Een groot taalmodel (LLM) van OpenAI, getraind op zowel natuurlijke taal als miljarden regels openbare code. Het vormt de basis voor GitHub Copilot en andere code-assistentie tools.",
+  "logo": "https://cdn.simpleicons.org/openai",
+  "vendor": "OpenAI",
+  "homepage": "https://openai.com/blog/openai-codex"
+},{
+    "identifier": "a2a-protocol",
+    "name": "Agent2Agent (A2A) Protocol",
+    "category": "AI/Agent Communication",
+    "tags": [
+      "ai-agents",
+      "interoperability",
+      "collaboration",
+      "protocol",
+      "multi-agent-system"
+    ],
+    "description": "Een open standaard (gelanceerd door Google) die is ontworpen om de communicatie en interoperabiliteit tussen onafhankelijke AI-agentsystemen te vergemakkelijken. Het stelt agents in staat om elkaars capaciteiten te ontdekken, taken te delegeren en veilig informatie uit te wisselen, ongeacht hun onderliggende frameworks of leveranciers.",
+    "logo": "https://cdn.simpleicons.org/google",
+    "vendor": "Google LLC (Open-Source Project)",
+    "homepage": "https://a2a-protocol.org/"
+  },
+  {
+    "identifier": "executive-coaching",
+    "name": "Executive Coaching",
+    "category": "Professionele Ontwikkeling",
+    "tags": [
+      "leiderschap",
+      "bedrijfsvoering",
+      "persoonlijke-groei",
+      "management"
+    ],
+    "description": "Een vertrouwelijke, één-op-één professioneel ontwikkelingsproces dat leiderschapseffectiviteit versnelt door middel van gestructureerde gesprekken en vaardigheidsopbouw. Het is gericht op het helpen van leidinggevenden om hun potentieel te maximaliseren en betere bedrijfsresultaten te behalen.",
+    "logo": "https://cdn.simpleicons.org/mindfactory",
+    "vendor": "Verschillende coaches & bureaus",
+    "homepage": "https://www.google.com/search?q=executive+coaching"
+  },
+  {
+    "identifier": "reflact",
+    "name": "Reflact®-meting",
+    "category": "Persoonlijkheidsanalyse",
+    "tags": [
+      "hr",
+      "recruitment",
+      "competentie-analyse",
+      "gedrag"
+    ],
+    "description": "Een online meetinstrument (Reflective Analytical Competence Tool) dat inzicht geeft in iemands bewuste en onbewuste gedrag, talenten en competenties door middel van beeldkeuze en competentiekeuze. Het wordt vaak gebruikt voor werving en persoonlijke ontwikkeling.",
+    "logo": "https://cdn.simpleicons.org/outwise",
+    "vendor": "myHBMcenter / OUTWISE (o.a.)",
+    "homepage": "https://myhbmcenter.com/reflact-recruitment/"
+  },
+  {
+    "identifier": "vaadin",
+    "name": "Vaadin",
+    "category": "Frontend",
+    "tags": [
+      "java",
+      "web-components",
+      "enterprise",
+      "full-stack"
+    ],
+    "description": "Een open-source web-app ontwikkelingsplatform voor Java dat een uitgebreide bibliotheek met UI-componenten en tools omvat. Hiermee kunnen ontwikkelaars snel en veilig moderne web-apps bouwen met een sterke nadruk op de Java-stack.",
+    "logo": "https://cdn.simpleicons.org/vaadin",
+    "vendor": "Vaadin Ltd",
+    "homepage": "https://vaadin.com/"
+  },
+  {
+    "identifier": "algolia",
+    "name": "Algolia",
+    "category": "Zoekplatform",
+    "tags": [
+      "search",
+      "ai-search",
+      "api-first",
+      "indexing"
+    ],
+    "description": "Een API-first, AI-gestuurd zoekplatform dat gespecialiseerd is in snelle en relevante zoekopdrachten voor websites en mobiele applicaties. Het biedt ontwikkelaars tools om krachtige, gepersonaliseerde zoekervaringen te creëren.",
+    "logo": "https://cdn.simpleicons.org/algolia",
+    "vendor": "Algolia",
+    "homepage": "https://www.algolia.com/"
+  },
+  {
+    "identifier": "aws",
+    "name": "Amazon Web Services",
+    "category": "Cloud",
+    "tags": [
+      "cloud-provider",
+      "iaas",
+      "paas",
+      "serverless"
+    ],
+    "description": "Een dochteronderneming van Amazon die on-demand cloud computing-platforms en API's levert aan particulieren, bedrijven en overheden. Het biedt meer dan 200 producten, waaronder compute, storage, networking, databases en machine learning.",
+    "logo": "https://cdn.simpleicons.org/amazonwebservices",
+    "vendor": "Amazon",
+    "homepage": "https://aws.amazon.com/"
+  },
+  {
+    "identifier": "opentofu",
+    "name": "OpenTofu",
+    "category": "Infrastructure as Code (IaC)",
+    "tags": [
+      "iac",
+      "cloud-agnostic",
+      "devops",
+      "provisioning"
+    ],
+    "description": "Een open-source tool voor Infrastructure as Code (IaC) waarmee ontwikkelaars cloud- en on-premise resources kunnen definiëren in mensleesbare configuratiebestanden. Het is een fork van Terraform en bevordert een consistente workflow voor het beheer van de gehele infrastructuur-levenscyclus.",
+    "logo": "https://cdn.simpleicons.org/terraform",
+    "vendor": "OpenTofu Foundation",
+    "homepage": "https://opentofu.org/"
+  },
+  {
+    "identifier": "vue-js",
+    "name": "Vue.js",
+    "category": "Frontend",
+    "tags": [
+      "javascript",
+      "ui",
+      "spa",
+      "frontend"
+    ],
+    "description": "Een progressief, incrementeel adopteerbaar JavaScript-framework voor de frontend dat wordt gebruikt voor het bouwen van gebruikersinterfaces en single-page applications. Het staat bekend om zijn eenvoud, flexibiliteit en uitstekende documentatie.",
+    "logo": "https://cdn.simpleicons.org/vuedotjs",
+    "vendor": "Open-Source (Evan You et al.)",
+    "homepage": "https://vuejs.org/"
   }
 ]
