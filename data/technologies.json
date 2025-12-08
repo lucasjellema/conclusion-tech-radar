@@ -1145,7 +1145,8 @@
     "logo": "https://cdn.simpleicons.org/diagrams",
     "vendor": "Morgens",
     "homepage": ""
-  },{
+  },
+  {
     "identifier": "workshop-gen-ai",
     "name": "Workshop Gen AI",
     "category": "Tools",
@@ -1166,7 +1167,8 @@
     "vendor": "",
     "homepage": "",
     "_isCustom": true
-  },{
+  },
+  {
     "identifier": "openehr",
     "name": "OpenEHR",
     "category": "Healthcare Standards",
@@ -1231,7 +1233,10 @@
     "name": "AI Assisted Software Engineering",
     "category": "werkwijze",
     "tags": [
-      "ai","software engineering","development","automation"
+      "ai",
+      "software engineering",
+      "development",
+      "automation"
     ],
     "description": "Software engineering met hulp van Gen AI hulpmiddelen, LLM gebaseerd",
     "logo": "",
@@ -1390,27 +1395,33 @@
     "identifier": "mcp",
     "name": "MCP (Model Context Protocol)",
     "category": "AI",
-    "tags": ["ai","Agents","llm","model-integration"
+    "tags": [
+      "ai",
+      "Agents",
+      "llm",
+      "model-integration"
     ],
     "description": "Model Context Protocol (MCP) is een open standaard die is ontwikkeld om AI-modellen (zoals LLMs) op een consistente manier toegang te geven tot externe context, data en functionaliteit. Het doel is om interoperabiliteit en uitbreidbaarheid te bevorderen, zodat verschillende AI-systemen en tools veilig en uniform kunnen samenwerken.",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Model_Context_Protocol_logo.svg",
     "vendor": "Verschillende",
     "homepage": "https://modelcontextprotocol.io/"
-  },{
-  "identifier": "openai-codex",
-  "name": "Codex",
-  "category": "AI",
-  "tags": [
-    "code-generation",
-    "programming",
-    "llm",
-    "openai"
-  ],
-  "description": "Een groot taalmodel (LLM) van OpenAI, getraind op zowel natuurlijke taal als miljarden regels openbare code. Het vormt de basis voor GitHub Copilot en andere code-assistentie tools.",
-  "logo": "https://cdn.simpleicons.org/openai",
-  "vendor": "OpenAI",
-  "homepage": "https://openai.com/blog/openai-codex"
-},{
+  },
+  {
+    "identifier": "openai-codex",
+    "name": "Codex",
+    "category": "AI",
+    "tags": [
+      "code-generation",
+      "programming",
+      "llm",
+      "openai"
+    ],
+    "description": "Een groot taalmodel (LLM) van OpenAI, getraind op zowel natuurlijke taal als miljarden regels openbare code. Het vormt de basis voor GitHub Copilot en andere code-assistentie tools.",
+    "logo": "https://cdn.simpleicons.org/openai",
+    "vendor": "OpenAI",
+    "homepage": "https://openai.com/blog/openai-codex"
+  },
+  {
     "identifier": "a2a-protocol",
     "name": "Agent2Agent (A2A) Protocol",
     "category": "AI/Agent Communication",
@@ -1654,21 +1665,6 @@
     "homepage": "https://www.epiuse.com/labs/products/archive-central/"
   },
   {
-    "identifier": "alpaca-cert",
-    "name": "Alpaca (Certificate Management)",
-    "category": "Security / PKI",
-    "tags": [
-      "pki",
-      "security",
-      "certificate-management",
-      "automation"
-    ],
-    "description": "Verwijst waarschijnlijk naar een platform voor geautomatiseerd beheer van digitale certificaten (SSL/TLS, PKI). Het doel is het hele levenscyclusbeheer van certificaten te stroomlijnen, van uitgifte en vernieuwing tot intrekking, om onderbrekingen te voorkomen en de beveiliging te waarborgen.",
-    "logo": "https://cdn.simpleicons.org/pki",
-    "vendor": "Diverse leveranciers (o.a. Open Source tools)",
-    "homepage": "https://www.google.com/search?q=Alpaca+certificate+management"
-  },
-  {
     "identifier": "sap-generative-ai-hub",
     "name": "SAP Generative AI Hub",
     "category": "Generative AI",
@@ -1697,6 +1693,22 @@
     "logo": "https://cdn.simpleicons.org/sap",
     "vendor": "SAP SE",
     "homepage": "https://www.sap.com/products/technology/artificial-intelligence/joule.html"
+  },
+  {
+    "identifier": "alpaca-sap-cert",
+    "name": "ALPACA Certificate Management for SAP",
+    "category": "Security / Automation",
+    "tags": [
+      "sap",
+      "certificate-management",
+      "ssl-tls",
+      "automation",
+      "security",
+      "strust"
+    ],
+    "description": "Een oplossing voor het **automatiseren** van het volledige levenscyclusbeheer van SSL/TLS-certificaten voor SAP-systemen (zoals ABAP STRUST, Java, HANA, Web Dispatcher). Het reduceert de handmatige inspanning en het risico op ongeplande downtime door proactief verlopen certificaten te controleren, CSR's aan te maken en nieuwe certificaten automatisch in het SAP-landschap te distribueren.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "PCG (Public Cloud Group)",
+    "homepage": "https://pcg.io/insights/sap-certificate-management-automation/"
   }
-
 ]
