@@ -1530,5 +1530,173 @@
     "logo": "https://cdn.simpleicons.org/vuedotjs",
     "vendor": "Open-Source (Evan You et al.)",
     "homepage": "https://vuejs.org/"
+  },
+  {
+    "identifier": "sap-business-ai",
+    "name": "SAP Business AI",
+    "category": "Artificial Intelligence",
+    "tags": [
+      "ai",
+      "machine-learning",
+      "business-process",
+      "sap"
+    ],
+    "description": "Een verzameling AI-mogelijkheden die zijn ingebed in SAP-applicaties, waaronder SAP S/4HANA en de SAP SuccessFactors-suite. De focus ligt op het automatiseren van bedrijfsprocessen, het leveren van intelligente inzichten en het verbeteren van besluitvorming binnen de SAP-ecosystemen.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://www.sap.com/products/technology/artificial-intelligence.html"
+  },
+  {
+    "identifier": "sap-business-data-cloud",
+    "name": "SAP Business Data Cloud",
+    "category": "Data Management",
+    "tags": [
+      "data-platform",
+      "data-governance",
+      "cloud",
+      "sap"
+    ],
+    "description": "Dit verwijst mogelijk naar een geïntegreerde dataoplossing of data-initiatief van SAP dat zich richt op het consolideren en beheren van bedrijfsgegevens over verschillende SAP- en niet-SAP-bronnen in de cloud, ter ondersteuning van analyse en AI-toepassingen. (Let op: de naam kan verouderd of vereenvoudigd zijn voor een huidige oplossing zoals SAP Datasphere.)",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://www.sap.com/products/technology/data-management/datasphere.html"
+  },
+  {
+    "identifier": "sap-cloud-alm",
+    "name": "SAP Cloud ALM (Application Lifecycle Management)",
+    "category": "DevOps / ALM",
+    "tags": [
+      "cloud",
+      "alm",
+      "devops",
+      "monitoring",
+      "sap"
+    ],
+    "description": "Een cloud-native oplossing voor het Application Lifecycle Management van cloud- en hybride SAP-oplossingen. Het ondersteunt de implementatie, de operatie en de service van SAP-applicaties met een focus op moderne, agile methoden.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://support.sap.com/en/alm/sap-cloud-alm.html"
+  },
+  {
+    "identifier": "hubplanner",
+    "name": "HubPlanner",
+    "category": "Resource Management",
+    "tags": [
+      "resource-planning",
+      "project-management",
+      "timesheets",
+      "resourceflow"
+    ],
+    "description": "Een cloudgebaseerd softwareplatform voor resource management en planning. Het stelt bedrijven in staat om de capaciteit van hun teams in kaart te brengen, projecten te plannen, en de inzet van medewerkers ('ResourceFlow') te optimaliseren en te volgen.",
+    "logo": "https://cdn.simpleicons.org/resourceplanning",
+    "vendor": "HubPlanner",
+    "homepage": "https://www.hubplanner.com/"
+  },
+  {
+    "identifier": "sap-edge-integration",
+    "name": "SAP Edge Integration Cell",
+    "category": "Integratie",
+    "tags": [
+      "integration",
+      "iot",
+      "edge-computing",
+      "sap"
+    ],
+    "description": "Een lichte, lokale runtime-component van SAP Integration Suite. Hiermee kunnen integraties en API-beheer op lokale servers (on-premise of 'op de edge') worden uitgevoerd, dicht bij de bedrijfsgegevens, terwijl het centraal wordt beheerd vanuit de SAP Integration Suite in de cloud.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://help.sap.com/docs/SAP_EDGE_INTEGRATION_CELL"
+  },
+  {
+    "identifier": "sap-landscape-management",
+    "name": "SAP Landscape Management (LaMa)",
+    "category": "IT Operations",
+    "tags": [
+      "automation",
+      "system-management",
+      "provisioning",
+      "sap"
+    ],
+    "description": "Software voor de geautomatiseerde en gecentraliseerde bediening, beheer en flexibiliteit van complexe SAP-systeemlandschappen (zoals kopieën maken, refresh, en start/stop-operaties).",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://www.sap.com/products/landscape-management.html"
+  },
+  {
+    "identifier": "sap-solution-manager",
+    "name": "SAP Solution Manager (SolMan)",
+    "category": "Application Lifecycle Management (ALM)",
+    "tags": [
+      "alm",
+      "itil",
+      "change-management",
+      "monitoring",
+      "sap"
+    ],
+    "description": "Een geïntegreerd, on-premise Application Lifecycle Management (ALM) platform van SAP. Het biedt tools en inhoud ter ondersteuning van de volledige levenscyclus van SAP-oplossingen, van implementatie tot beheer en optimalisatie.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://support.sap.com/en/alm/solution-manager.html"
+  },
+  {
+    "identifier": "archive-central",
+    "name": "Archive Central (EpiUse Labs)",
+    "category": "Data Archiving",
+    "tags": [
+      "data-archiving",
+      "data-management",
+      "compliance",
+      "sap-addon"
+    ],
+    "description": "Een SAP-gecertificeerd add-on product van EpiUse Labs dat SAP-gegevens archiveert. Het helpt bedrijven om de databasegrootte te verminderen, de systeemprestaties te verbeteren en te voldoen aan wettelijke bewaarvereisten door onnodige gegevens op een gestructureerde manier te verplaatsen.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "EpiUse Labs",
+    "homepage": "https://www.epiuse.com/labs/products/archive-central/"
+  },
+  {
+    "identifier": "alpaca-cert",
+    "name": "Alpaca (Certificate Management)",
+    "category": "Security / PKI",
+    "tags": [
+      "pki",
+      "security",
+      "certificate-management",
+      "automation"
+    ],
+    "description": "Verwijst waarschijnlijk naar een platform voor geautomatiseerd beheer van digitale certificaten (SSL/TLS, PKI). Het doel is het hele levenscyclusbeheer van certificaten te stroomlijnen, van uitgifte en vernieuwing tot intrekking, om onderbrekingen te voorkomen en de beveiliging te waarborgen.",
+    "logo": "https://cdn.simpleicons.org/pki",
+    "vendor": "Diverse leveranciers (o.a. Open Source tools)",
+    "homepage": "https://www.google.com/search?q=Alpaca+certificate+management"
+  },
+  {
+    "identifier": "sap-generative-ai-hub",
+    "name": "SAP Generative AI Hub",
+    "category": "Generative AI",
+    "tags": [
+      "generative-ai",
+      "llm",
+      "ai-platform",
+      "sap"
+    ],
+    "description": "Een centrale dienst binnen SAP's Business Technology Platform (BTP) die veilige, kant-en-klare toegang biedt tot verschillende Large Language Models (LLM's) van meerdere aanbieders. Het stelt klanten in staat om Generatieve AI-mogelijkheden in hun eigen SAP-applicaties en processen in te bouwen.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://www.sap.com/products/technology/artificial-intelligence/generative-ai.html"
+  },
+  {
+    "identifier": "sap-joule",
+    "name": "SAP Joule",
+    "category": "AI Assistent",
+    "tags": [
+      "ai-copilot",
+      "natural-language",
+      "ux",
+      "sap-s4hana"
+    ],
+    "description": "De natuurlijke taal, generatieve AI-copilot van SAP. Joule is ingebed in SAP-applicaties en helpt gebruikers om sneller taken uit te voeren, betere inzichten te krijgen en hun interactie met SAP-software (zoals S/4HANA en SuccessFactors) te verbeteren door middel van conversationele AI.",
+    "logo": "https://cdn.simpleicons.org/sap",
+    "vendor": "SAP SE",
+    "homepage": "https://www.sap.com/products/technology/artificial-intelligence/joule.html"
   }
+
 ]
