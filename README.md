@@ -67,6 +67,7 @@ npx serve -s . -l 5000
 
 Notes & development
 - The app communicates between modules using `CustomEvent` events (e.g., `filter-category`, `filter-phase`, `open-modal`, `language-changed`).
+- **Proportional Ring Widths:** Ring widths are calculated proportionally based on the number of blips they contain. Rings with more blips (like "adopt") are wider, while rings with fewer blips (like "hold" and "deprecate") are narrower. A minimum width constraint (10% of radius) ensures all rings remain visible. The algorithm normalizes ring widths to fit within the total radar radius.
 - The radar layout computes ring spacing from the active phases returned by `js/data.js` so hiding phases compresses the rings.
 - Blips are rendered as domain-shaped symbols (square/triangle/diamond/star/circle) and companies within the same domain share the same symbol shape. Company colors are assigned and persisted for the browser session.
 - Double-click a company name in the sidebar to open the company modal which shows description, domain, logo, homepage link and a breakdown of ratings counts per category as well as the listing of ratings tied to that company.

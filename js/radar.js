@@ -125,8 +125,37 @@ export function updateRadar(data) {
     // If there are no active phases, don't draw rings or blips
     if (!phases || phases.length === 0) return;
 
-    // Compute ring radius and angle slice based on number of active phases/categories
+    // Compute angle slice based on number of categories
     const angleSlice = Math.PI * 2 / (categories.length || 1);
+
+    // Count blips per phase for proportional ring sizing
+    const blipCounts = {};
+    phases.forEach(p => blipCounts[p] = 0);
+    blips.forEach(b => {
+        const phase = (b.rating.fase || '').toLowerCase();
+        if (blipCounts[phase] !== undefined) blipCounts[phase]++;
+    });
+
+    // Calculate proportional ring radii based on blip counts
+    const totalBlips = blips.length || 1;
+    const MIN_RING_WIDTH = radius * 0.1; // Minimum 10% of radius for visibility
+    const ringRadii = [];
+    let cumulativeRadius = 0;
+
+    phases.forEach((phase, i) => {
+        const proportion = blipCounts[phase] / totalBlips;
+        const ringWidth = Math.max(MIN_RING_WIDTH, proportion * radius);
+        cumulativeRadius += ringWidth;
+        ringRadii.push(cumulativeRadius);
+    });
+
+    // Normalize to fit within total radius
+    const scale = radius / cumulativeRadius;
+    for (let i = 0; i < ringRadii.length; i++) {
+        ringRadii[i] *= scale;
+    }
+
+    // For backward compatibility, keep ringRadius as the average (used in some places)
     const ringRadius = radius / (phases.length || 1);
 
     const categoryColorMap = ensureCategoryColors(categories);
@@ -204,7 +233,7 @@ export function updateRadar(data) {
             .enter()
             .append("circle")
             .attr("class", "ring")
-            .attr("r", (d, i) => (i + 1) * ringRadius)
+            .attr("r", (d, i) => ringRadii[i])
             .style("fill", "none")
             .style("stroke", "var(--ring-color)");
 
@@ -214,7 +243,7 @@ export function updateRadar(data) {
             .enter()
             .append("text")
             .attr("class", "legend-text")
-            .attr("y", (d, i) => -((i + 1) * ringRadius) + 15)
+            .attr("y", (d, i) => -ringRadii[i] + 15)
             .attr("x", 0)
             .text(d => d.toUpperCase())
             .style("cursor", "pointer")
@@ -240,7 +269,7 @@ export function updateRadar(data) {
     }
 
     // 3. Calculate Blip Positions using polar grid distribution
-    calculateBlipPositions(blips, phases, categories, ringRadius, angleSlice);
+    calculateBlipPositions(blips, phases, categories, ringRadii, angleSlice);
 
     const companyColorMap = ensureCompanyColors(blips);
     // annotate blips with companyColor for use in tooltips etc.
