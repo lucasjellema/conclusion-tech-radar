@@ -710,21 +710,6 @@
     "homepage": "https://nextcloud.com/"
   },
   {
-    "identifier": "cursor",
-    "name": "Cursor",
-    "category": "Tools",
-    "tags": [
-      "ide",
-      "ai-coding",
-      "editor",
-      "programming"
-    ],
-    "description": "Een AI-gedreven code-editor die gebaseerd is op VS Code, ontworpen om sneller te coderen en debuggen met behulp van AI-assistentie.",
-    "logo": "https://cdn.simpleicons.org/visualstudiocode",
-    "vendor": "Cursor",
-    "homepage": "https://www.cursor.so/"
-  },
-  {
     "identifier": "scaleway",
     "name": "Scaleway",
     "category": "Cloud",
@@ -904,21 +889,7 @@
     "vendor": "Nextcloud GmbH",
     "homepage": "https://nextcloud.com/"
   },
-  {
-    "identifier": "cursor",
-    "name": "Cursor",
-    "category": "Tools",
-    "tags": [
-      "ide",
-      "ai-coding",
-      "editor",
-      "programming"
-    ],
-    "description": "Een AI-gedreven code-editor die gebaseerd is op VS Code, ontworpen om sneller te coderen en debuggen met behulp van AI-assistentie.",
-    "logo": "https://cdn.simpleicons.org/visualstudiocode",
-    "vendor": "Cursor",
-    "homepage": "https://www.cursor.so/"
-  },
+
   {
     "identifier": "scaleway",
     "name": "Scaleway",
@@ -1545,7 +1516,7 @@
   {
     "identifier": "sap-business-ai",
     "name": "SAP Business AI",
-    "category": "Artificial Intelligence",
+    "category": "AI",
     "tags": [
       "ai",
       "machine-learning",
@@ -1560,7 +1531,7 @@
   {
     "identifier": "sap-business-data-cloud",
     "name": "SAP Business Data Cloud",
-    "category": "Data Management",
+    "category": "Data",
     "tags": [
       "data-platform",
       "data-governance",
@@ -1575,7 +1546,7 @@
   {
     "identifier": "sap-cloud-alm",
     "name": "SAP Cloud ALM (Application Lifecycle Management)",
-    "category": "DevOps / ALM",
+    "category": "Tools",
     "tags": [
       "cloud",
       "alm",
@@ -1591,7 +1562,7 @@
   {
     "identifier": "hubplanner",
     "name": "HubPlanner",
-    "category": "Resource Management",
+    "category": "Tools",
     "tags": [
       "resource-planning",
       "project-management",
@@ -1606,7 +1577,7 @@
   {
     "identifier": "sap-edge-integration",
     "name": "SAP Edge Integration Cell",
-    "category": "Integratie",
+    "category": "Tools",
     "tags": [
       "integration",
       "iot",
@@ -1621,7 +1592,7 @@
   {
     "identifier": "sap-landscape-management",
     "name": "SAP Landscape Management (LaMa)",
-    "category": "IT Operations",
+    "category": "Tools",
     "tags": [
       "automation",
       "system-management",
@@ -1636,7 +1607,7 @@
   {
     "identifier": "sap-solution-manager",
     "name": "SAP Solution Manager (SolMan)",
-    "category": "Application Lifecycle Management (ALM)",
+    "category": "Tools",
     "tags": [
       "alm",
       "itil",
@@ -1652,7 +1623,7 @@
   {
     "identifier": "archive-central",
     "name": "Archive Central (EpiUse Labs)",
-    "category": "Data Archiving",
+    "category": "Data",
     "tags": [
       "data-archiving",
       "data-management",
@@ -1667,7 +1638,7 @@
   {
     "identifier": "sap-generative-ai-hub",
     "name": "SAP Generative AI Hub",
-    "category": "Generative AI",
+    "category": "AI",
     "tags": [
       "generative-ai",
       "llm",
@@ -1682,7 +1653,7 @@
   {
     "identifier": "sap-joule",
     "name": "SAP Joule",
-    "category": "AI Assistent",
+    "category": "AI",
     "tags": [
       "ai-copilot",
       "natural-language",
@@ -1697,7 +1668,7 @@
   {
     "identifier": "alpaca-sap-cert",
     "name": "ALPACA Certificate Management for SAP",
-    "category": "Security / Automation",
+    "category": "Security",
     "tags": [
       "sap",
       "certificate-management",
@@ -1710,5 +1681,99 @@
     "logo": "https://cdn.simpleicons.org/sap",
     "vendor": "PCG (Public Cloud Group)",
     "homepage": "https://pcg.io/insights/sap-certificate-management-automation/"
+  },
+
+  {
+    "identifier": "openai-gpt-teams",
+    "name": "OpenAI GPT Teams",
+    "category": "AI Assistent",
+    "tags": [
+      "llm",
+      "ai-copilot",
+      "samenwerking",
+      "privacy",
+      "custom-gpt"
+    ],
+    "description": "Een collaboratief abonnement van OpenAI voor teams en bedrijven dat een veilige werkruimte biedt voor het gebruik van geavanceerde modellen (zoals GPT-4). Het garandeert dat bedrijfsdata niet wordt gebruikt voor modeltraining en maakt het mogelijk om aangepaste, gedeelde GPT's te creëren.",
+    "logo": "https://cdn.simpleicons.org/openai",
+    "vendor": "OpenAI",
+    "homepage": "https://openai.com/chatgpt/team"
+  },
+  {
+    "identifier": "snowflake-intelligence",
+    "name": "Snowflake Intelligence",
+    "category": "Data & AI",
+    "tags": [
+      "data-cloud",
+      "ai-agent",
+      "natural-language",
+      "data-exploration"
+    ],
+    "description": "Een AI-gedreven functionaliteit binnen het Snowflake Data Cloud. Het fungeert als een natuurlijke taalinterface (AI-agent) waarmee zakelijke gebruikers complexe vragen kunnen stellen aan gestructureerde en ongestructureerde bedrijfsdata, inzichten kunnen genereren en acties kunnen voorstellen.",
+    "logo": "https://cdn.simpleicons.org/snowflake",
+    "vendor": "Snowflake",
+    "homepage": "https://www.snowflake.com/en/developers/guides/getting-started-with-snowflake-intelligence/"
+  },
+  {
+    "identifier": "transcriber-opensource-ai",
+    "name": "Transcriber (Open Source AI)",
+    "category": "Speech-to-Text",
+    "tags": [
+      "open-source",
+      "ai-transcription",
+      "speech-to-text",
+      "machine-learning"
+    ],
+    "description": "Een verzamelnaam voor verschillende open-source AI-tools (zoals bijvoorbeeld Whisper van OpenAI) die gebruikmaken van deep learning om audio- en videobestanden met hoge nauwkeurigheid om te zetten in geschreven tekst (transcriptie).",
+    "logo": "https://cdn.simpleicons.org/audacity",
+    "vendor": "Diverse/Community",
+    "homepage": "https://www.google.com/search?q=open+source+ai+transcriber"
+  },
+  {
+    "identifier": "loveable",
+    "name": "Lovable",
+    "category": "AI App Builder",
+    "tags": [
+      "no-code",
+      "ai-prototyping",
+      "frontend",
+      "full-stack"
+    ],
+    "description": "Een platform waarmee gebruikers apps en websites kunnen bouwen door te chatten met AI. Het is gericht op snelle prototypes en het genereren van een volledige, werkende app (inclusief frontend en backend) op basis van een tekstprompt of afbeelding.",
+    "logo": "https://cdn.simpleicons.org/lovable",
+    "vendor": "Lovable",
+    "homepage": "https://lovable.dev/"
+  },
+  {
+    "identifier": "gemini",
+    "name": "Gemini",
+    "category": "Generatieve AI",
+    "tags": [
+      "llm",
+      "multimodaal",
+      "google-ai",
+      "conversationeel"
+    ],
+    "description": "Een familie van multimodale AI-modellen van Google. Gemini is ontworpen om naadloos verschillende soorten informatie (tekst, code, afbeeldingen, audio en video) te begrijpen, te bedienen en te combineren. Het is de motor achter Google's AI-producten en diensten.",
+    "logo": "https://cdn.simpleicons.org/google",
+    "vendor": "Google",
+    "homepage": "https://www.google.com/intl/nl/gemini/features/"
+  },
+  {
+    "identifier": "ollama",
+    "name": "Ollama",
+    "category": "Lokale LLM Tooling",
+    "tags": [
+      "llm",
+      "open-source",
+      "local-inference",
+      "cli",
+      "privacy"
+    ],
+    "description": "Een open-source tool die het proces van het lokaal downloaden, opzetten en draaien van grote taalmodellen (LLM's) zoals Llama en Mistral op een eigen apparaat vereenvoudigt. Het is ontworpen voor ontwikkelaars en gebruikers die privacy en controle willen over hun LLM-interacties.",
+    "logo": "https://cdn.simpleicons.org/ollama",
+    "vendor": "Open-Source (Ollama)",
+    "homepage": "https://ollama.com/"
   }
+
 ]
