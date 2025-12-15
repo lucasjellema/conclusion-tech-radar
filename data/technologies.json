@@ -2,7 +2,7 @@
   {
     "identifier": "docker",
     "name": "Docker",
-    "category": "Infrastructure",
+    "category": "Platform",
     "tags": [
       "containerization",
       "devops",
@@ -16,7 +16,7 @@
   {
     "identifier": "kubernetes",
     "name": "Kubernetes",
-    "category": "Infrastructure",
+    "category": "Platform",
     "tags": [
       "orchestration",
       "containers",
@@ -143,7 +143,7 @@
   {
     "identifier": "microsoft-azure-ai-foundry",
     "name": " Azure Foundry IQ (pka Azure AI Foundry)",
-    "category": "Infrastructure",
+    "category": "Platform",
     "tags": [
       "AI",
       "cloud",
@@ -171,7 +171,7 @@
   {
     "identifier": "salesforce-ai",
     "name": "Salesforce AI",
-    "category": "CRM",
+    "category": "Business Applications",
     "tags": [
       "AI",
       "CRM",
@@ -254,7 +254,7 @@
   {
     "identifier": "azure-devops-board",
     "name": "Azure DevOps",
-    "category": "Project Management",
+    "category": "Tools",
     "tags": [
       "devops",
       "project management"
@@ -295,7 +295,7 @@
   {
     "identifier": "laravel",
     "name": "Laravel",
-    "category": "Development",
+    "category": "Tools",
     "tags": [
       "php",
       "framework",
@@ -697,12 +697,12 @@
   {
     "identifier": "nextcloud",
     "name": "NextCloud",
-    "category": "Collaboration",
+    "category": "Tools",
     "tags": [
       "file-sharing",
       "collaboration",
       "self-hosted",
-      "open-source"
+      "open-source", "workplace"
     ],
     "description": "Open-source, zelf-hostable suite voor bestandssynchronisatie, delen, en communicatie, als alternatief voor publieke clouddiensten.",
     "logo": "https://cdn.simpleicons.org/nextcloud",
@@ -874,21 +874,6 @@
     ],
     "homepage": "https://www.uniserver.nl/"
   },
-  {
-    "identifier": "nextcloud",
-    "name": "NextCloud",
-    "category": "Collaboration",
-    "tags": [
-      "file-sharing",
-      "collaboration",
-      "self-hosted",
-      "open-source"
-    ],
-    "description": "Open-source, zelf-hostable suite voor bestandssynchronisatie, delen, en communicatie, als alternatief voor publieke clouddiensten.",
-    "logo": "https://cdn.simpleicons.org/nextcloud",
-    "vendor": "Nextcloud GmbH",
-    "homepage": "https://nextcloud.com/"
-  },
 
   {
     "identifier": "scaleway",
@@ -920,21 +905,6 @@
     "logo": "https://cdn.simpleicons.org/ovh",
     "vendor": "OVHcloud",
     "homepage": "https://www.ovhcloud.com/"
-  },
-  {
-    "identifier": "stackit",
-    "name": "StackIT",
-    "category": "Cloud",
-    "tags": [
-      "european-cloud",
-      "cloud-computing",
-      "iaas",
-      "data-sovereignty"
-    ],
-    "description": "De cloudprovider van de Schwarz Group (o.a. Lidl), gericht op veilige en soevereine cloudoplossingen, voornamelijk in Europa.",
-    "logo": "https://cdn.simpleicons.org/cloud",
-    "vendor": "Schwarz IT",
-    "homepage": "https://www.stackit.cloud/"
   },
   {
     "identifier": "wasm",
@@ -1061,7 +1031,7 @@
   {
     "identifier": "prosci-adkar",
     "name": "PROSCI-ADKAR Veranderaanpak",
-    "category": "Methodology",
+    "category": "Werkwijze",
     "tags": [
       "change-management",
       "adkar",
@@ -1106,7 +1076,7 @@
   {
     "identifier": "model-netwerksamenwerking",
     "name": "Model Netwerksamenwerking",
-    "category": "Methodology",
+    "category": "Werkwijze",
     "tags": [
       "Collaboration",
       "Network",
@@ -1131,7 +1101,7 @@
   {
     "identifier": "it-architecture-consulting",
     "name": "IT Architecture Consulting",
-    "category": "Methodology",
+    "category": "Werkwijze",
     "tags": [],
     "description": "",
     "logo": "",
@@ -1142,7 +1112,7 @@
   {
     "identifier": "openehr",
     "name": "OpenEHR",
-    "category": "Healthcare Standards",
+    "category": "Data",
     "tags": [
       "electronic-health-record",
       "clinical-data-modelling",
@@ -1157,7 +1127,7 @@
   {
     "identifier": "fhir",
     "name": "FHIR",
-    "category": "Healthcare Standards",
+    "category": "Data",
     "tags": [
       "interoperability",
       "health-data-exchange",
@@ -1172,7 +1142,7 @@
   {
     "identifier": "openfhir",
     "name": "openFHIR",
-    "category": "Healthcare Standards",
+    "category": "Data",
     "tags": [
       "interoperability",
       "health-data-exchange",
@@ -1187,7 +1157,7 @@
   {
     "identifier": "fhir",
     "name": "FHIR",
-    "category": "Healthcare Standards",
+    "category": "Data",
     "tags": [
       "interoperability",
       "health-data-exchange",
@@ -1202,7 +1172,7 @@
   {
     "identifier": "ai-assisted-engineering",
     "name": "AI Assisted Software Engineering",
-    "category": "werkwijze",
+    "category": "Werkwijze",
     "tags": [
       "ai",
       "software engineering",
@@ -1217,7 +1187,7 @@
   {
     "identifier": "securing-coding",
     "name": "Secure Coding Policy",
-    "category": "werkwijze",
+    "category": "Werkwijze",
     "tags": [
       "security",
       "software engineering"
@@ -1230,7 +1200,7 @@
   {
     "identifier": "bruno",
     "name": "Bruno",
-    "category": "API Development",
+    "category": "Tools",
     "tags": [
       "api-client",
       "open-source",
@@ -1245,7 +1215,7 @@
   {
     "identifier": "podman",
     "name": "Podman",
-    "category": "Infrastructure",
+    "category": "Platform",
     "tags": [
       "containerization",
       "container-engine",
@@ -1260,7 +1230,7 @@
   {
     "identifier": "argocd",
     "name": "Argo CD",
-    "category": "DevOps",
+    "category": "Tools",
     "tags": [
       "gitops",
       "kubernetes",
@@ -1320,7 +1290,7 @@
   {
     "identifier": "dapr",
     "name": "Dapr",
-    "category": "Distributed Systems",
+    "category": "Tools",
     "tags": [
       "microservices",
       "event-driven",
@@ -1350,7 +1320,7 @@
   {
     "identifier": "eventcatalog",
     "name": "EventCatalog",
-    "category": "Documentation",
+    "category": "Tools",
     "tags": [
       "event-driven-architecture",
       "documentation",
@@ -1395,7 +1365,7 @@
   {
     "identifier": "a2a-protocol",
     "name": "Agent2Agent (A2A) Protocol",
-    "category": "AI/Agent Communication",
+    "category": "AI",
     "tags": [
       "ai-agents",
       "interoperability",
@@ -1456,7 +1426,7 @@
   {
     "identifier": "algolia",
     "name": "Algolia",
-    "category": "Zoekplatform",
+    "category": "Platform",
     "tags": [
       "search",
       "ai-search",
@@ -1486,7 +1456,7 @@
   {
     "identifier": "opentofu",
     "name": "OpenTofu",
-    "category": "Infrastructure as Code (IaC)",
+    "category": "Tools",
     "tags": [
       "iac",
       "cloud-agnostic",
@@ -1686,7 +1656,7 @@
   {
     "identifier": "openai-gpt-teams",
     "name": "OpenAI GPT Teams",
-    "category": "AI Assistent",
+    "category": "AI",
     "tags": [
       "llm",
       "ai-copilot",
@@ -1702,7 +1672,7 @@
   {
     "identifier": "snowflake-intelligence",
     "name": "Snowflake Intelligence",
-    "category": "Data & AI",
+    "category": "Data",
     "tags": [
       "data-cloud",
       "ai-agent",
@@ -1717,7 +1687,7 @@
   {
     "identifier": "transcriber-opensource-ai",
     "name": "Transcriber (Open Source AI)",
-    "category": "Speech-to-Text",
+    "category": "AI",
     "tags": [
       "open-source",
       "ai-transcription",
@@ -1732,7 +1702,7 @@
   {
     "identifier": "loveable",
     "name": "Lovable",
-    "category": "AI App Builder",
+    "category": "AI",
     "tags": [
       "no-code",
       "ai-prototyping",
@@ -1747,7 +1717,7 @@
   {
     "identifier": "gemini",
     "name": "Gemini",
-    "category": "Generatieve AI",
+    "category": "AI",
     "tags": [
       "llm",
       "multimodaal",
@@ -1762,7 +1732,7 @@
   {
     "identifier": "ollama",
     "name": "Ollama",
-    "category": "Lokale LLM Tooling",
+    "category": "AI",
     "tags": [
       "llm",
       "open-source",
@@ -1774,6 +1744,173 @@
     "logo": "https://cdn.simpleicons.org/ollama",
     "vendor": "Open-Source (Ollama)",
     "homepage": "https://ollama.com/"
+  }
+,{
+    "identifier": "scaleway-cloud",
+    "name": "Scaleway Cloud",
+    "category": "Cloud",
+    "tags": [
+      "iaas",
+      "european-provider",
+      "bare-metal",
+      "kubernetes",
+      "ai-services"
+    ],
+    "description": "Een Franse multi-cloud service provider die een volledig cloud-ecosysteem aanbiedt, variërend van Virtuele Instances en Bare Metal tot Managed Kubernetes, databases en geavanceerde AI-oplossingen (waaronder GPU's en Generative APIs). Het staat bekend als een Europees alternatief voor hyperscalers, met nadruk op **datasoevereiniteit**, GDPR-compliance en duurzaamheid (datacenters op hernieuwbare energie).",
+    "logo": "https://cdn.simpleicons.org/scaleway",
+    "vendor": "Scaleway (Iliad Group)",
+    "homepage": "https://www.scaleway.com/"
+  },
+  {
+    "identifier": "hetzner-cloud",
+    "name": "Hetzner Cloud",
+    "category": "Cloud",
+    "tags": [
+      "iaas",
+      "vps",
+      "european-provider",
+      "data-sovereignty"
+    ],
+    "description": "Een Duitse cloudprovider die betaalbare, veilige en eenvoudige cloudoplossingen (zoals VPS en dedicated servers) aanbiedt. Het staat bekend om zijn scherpe prijs-kwaliteitverhouding, data-soevereiniteit (hosted in Duitsland/Europa) en GDPR-compliance.",
+    "logo": "https://cdn.simpleicons.org/hetzner",
+    "vendor": "Hetzner Online GmbH",
+    "homepage": "https://www.hetzner.com/cloud-made-in-germany/"
+  },
+  {
+    "identifier": "ovh-cloud",
+    "name": "OVH Cloud",
+    "category": "Cloud",
+    "tags": [
+      "iaas",
+      "european-provider",
+      "dedicated-servers",
+      "public-cloud"
+    ],
+    "description": "Een Franse cloud computing-onderneming en een van de grootste cloudproviders ter wereld. OVHcloud biedt een breed scala aan diensten, waaronder VPS, dedicated servers, en public en private cloudoplossingen, met een sterke focus op Europese waarden en datasoevereiniteit.",
+    "logo": "https://cdn.simpleicons.org/ovh",
+    "vendor": "OVH Groupe SA",
+    "homepage": "https://www.ovhcloud.com/"
+  },
+  {
+    "identifier": "oracle-sovereign-cloud",
+    "name": "Oracle Sovereign Cloud",
+    "category": "Cloud",
+    "tags": [
+      "cloud-sovereignty",
+      "governance",
+      "compliance",
+      "oci"
+    ],
+    "description": "Een type cloudomgeving (zoals de Oracle EU Sovereign Cloud) die een organisatie helpt te voldoen aan strikte vereisten voor digitale soevereiniteit. Deze cloudregio's zijn fysiek en operationeel gescheiden, en ontworpen om te voldoen aan de lokale compliance-, wettelijke en regelgevende behoeften van overheden of sterk gereguleerde industrieën.",
+    "logo": "https://cdn.simpleicons.org/oracle",
+    "vendor": "Oracle",
+    "homepage": "https://www.oracle.com/cloud/sovereign-cloud/"
+  },
+  {
+    "identifier": "oracle-autonomous-backup",
+    "name": "Oracle Autonomous Backup",
+    "category": "Data",
+    "tags": [
+      "autonomous-database",
+      "backup",
+      "disaster-recovery",
+      "automation"
+    ],
+    "description": "De automatische en volledig beheerde back-up- en herstelfunctie binnen de Oracle Autonomous Database. Het zorgt voor automatische dagelijkse back-ups en maakt herstel of recovery mogelijk tot elk gespecificeerd tijdstip (point-in-time recovery) binnen de bewaarperiode, zonder menselijke tussenkomst.",
+    "logo": "https://cdn.simpleicons.org/oracle",
+    "vendor": "Oracle",
+    "homepage": "https://docs.oracle.com/en/cloud/paas/autonomous-database/adbsb/backup-restore.html"
+  },
+  {
+    "identifier": "oracle-autonomous-database",
+    "name": "Oracle Autonomous Database",
+    "category": "Data",
+    "tags": [
+      "database",
+      "cloud-db",
+      "machine-learning",
+      "self-driving"
+    ],
+    "description": "Een volledig beheerde cloud-database die Machine Learning gebruikt om traditionele DBA-taken (zoals tuning, patching, updates en beveiliging) te automatiseren zonder menselijke tussenkomst. Het staat bekend als 'self-driving, self-securing, and self-repairing'.",
+    "logo": "https://cdn.simpleicons.org/oracle",
+    "vendor": "Oracle",
+    "homepage": "https://www.oracle.com/autonomous-database/"
+  },
+  {
+    "identifier": "apache-airflow",
+    "name": "Apache Airflow",
+    "category": "Data",
+    "tags": [
+      "etl",
+      "dag",
+      "data-engineering",
+      "python",
+      "open-source"
+    ],
+    "description": "Een open-source platform om workflows programmatisch te creëren, in te plannen en te monitoren. Workflows worden gedefinieerd als Directed Acyclic Graphs (DAG's) in Python-code. Het wordt veel gebruikt voor ETL/ELT data pipelines, MLOps en het beheren van complexe sequenties van taken.",
+    "logo": "https://cdn.simpleicons.org/apacheairflow",
+    "vendor": "Apache Software Foundation",
+    "homepage": "https://airflow.apache.org/"
+  },
+  {
+    "identifier": "figma-ai",
+    "name": "Figma AI",
+    "category": "Tools",
+    "tags": [
+      "design",
+      "prototyping",
+      "ui-ux",
+      "ai-assistant"
+    ],
+    "description": "Een reeks AI-mogelijkheden ingebouwd in Figma Design, gericht op het stroomlijnen van de ontwerpfase. Functies omvatten het automatisch toevoegen van prototype-interacties, het genereren van eerste ontwerpen ('First Draft'), het vervangen van placeholdertekst en het snel hernoemen van lagen.",
+    "logo": "https://cdn.simpleicons.org/figma",
+    "vendor": "Figma",
+    "homepage": "https://help.figma.com/hc/en-us/sections/23870341763159-Figma-AI"
+  },
+  {
+    "identifier": "cis-benchmarks",
+    "name": "CIS Benchmarks",
+    "category": "Security",
+    "tags": [
+      "security-standards",
+      "best-practices",
+      "hardening",
+      "compliance"
+    ],
+    "description": "Een set van wereldwijd erkende en consensus-gedreven best practices voor het veilig configureren van IT-systemen, netwerken en software. Ze worden uitgegeven door het Center for Internet Security (CIS) en helpen organisaties om kwetsbaarheden te dichten en te voldoen aan compliance-eisen (bijv. Level 1 en Level 2 profielen). ",
+    "logo": "https://cdn.simpleicons.org/securitymetrics",
+    "vendor": "Center for Internet Security (CIS)",
+    "homepage": "https://www.cisecurity.org/benchmarks"
+  },
+  {
+    "identifier": "defect-dojo",
+    "name": "DefectDojo",
+    "category": "Security",
+    "tags": [
+      "vulnerability-management",
+      "devsecops",
+      "open-source",
+      "reporting"
+    ],
+    "description": "Een open-source Vulnerability Management-platform dat de resultaten van verschillende beveiligingsscanningstools (SAST, DAST, SCA) samenbrengt in één gecentraliseerd systeem. Het helpt teams bij het dedupliceren, prioriteren, rapporteren en bijhouden van beveiligingsfouten (defects) gedurende de hele levenscyclus.",
+    "logo": "https://cdn.simpleicons.org/owasp",
+    "vendor": "OWASP",
+    "homepage": "https://www.defectdojo.org/"
+  },
+  {
+    "identifier": "dependency-track",
+    "name": "Dependency-Track (SBOM)",
+    "category": "Security",
+    "tags": [
+      "sbom",
+      "vulnerability-analysis",
+      "supply-chain",
+      "open-source"
+    ],
+    "description": "Een intelligent Component Analysis platform dat organisaties helpt bij het identificeren en verminderen van risico's in de software-supplychain. Het maakt gebruik van Software Bill of Materials (SBOM's), met name in CycloneDX-formaat, om het gebruik van componenten in een portfolio te volgen en bekende kwetsbaarheden proactief te signaleren.",
+    "logo": "https://cdn.simpleicons.org/owasp",
+    "vendor": "OWASP",
+    "homepage": "https://owasp.org/www-project-dependency-track/"
   }
 
 ]
