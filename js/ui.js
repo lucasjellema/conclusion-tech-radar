@@ -1130,7 +1130,6 @@ function openRatingModal(rating, updateRadarCallback) {
     // Get all technologies for dropdown
     const { technologies } = getProcessedData();
     const customTechs = localRatings.getCustomTechnologies();
-    // const allTechs = [...new Set([...technologies, ...customTechs])];
 
     // Sort technologies alphabetically by name
     const uniqueTechs = new Map();
@@ -1150,16 +1149,12 @@ function openRatingModal(rating, updateRadarCallback) {
         <h2>${title}</h2>
         <form id="rating-form" class="rating-form">
             <div class="form-group">
-                <label for="tech-select">Technology:</label>
-                <select id="tech-select" required>
-                    <option value="">Select technology...</option>
-                    ${allTechs.map(t => `
-                        <option value="${t.identifier}" ${rating?.identifier === t.identifier ? 'selected' : ''}>
-                            ${t.name}
-                        </option>
-                    `).join('')}
-                    <option value="__custom__">+ Add new technology</option>
-                </select>
+                <label for="tech-search-input">Technology:</label>
+                <div class="searchable-select-container">
+                    <input type="text" id="tech-search-input" class="searchable-select-input" placeholder="Type to search..." autocomplete="off" required>
+                    <input type="hidden" id="tech-select" required>
+                    <div id="tech-options-list" class="searchable-select-options"></div>
+                </div>
             </div>
 
             <div id="custom-tech-fields" style="display: none;">
@@ -1203,15 +1198,87 @@ function openRatingModal(rating, updateRadarCallback) {
         </form>
     `;
 
-    // Setup custom technology toggle
-    const techSelect = document.getElementById('tech-select');
+    // Setup searchable dropdown logic
+    const searchInput = document.getElementById('tech-search-input');
+    const hiddenInput = document.getElementById('tech-select');
+    const optionsList = document.getElementById('tech-options-list');
     const customFields = document.getElementById('custom-tech-fields');
+    const customNameInput = document.getElementById('custom-tech-name');
 
-    techSelect.addEventListener('change', (e) => {
-        if (e.target.value === '__custom__') {
+    // Pre-fill if editing
+    if (rating) {
+        const tech = allTechs.find(t => t.identifier === rating.identifier);
+        if (tech) {
+            searchInput.value = tech.name;
+            hiddenInput.value = tech.identifier;
+        } else if (rating.identifier) {
+            // Fallback if tech not found but identifier exists
+            searchInput.value = rating.identifier;
+            hiddenInput.value = rating.identifier;
+        }
+    }
+
+    function renderOptions(filterText = '') {
+        optionsList.innerHTML = '';
+        const lowerFilter = filterText.toLowerCase();
+
+        const filteredTechs = allTechs.filter(t => t.name.toLowerCase().includes(lowerFilter));
+
+        filteredTechs.forEach(t => {
+            const div = document.createElement('div');
+            div.className = 'searchable-select-option';
+            if (t.identifier === hiddenInput.value) div.classList.add('selected');
+            div.textContent = t.name;
+            div.addEventListener('click', () => {
+                selectOption(t.identifier, t.name);
+            });
+            optionsList.appendChild(div);
+        });
+
+        // Add "Add new technology" option
+        const addNewDiv = document.createElement('div');
+        addNewDiv.className = 'searchable-select-option new-option';
+        addNewDiv.textContent = `+ Add "${filterText}" as new technology`;
+        addNewDiv.addEventListener('click', () => {
+            selectOption('__custom__', filterText);
+        });
+        optionsList.appendChild(addNewDiv);
+
+        if (filteredTechs.length > 0 || filterText.length > 0) {
+            optionsList.classList.add('show');
+        } else {
+            optionsList.classList.remove('show');
+        }
+    }
+
+    function selectOption(value, text) {
+        hiddenInput.value = value;
+        searchInput.value = text;
+        optionsList.classList.remove('show');
+
+        if (value === '__custom__') {
             customFields.style.display = 'block';
+            customNameInput.value = text; // Pre-fill name with search text
         } else {
             customFields.style.display = 'none';
+        }
+    }
+
+    // Event listeners for search input
+    searchInput.addEventListener('input', (e) => {
+        renderOptions(e.target.value);
+        // Clear selection if user types
+        hiddenInput.value = '';
+    });
+
+    searchInput.addEventListener('focus', () => {
+        renderOptions(searchInput.value);
+    });
+
+    // Close options when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !optionsList.contains(e.target)) {
+            optionsList.classList.remove('show');
         }
     });
 
@@ -1219,6 +1286,26 @@ function openRatingModal(rating, updateRadarCallback) {
     const form = document.getElementById('rating-form');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        // Validation: ensure a technology is selected
+        if (!hiddenInput.value && searchInput.value) {
+            // If user typed something but didn't select, assume they want to add it as custom
+            selectOption('__custom__', searchInput.value);
+            // We need to stop here to let the user fill in details? 
+            // Or maybe we just proceed if we want to auto-create?
+            // Let's force them to confirm by showing the fields first
+            if (customFields.style.display === 'none') {
+                customFields.style.display = 'block';
+                customNameInput.value = searchInput.value;
+                return;
+            }
+        }
+
+        if (!hiddenInput.value) {
+            alert('Please select a technology.');
+            return;
+        }
+
         saveRating(rating, updateRadarCallback);
     });
 
@@ -1235,12 +1322,12 @@ function openRatingModal(rating, updateRadarCallback) {
  * @param {Function} updateRadarCallback - Callback to update radar
  */
 function saveRating(existingRating, updateRadarCallback) {
-    const techSelect = document.getElementById('tech-select');
+    const hiddenInput = document.getElementById('tech-select');
     const faseSelect = document.getElementById('fase-select');
     const toelichtingInput = document.getElementById('toelichting-input');
     const companyInput = document.getElementById('local-company-input');
 
-    let identifier = techSelect.value;
+    let identifier = hiddenInput.value;
 
     // Handle custom technology
     if (identifier === '__custom__') {

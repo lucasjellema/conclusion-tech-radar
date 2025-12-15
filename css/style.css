@@ -1360,3 +1360,63 @@ header {
 .blip.highlighted circle {
     stroke-width: 2px;
 }
+/* Searchable Select */
+.searchable-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.searchable-select-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.9rem;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.searchable-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 4px;
+}
+
+.searchable-select-options.show {
+    display: block;
+}
+
+.searchable-select-option {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.searchable-select-option:hover,
+.searchable-select-option.selected {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.searchable-select-option.new-option {
+    border-top: 1px solid var(--border-color);
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.searchable-select-option.new-option:hover {
+    color: var(--bg-color);
+}
+
