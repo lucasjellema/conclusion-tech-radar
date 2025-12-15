@@ -496,22 +496,7 @@
     "logo": "https://cdn.simpleicons.org/netskope",
     "vendor": "Netskope",
     "homepage": "https://www.netskope.com/"
-  },
-  {
-    "identifier": "ansible-automation-platform",
-    "name": "Ansible Automation Platform",
-    "category": "Automation",
-    "tags": [
-      "automation",
-      "enterprise-automation",
-      "devops",
-      "ansible"
-    ],
-    "description": "An enterprise-grade platform for automation, providing centralized control, security, and management for Ansible deployments.",
-    "logo": "https://cdn.simpleicons.org/ansible",
-    "vendor": "Red Hat",
-    "homepage": "https://www.ansible.com/products/automation-platform"
-  },
+},
   {
     "identifier": "n8n",
     "name": "N8N",
@@ -1244,7 +1229,7 @@
   },
   {
     "identifier": "genai",
-    "name": "Generatieve AI (GenAI)",
+    "name": "generative ai",
     "category": "AI",
     "tags": [
       "llm",
@@ -1912,5 +1897,20 @@
     "vendor": "OWASP",
     "homepage": "https://owasp.org/www-project-dependency-track/"
   }
-
+,{
+    "identifier": "manus-ai-agent",
+    "name": "Manus (Autonome AI Agent)",
+    "category": "AI",
+    "tags": [
+      "autonome-agent",
+      "ai-copilot",
+      "multi-agent-system",
+      "web-development",
+      "workflow-automation"
+    ],
+    "description": "Een geavanceerde, autonome AI-agent die complexe taken kan plannen, beslissen en uitvoeren zonder constante menselijke supervisie. Manus gebruikt een 'multi-agent'-architectuur met gespecialiseerde sub-agents om in realtime met webbrowsers, code-editors en data-omgevingen te interageren. Toepassingen zijn onder meer full-stack webontwikkeling, financiële analyse en uitgebreide marktonderzoeken.",
+    "logo": "https://cdn.simpleicons.org/ai",
+    "vendor": "Butterfly Effect (Monica)",
+    "homepage": "https://manus.im/"
+  }
 ]
