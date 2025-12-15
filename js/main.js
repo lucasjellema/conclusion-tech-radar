@@ -206,7 +206,9 @@ async function fetchData() {
     const data = await dataService.getData();
     handleFreshRatings(data.statusPerBedrijf, data.toelichtingPerBedrijf);
     console.log("Fetched data:", data);
-    // use the data in the radar
+
+    // Update radar and UI with fresh data, resetting filters to ensure everything is visible
+    ui.resetView(updateRadar);
   } catch (error) {
     console.error("Error fetching data:", error);
     ui.showDataError(error.message || "Failed to fetch data");

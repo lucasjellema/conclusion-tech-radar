@@ -421,20 +421,7 @@ function setupEventListeners(updateCallback) {
     const resetBtn = document.getElementById('reset-filters');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            const newData = resetAllFilters();
-            updateCallback(newData);
-            renderFilters(updateCallback);
-
-            // Reset inputs and visibility toggles
-            const ringsToggle = document.getElementById('toggle-rings');
-            const segmentsToggle = document.getElementById('toggle-segments');
-            if (ringsToggle) ringsToggle.checked = true;
-            if (segmentsToggle) segmentsToggle.checked = true;
-
-            const dateInput = document.getElementById('date-filter');
-            if (dateInput) dateInput.value = '';
-            const searchInput = document.getElementById('search-filter');
-            if (searchInput) searchInput.value = '';
+            resetView(updateCallback);
         });
     }
 
@@ -1360,4 +1347,21 @@ export function hideManageRatingsTab() {
         radarContent.style.display = 'block';
         manageContent.style.display = 'none';
     }
+}
+
+export function resetView(updateCallback) {
+    const newData = resetAllFilters();
+    updateCallback(newData);
+    renderFilters(updateCallback);
+
+    // Reset inputs and visibility toggles
+    const ringsToggle = document.getElementById('toggle-rings');
+    const segmentsToggle = document.getElementById('toggle-segments');
+    if (ringsToggle) ringsToggle.checked = true;
+    if (segmentsToggle) segmentsToggle.checked = true;
+
+    const dateInput = document.getElementById('date-filter');
+    if (dateInput) dateInput.value = '';
+    const searchInput = document.getElementById('search-filter');
+    if (searchInput) searchInput.value = '';
 }
