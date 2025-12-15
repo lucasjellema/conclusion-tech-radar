@@ -496,7 +496,7 @@
     "logo": "https://cdn.simpleicons.org/netskope",
     "vendor": "Netskope",
     "homepage": "https://www.netskope.com/"
-},
+  },
   {
     "identifier": "n8n",
     "name": "N8N",
@@ -687,7 +687,8 @@
       "file-sharing",
       "collaboration",
       "self-hosted",
-      "open-source", "workplace"
+      "open-source",
+      "workplace"
     ],
     "description": "Open-source, zelf-hostable suite voor bestandssynchronisatie, delen, en communicatie, als alternatief voor publieke clouddiensten.",
     "logo": "https://cdn.simpleicons.org/nextcloud",
@@ -711,7 +712,7 @@
   },
   {
     "identifier": "ovh-cloud",
-    "name": "OVHcloud",
+    "name": "OVH Cloud",
     "category": "Cloud",
     "tags": [
       "european-cloud",
@@ -858,38 +859,6 @@
       "data-fabric"
     ],
     "homepage": "https://www.uniserver.nl/"
-  },
-
-  {
-    "identifier": "scaleway",
-    "name": "Scaleway",
-    "category": "Cloud",
-    "tags": [
-      "european-cloud",
-      "iaas",
-      "cloud-computing",
-      "hosting"
-    ],
-    "description": "Een Europese cloud-infrastructuurprovider die een breed scala aan diensten biedt, waaronder compute, storage en bare metal.",
-    "logo": "https://cdn.simpleicons.org/scaleway",
-    "vendor": "Scaleway",
-    "homepage": "https://www.scaleway.com/"
-  },
-  {
-    "identifier": "ovh-cloud",
-    "name": "OVHcloud",
-    "category": "Cloud",
-    "tags": [
-      "european-cloud",
-      "iaas",
-      "paas",
-      "hosting",
-      "dedicated-servers"
-    ],
-    "description": "Een Franse wereldwijde cloudprovider die publieke en private cloudoplossingen, hosting en dedicated servers aanbiedt, met een focus op Europese data-soevereiniteit.",
-    "logo": "https://cdn.simpleicons.org/ovh",
-    "vendor": "OVHcloud",
-    "homepage": "https://www.ovhcloud.com/"
   },
   {
     "identifier": "wasm",
@@ -1637,7 +1606,6 @@
     "vendor": "PCG (Public Cloud Group)",
     "homepage": "https://pcg.io/insights/sap-certificate-management-automation/"
   },
-
   {
     "identifier": "openai-gpt-teams",
     "name": "OpenAI GPT Teams",
@@ -1729,22 +1697,6 @@
     "logo": "https://cdn.simpleicons.org/ollama",
     "vendor": "Open-Source (Ollama)",
     "homepage": "https://ollama.com/"
-  }
-,{
-    "identifier": "scaleway-cloud",
-    "name": "Scaleway Cloud",
-    "category": "Cloud",
-    "tags": [
-      "iaas",
-      "european-provider",
-      "bare-metal",
-      "kubernetes",
-      "ai-services"
-    ],
-    "description": "Een Franse multi-cloud service provider die een volledig cloud-ecosysteem aanbiedt, variërend van Virtuele Instances en Bare Metal tot Managed Kubernetes, databases en geavanceerde AI-oplossingen (waaronder GPU's en Generative APIs). Het staat bekend als een Europees alternatief voor hyperscalers, met nadruk op **datasoevereiniteit**, GDPR-compliance en duurzaamheid (datacenters op hernieuwbare energie).",
-    "logo": "https://cdn.simpleicons.org/scaleway",
-    "vendor": "Scaleway (Iliad Group)",
-    "homepage": "https://www.scaleway.com/"
   },
   {
     "identifier": "hetzner-cloud",
@@ -1760,21 +1712,6 @@
     "logo": "https://cdn.simpleicons.org/hetzner",
     "vendor": "Hetzner Online GmbH",
     "homepage": "https://www.hetzner.com/cloud-made-in-germany/"
-  },
-  {
-    "identifier": "ovh-cloud",
-    "name": "OVH Cloud",
-    "category": "Cloud",
-    "tags": [
-      "iaas",
-      "european-provider",
-      "dedicated-servers",
-      "public-cloud"
-    ],
-    "description": "Een Franse cloud computing-onderneming en een van de grootste cloudproviders ter wereld. OVHcloud biedt een breed scala aan diensten, waaronder VPS, dedicated servers, en public en private cloudoplossingen, met een sterke focus op Europese waarden en datasoevereiniteit.",
-    "logo": "https://cdn.simpleicons.org/ovh",
-    "vendor": "OVH Groupe SA",
-    "homepage": "https://www.ovhcloud.com/"
   },
   {
     "identifier": "oracle-sovereign-cloud",
@@ -1896,8 +1833,8 @@
     "logo": "https://cdn.simpleicons.org/owasp",
     "vendor": "OWASP",
     "homepage": "https://owasp.org/www-project-dependency-track/"
-  }
-,{
+  },
+  {
     "identifier": "manus-ai-agent",
     "name": "Manus (Autonome AI Agent)",
     "category": "AI",
