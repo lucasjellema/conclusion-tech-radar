@@ -1897,16 +1897,16 @@
   },
   {
     "identifier": "mendix-code-review-agent",
-    "name": "Mendix Code Review Agent (ACR door CLEVR)",
+    "name": "Mendix Code Review Agent (eigen product van Low Code Company)",
     "category": "Tools",
     "tags": [
-      "static-code-analysis",
+      "changes",
       "quality-assurance",
-      "low-code-governance"
+      "review"
     ],
-    "description": "Een cloud-gebaseerde add-on service voor het Mendix Platform (vaak aangeduid als Application Code Reviewer - ACR) dat de code review-processen voor low-code applicaties automatiseert. Het voert statische code-analyse uit om de app-beveiliging, betrouwbaarheid en prestaties te controleren, waardoor ontwikkelaars zich kunnen concentreren op complexere uitdagingen.",
-    "logo": "https://cdn.simpleicons.org/mendix",
-    "vendor": "CLEVR (Add-on)",
-    "homepage": "https://marketplace.mendix.com/link/component/114669/CLEVR/Application-Code-Reviewer"
+    "description": "Eigen oplossing om code review proces te versnellen en kwaliteit te verhogen, door de changes te achterhalen, laten interpreteren en voorzien van aanvullende informatie wat waarom meer aandacht nodig heeft.",
+    "logo": "",
+    "vendor": "Low Code Company",
+    "homepage": ""
   }
 ]
