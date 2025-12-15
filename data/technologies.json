@@ -1912,5 +1912,64 @@
     "logo": "https://cdn.simpleicons.org/ai",
     "vendor": "Butterfly Effect (Monica)",
     "homepage": "https://manus.im/"
+  },
+  {
+    "identifier": "mendix-genai-cloud-resources",
+    "name": "Mendix GenAI Cloud Resources",
+    "category": "AI",
+    "tags": [
+      "low-code-ai",
+      "llm-integration",
+      "knowledge-base",
+      "cloud-services"
+    ],
+    "description": "Pakketten (Resource Packs) aangeboden via het Mendix Cloud GenAI portaal om de integratie van Generatieve AI (GenAI) functionaliteiten, zoals LLM's (Anthropic Claude, Cohere) en kennisbanken, in Mendix-applicaties te vereenvoudigen. Dit omvat onder meer de Mendix Cloud Model Resource Pack en de Mendix Cloud Knowledge Base Resource Pack, met functies voor beheer van API-toegang en tokenverbruik.",
+    "logo": "https://cdn.simpleicons.org/mendix",
+    "vendor": "Mendix",
+    "homepage": "https://marketplace.mendix.com/link/component/239449/Mendix/Mendix-Cloud-GenAI-Connector"
+  },
+  {
+    "identifier": "mendix-pwa",
+    "name": "Mendix PWA (Progressive Web App)",
+    "category": "Tools",
+    "tags": [
+      "mobile-development",
+      "web-app",
+      "offline-support",
+      "low-code"
+    ],
+    "description": "Een webapplicatie, gebouwd met Mendix (vanaf versie 9), die zich gedraagt als een native mobiele app. PWA's combineren de flexibiliteit van een website met native functies (zoals offline functionaliteit, pushnotificaties en toegang tot apparaatfuncties) en kunnen direct via de browser op het startscherm worden geïnstalleerd zonder een app store.",
+    "logo": "https://cdn.simpleicons.org/mendix",
+    "vendor": "Mendix",
+    "homepage": "https://marketplace.mendix.com/link/component/108000/Incentro/Progressive-Web-App"
+  },
+  {
+    "identifier": "mendix-maia",
+    "name": "Mendix MAIA (Mendix AI-assistance)",
+    "category": "AI",
+    "tags": [
+      "ai-assisted-development",
+      "co-developer",
+      "low-code-studio-pro",
+      "domain-model-generator"
+    ],
+    "description": "De generatieve AI-assistent van Mendix die ontwikkelaars ondersteunt in Mendix Studio Pro. MAIA fungeert als co-developer voor het genereren en verfijnen van datamodellen, gebruikersinterfaces en workflows op basis van natuurlijke taal. Functies omvatten 'Maia Chat', de 'Domain Model Generator' en 'Maia Learn' voor beginners.",
+    "logo": "https://cdn.simpleicons.org/mendix",
+    "vendor": "Mendix",
+    "homepage": "https://www.mendix.com/platform/ai/aiad/"
+  },
+  {
+    "identifier": "mendix-code-review-agent",
+    "name": "Mendix Code Review Agent (ACR door CLEVR)",
+    "category": "Tools",
+    "tags": [
+      "static-code-analysis",
+      "quality-assurance",
+      "low-code-governance"
+    ],
+    "description": "Een cloud-gebaseerde add-on service voor het Mendix Platform (vaak aangeduid als Application Code Reviewer - ACR) dat de code review-processen voor low-code applicaties automatiseert. Het voert statische code-analyse uit om de app-beveiliging, betrouwbaarheid en prestaties te controleren, waardoor ontwikkelaars zich kunnen concentreren op complexere uitdagingen.",
+    "logo": "https://cdn.simpleicons.org/mendix",
+    "vendor": "CLEVR (Add-on)",
+    "homepage": "https://marketplace.mendix.com/link/component/114669/CLEVR/Application-Code-Reviewer"
   }
 ]
