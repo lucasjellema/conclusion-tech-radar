@@ -1,7 +1,7 @@
 import { loadData, handleFreshRatings } from './data.js';
 import { initRadar, updateRadar } from './radar.js';
 //import { initUI } from './ui.js';
-import * as ui from './ui.js';
+import * as ui from './ui/index.js';
 import { initI18n, setLocale, translatePage, t } from './i18n.js';
 import * as auth from './auth.js';
 import * as dataService from './dataService.js';

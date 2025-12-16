@@ -30,7 +30,13 @@ Main source files
 - `js/main.js` — app bootstrap (initialize i18n, data, UI and radar) and auth bootstrap.
 - `js/auth.js` — MSAL wrapper for sign-in/sign-out and token/profile retrieval.
 - `js/data.js` — loads JSON data, manages filter state, and handles local ratings merging.
-- `js/ui.js` — renders filters, sidebar interactions, modal, and event wiring.
+- `js/ui/` — Directory containing UI modules:
+  - `index.js` — Main UI entry point.
+  - `filters.js` — Sidebar filter rendering.
+  - `modals.js` — Modal management.
+  - `events.js` — Event handling and initialization.
+  - `localRatingsUI.js` — UI for local ratings management.
+  - `helpers.js` — UI utility functions.
 - `js/radar.js` — Main entry point for radar visualization.
 - `js/radar/` — Directory containing radar modules:
   - `radar-colors.js` — Color management.
