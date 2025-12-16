@@ -2044,6 +2044,84 @@
     "vendor": "Exoscale (onderdeel van A1 Telekom Austria Group)",
     "homepage": "https://www.exoscale.com/"
   }
+, 
+  {
+    "identifier": "servicenow",
+    "name": "ServiceNow",
+    "category": "Tools",
+    "tags": [
+      "itsm",
+      "workflow-automation",
+      "itil",
+      "paas"
+    ],
+    "description": "Een toonaangevend cloudplatform dat organisaties helpt bij het digitaliseren en automatiseren van werkstromen. Hoewel het begon als een IT Service Management (ITSM) tool, is het uitgegroeid tot een breed platform voor HR, klantenservice en operations, gericht op het stroomlijnen van bedrijfsbreed procesbeheer.",
+    "logo": "https://cdn.simpleicons.org/servicenow",
+    "vendor": "ServiceNow",
+    "homepage": "https://www.servicenow.com/"
+  },
+  {
+    "identifier": "confluence",
+    "name": "Confluence",
+    "category": "Tools",
+    "tags": [
+      "wiki",
+      "knowledge-sharing",
+      "documentation",
+      "atlassian"
+    ],
+    "description": "Een collaboratieve workspace die teams helpt bij het creëren, organiseren en delen van kennis. Confluence fungeert als een centrale bron van waarheid voor projectplannen, vergaderverslagen en technische documentatie, met sterke integraties binnen het Atlassian-ecosysteem.",
+    "logo": "https://cdn.simpleicons.org/confluence",
+    "vendor": "Atlassian",
+    "homepage": "https://www.atlassian.com/software/confluence"
+  },
+  {
+    "identifier": "jira",
+    "name": "Jira (Software)",
+    "category": "Tools",
+    "tags": [
+      "agile",
+      "scrum",
+      "kanban",
+      "issue-tracking",
+      "atlassian"
+    ],
+    "description": "De standaard tool voor agile projectmanagement en issue-tracking. Jira stelt teams in staat om werk te plannen, taken toe te wijzen en de voortgang van softwareontwikkeling te volgen via aanpasbare workflows, boards en rapportages.",
+    "logo": "https://cdn.simpleicons.org/jira",
+    "vendor": "Atlassian",
+    "homepage": "https://www.atlassian.com/software/jira"
+  },
+  {
+    "identifier": "jira-service-management",
+    "name": "Jira Service Management (JSM)",
+    "category": "Tools",
+    "tags": [
+      "itsm",
+      "service-desk",
+      "itil",
+      "incident-management",
+      "atlassian"
+    ],
+    "description": "Een ITSM-oplossing gebouwd op Jira die IT-, operations- en business-teams helpt om serviceverzoeken, incidenten, problemen en wijzigingen snel te beheren. Het biedt een portaal voor eindgebruikers en integreert naadloos met Jira Software voor DevOps-workflows.",
+    "logo": "https://cdn.simpleicons.org/jiraservicemanagement",
+    "vendor": "Atlassian",
+    "homepage": "https://www.atlassian.com/software/jira/service-management"
+  },
+  {
+    "identifier": "atlassian-rovo",
+    "name": "Atlassian Rovo",
+    "category": "AI",
+    "tags": [
+      "ai-search",
+      "knowledge-discovery",
+      "genai-agents",
+      "enterprise-search"
+    ],
+    "description": "Een AI-gestuurde tool binnen het Atlassian-platform (beschikbaar in o.a. Confluence en Jira) die teams helpt om informatie te vinden over diverse SaaS-tools heen. Rovo gebruikt een 'enterprise search' om antwoorden te formuleren en biedt AI-agents die specifieke taken kunnen uitvoeren, zoals het samenvatten van documenten of het opschonen van backlogs.",
+    "logo": "https://cdn.simpleicons.org/atlassian",
+    "vendor": "Atlassian",
+    "homepage": "https://www.atlassian.com/software/rovo"
+  }
 
 
 ]
