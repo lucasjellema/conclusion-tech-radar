@@ -2027,6 +2027,23 @@
     "logo": "https://cdn.simpleicons.org/istio",
     "vendor": "Istio Project / Solo.io",
     "homepage": "https://istio.io/latest/blog/2022/introducing-ambient-mesh/"
+  },
+  {
+    "identifier": "exoscale",
+    "name": "Exoscale",
+    "category": "Cloud",
+    "tags": [
+      "iaas",
+      "european-provider",
+      "data-sovereignty",
+      "managed-kubernetes",
+      "s3-storage"
+    ],
+    "description": "Een toonaangevende Europese cloudprovider, gevestigd in Zwitserland, die zich richt op eenvoud, prestaties en veiligheid. Exoscale biedt IaaS-diensten zoals compute-instances, object storage en managed Kubernetes, met een sterke nadruk op **privacy en datasoevereiniteit**. Het is een populair alternatief voor organisaties die strikte GDPR- of Zwitserse privacywetgeving moeten naleven.",
+    "logo": "https://cdn.simpleicons.org/exoscale",
+    "vendor": "Exoscale (onderdeel van A1 Telekom Austria Group)",
+    "homepage": "https://www.exoscale.com/"
   }
+
 
 ]
