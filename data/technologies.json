@@ -876,52 +876,6 @@
     "homepage": "https://webassembly.org/"
   },
   {
-    "identifier": "copilot-dynamics365",
-    "name": "Copilot for Dynamics 365",
-    "category": "Business Applications",
-    "tags": [
-      "crm",
-      "erp",
-      "ai-assistant",
-      "microsoft-dynamics",
-      "copilot"
-    ],
-    "description": "AI-assistenten geïntegreerd in Dynamics 365-applicaties (zoals Sales, Customer Service, Marketing, etc.) om taken te automatiseren, inzichten te bieden en workflows te stroomlijnen.",
-    "logo": "https://cdn.simpleicons.org/microsoftdynamics365",
-    "vendor": "Microsoft",
-    "homepage": "https://www.microsoft.com/en-us/microsoft-copilot/copilot-dynamics-365"
-  },
-  {
-    "identifier": "copilot-studio",
-    "name": "Copilot Studio",
-    "category": "Automation",
-    "tags": [
-      "chatbot",
-      "low-code",
-      "ai-assistant-building",
-      "microsoft-power-platform"
-    ],
-    "description": "Een platform waarmee je je eigen aangepaste Copilots, GPT's en autonome werkstroomagents kunt creëren en aanpassen, en deze kunt integreren in verschillende Microsoft-producten en diensten.",
-    "logo": "https://cdn.simpleicons.org/microsoftcopilot",
-    "vendor": "Microsoft",
-    "homepage": "https://www.microsoft.com/en-us/power-platform/products/copilot-studio"
-  },
-  {
-    "identifier": "copilot-m365",
-    "name": "Copilot for Microsoft 365",
-    "category": "",
-    "tags": [
-      "office-productivity",
-      "ai-assistant",
-      "microsoft-365",
-      "generative-ai"
-    ],
-    "description": "Een AI-aangedreven assistent die is geïntegreerd in Microsoft 365-apps (zoals Word, Excel, PowerPoint, Outlook en Teams) om de productiviteit te verhogen door documenten, e-mails en presentaties te helpen creëren, samenvatten en analyseren.",
-    "logo": "https://cdn.simpleicons.org/microsoft365",
-    "vendor": "Microsoft",
-    "homepage": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-365-copilot"
-  },
-  {
     "identifier": "erp-mcp-server",
     "name": "ERP MCP Server",
     "category": "Tools",
@@ -1908,5 +1862,171 @@
     "logo": "",
     "vendor": "Low Code Company",
     "homepage": ""
+  },
+  {
+    "identifier": "t-shaped-profielen",
+    "name": "T-Shaped Profielen",
+    "category": "Werkwijze",
+    "tags": [
+      "career-development",
+      "multi-skilled",
+      "soft-skills",
+      "mentality"
+    ],
+    "description": "Een model voor werknemers die beschikken over diepe expertise in één specifiek gebied (de verticale balk van de T) en een brede basis van vaardigheden in omliggende disciplines (de horizontale balk). In de huidige markt, versterkt door GenAI, helpt dit profiel om silo's te doorbreken en effectiever samen te werken.",
+    "logo": "https://cdn.simpleicons.org/speedtest",
+    "vendor": "Methodologie",
+    "homepage": "https://en.wikipedia.org/wiki/T-shaped_skills"
+  },
+  {
+    "identifier": "zero-trust-architectuur",
+    "name": "Zero Trust Architectuur",
+    "category": "Security",
+    "tags": [
+      "security",
+      "networking",
+      "identity-management",
+      "least-privilege"
+    ],
+    "description": "Een beveiligingsmodel gebaseerd op het principe 'never trust, always verify'. Het gaat ervan uit dat dreigingen zowel van buiten als van binnen het netwerk kunnen komen, waardoor strikte identiteitsverificatie en minimale toegangsrechten voor elk component noodzakelijk zijn.",
+    "logo": "https://cdn.simpleicons.org/fortinet",
+    "vendor": "Verschillende (NIST/Cloudflare/Microsoft)",
+    "homepage": "https://www.nist.gov/publications/zero-trust-architecture"
+  },
+  {
+    "identifier": "resource-tagging",
+    "name": "Resource Tagging",
+    "category": "Werkwijze",
+    "tags": [
+      "finops",
+      "cloud-management",
+      "automation",
+      "compliance", "operations"
+    ],
+    "description": "Het proces van het toewijzen van metadata (labels) aan cloud-resources. Dit is essentieel voor het categoriseren van kosten, het identificeren van eigenaarschap en het automatiseren van beheer- en beveiligingstaken binnen publieke cloudomgevingen.",
+    "logo": "https://cdn.simpleicons.org/labelbox",
+    "vendor": "Cloud Providers (AWS/Azure/GCP)",
+    "homepage": "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html"
+  },
+  {
+    "identifier": "error-handling-runbooks",
+    "name": "Error Handling Runbooks",
+    "category": "Werkwijze",
+    "tags": [
+      "sre",
+      "documentation",
+      "incident-response",
+      "devops", "operations"
+    ],
+    "description": "Gedocumenteerde procedures voor het oplossen van specifieke foutmeldingen of incidenten. Hoewel traditioneel statisch, verschuift de trend naar 'executable runbooks' en dynamische monitoring waarbij acties direct gekoppeld zijn aan alerts.",
+    "logo": "https://cdn.simpleicons.org/gitbook",
+    "vendor": "Verschillende",
+    "homepage": "https://sre.google/sre-book/incident-response/"
+  },
+  {
+    "identifier": "credentials-zonder-einddatum",
+    "name": "Credentials zonder einddatum",
+    "category": "Security",
+    "tags": [
+      "security-debt",
+      "iam",
+      "secrets-management",
+      "compliance"
+    ],
+    "description": "Toegangssleutels, wachtwoorden of API-tokens die nooit verlopen. Dit wordt beschouwd als een ernstig beveiligingsrisico (Legacy Practice) omdat bij een lek de toegang onbeperkt geldig blijft. Moderne standaarden vereisen automatische rotatie.",
+    "logo": "https://cdn.simpleicons.org/1password",
+    "vendor": "Best Practice / Risico",
+    "homepage": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+  },
+  {
+    "identifier": "version-pinning",
+    "name": "Version Pinning",
+    "category": "Werkwijze",
+    "tags": [
+      "dependency-management",
+      "ci-cd",
+      "stability",
+      "maintenance"
+    ],
+    "description": "De praktijk van het vastzetten van software-afhankelijkheden op een specifieke versie. Hoewel dit zorgt voor voorspelbare builds, leidt langdurig vastpinnen tot verouderde systemen en gemiste beveiligingsupdates. De voorkeur gaat nu naar automatische update-tools.",
+    "logo": "https://cdn.simpleicons.org/dependabot",
+    "vendor": "Ontwikkelingsstandaard",
+    "homepage": "https://docs.github.com/en/code-security/dependabot"
+  },
+  {
+    "identifier": "cloudnativepg",
+    "name": "CloudNativePG",
+    "category": "Platform",
+    "tags": [
+      "postgresql",
+      "kubernetes-operator",
+      "cloud-native",
+      "storage"
+    ],
+    "description": "Een open-source Kubernetes operator ontworpen om de volledige levenscyclus van PostgreSQL database-clusters te beheren. Het richt zich op cloud-native principes zoals hoge beschikbaarheid, automatische failover en naadloze back-ups binnen Kubernetes.",
+    "logo": "https://cdn.simpleicons.org/postgresql",
+    "vendor": "CloudNativePG Community",
+    "homepage": "https://cloudnative-pg.io/"
+  },
+  {
+    "identifier": "crossplane",
+    "name": "Crossplane",
+    "category": "Platform",
+    "tags": [
+      "iac",
+      "kubernetes",
+      "control-plane",
+      "multicloud"
+    ],
+    "description": "Een open-source Kubernetes add-on die je cluster transformeert in een universeel control plane. Hiermee kun je infrastructuur van elke cloudprovider beheren met behulp van Kubernetes-stijl YAML, wat een alternatief biedt voor traditionele IaC tools.",
+    "logo": "https://www.crossplane.io/_next/static/media/crossplane-logo.06ff3258.svg",
+    "vendor": "Upbound / CNCF",
+    "homepage": "https://www.crossplane.io/"
+  },
+  {
+    "identifier": "continuous-compliance",
+    "name": "Continuous Compliance",
+    "category": "Security",
+    "tags": [
+      "policy-as-code",
+      "opa",
+      "compliance",
+      "automation"
+    ],
+    "description": "Een methode waarbij compliance-eisen constant worden gemonitord en afgedwongen gedurende de gehele software-levenscyclus. Door gebruik te maken van 'Policy-as-Code' (zoals OPA) worden schendingen direct in de CI/CD pipeline gedetecteerd (Shift-Left).",
+    "logo": "https://cdn.simpleicons.org/checkmarx",
+    "vendor": "Verschillende (bv. Styra/Open Policy Agent)",
+    "homepage": "https://www.openpolicyagent.org/"
+  },
+  {
+    "identifier": "ai-assisted-code-review",
+    "name": "AI-Assisted Code Review",
+    "category": "AI",
+    "tags": [
+      "ai",
+      "code-quality",
+      "llm",
+      "productivity"
+    ],
+    "description": "Het gebruik van generatieve AI-modellen (zoals Claude, GPT-4 of Copilot) om pull requests te analyseren op fouten, stijl en optimalisaties. Het vult menselijke reviews aan door repetitieve controles te automatiseren en suggesties te doen voor betere code.",
+    "logo": "https://cdn.simpleicons.org/openai",
+    "vendor": "Verschillende (GitHub/OpenAI/Anthropic)",
+    "homepage": "https://github.com/features/copilot"
+  },
+  {
+    "identifier": "ambient-service-mesh",
+    "name": "Ambient Service Mesh",
+    "category": "Platform",
+    "tags": [
+      "istio",
+      "service-mesh",
+      "kubernetes",
+      "sidecarless"
+    ],
+    "description": "Een nieuwe data plane modus voor Istio die geen gebruik maakt van sidecars. Dit verlaagt de operationele complexiteit en overhead aanzienlijk, terwijl functies zoals mTLS, observability en traffic management behouden blijven op een transparantere manier.",
+    "logo": "https://cdn.simpleicons.org/istio",
+    "vendor": "Istio Project / Solo.io",
+    "homepage": "https://istio.io/latest/blog/2022/introducing-ambient-mesh/"
   }
+
 ]
