@@ -1,4 +1,4 @@
-import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, getProcessedData, getCompanyByName, getRatingsForCompany, getRatingCountsByCategoryForCompany } from './data.js';
+import { getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases, resetAllFilters, getRatingsForTech, setExclusiveCategory, setExclusivePhase, setExclusiveCompany, getProcessedData, getCompanyByName, getRatingsForCompany, getRatingCountsByCategoryForCompany } from './data.js';
 import { toggleOptimization } from './radar.js';
 import { t, translatePage } from './i18n.js';
 
@@ -494,6 +494,21 @@ function setupEventListeners(updateCallback) {
         }
         updateCallback(newData);
         renderFilters(updateCallback); // Re-render to update checkboxes
+    });
+
+    // Filter Company Event (Drill-down)
+    document.addEventListener('filter-company', (e) => {
+        const company = e.detail;
+        const activeCompanies = getFilters().active.companies;
+        let newData;
+        // If this company is already the only active one, restore all companies
+        if (activeCompanies.size === 1 && activeCompanies.has(company)) {
+            newData = setAllCompanies(true);
+        } else {
+            newData = setExclusiveCompany(company);
+        }
+        updateCallback(newData);
+        renderFilters(updateCallback);
     });
 
     // Filter Phase Event (Drill-down)

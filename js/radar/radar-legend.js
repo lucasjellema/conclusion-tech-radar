@@ -148,23 +148,36 @@ export function renderCompanyLegend(blips) {
             resetHighlight();
             document.getElementById('tooltip').classList.add('hidden');
         });
+        let clickTimer = null;
         item.addEventListener('click', () => {
-            const meta = getCompanyByName(company) || { name: company };
-            const counts = getRatingCountsByCategoryForCompany(company);
-            const ratings = getRatingsForCompany(company);
-            const modalData = {
-                type: 'company',
-                name: meta.name || company,
-                description: meta.description || '',
-                logo: meta.logo || '',
-                homepage: meta.homepage || '',
-                domain: meta.domain || '',
-                belangrijksteOnderwerpen: meta.belangrijksteOnderwerpen || '',
-                toelichting: meta.toelichting || '',
-                ratingCounts: counts,
-                ratings: ratings
-            };
-            document.dispatchEvent(new CustomEvent('open-modal', { detail: modalData }));
+            if (clickTimer) clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                const meta = getCompanyByName(company) || { name: company };
+                const counts = getRatingCountsByCategoryForCompany(company);
+                const ratings = getRatingsForCompany(company);
+                const modalData = {
+                    type: 'company',
+                    name: meta.name || company,
+                    description: meta.description || '',
+                    logo: meta.logo || '',
+                    homepage: meta.homepage || '',
+                    domain: meta.domain || '',
+                    belangrijksteOnderwerpen: meta.belangrijksteOnderwerpen || '',
+                    toelichting: meta.toelichting || '',
+                    ratingCounts: counts,
+                    ratings: ratings
+                };
+                document.dispatchEvent(new CustomEvent('open-modal', { detail: modalData }));
+                clickTimer = null;
+            }, 250);
+        });
+
+        item.addEventListener('dblclick', () => {
+            if (clickTimer) {
+                clearTimeout(clickTimer);
+                clickTimer = null;
+            }
+            document.dispatchEvent(new CustomEvent('filter-company', { detail: company }));
         });
         legendContainer.appendChild(item);
     });

@@ -91,7 +91,7 @@ export async function loadData() {
     return processRadarData();
 }
 
-export function handleFreshRatings( newRatings, newToelichtingPerBedrijf) {
+export function handleFreshRatings(newRatings, newToelichtingPerBedrijf) {
     rawData.ratings = newRatings;
     rawData.toelichtingPerBedrijf = newToelichtingPerBedrijf || {};
     return processRadarData();
@@ -251,6 +251,12 @@ export function setExclusivePhase(phase) {
 export function setExclusiveCategory(category) {
     activeFilters.categories.clear();
     activeFilters.categories.add(category);
+    return processData();
+}
+
+export function setExclusiveCompany(company) {
+    activeFilters.companies.clear();
+    activeFilters.companies.add(company);
     return processData();
 }
 
