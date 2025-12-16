@@ -66,10 +66,10 @@ export function renderCompanyLegend(blips) {
         // Domain symbol mapping (same as radar)
         const DOMAIN_SYMBOLS = {
             'Cloud & Mission Critical': 'square',
-            'Strategy & Business Consultany': 'triangle',
+            'Business Consultancy': 'triangle',
             'Enterprise Applications': 'diamond',
             'Data & AI': 'star',
-            'Experience & Software': 'circle'
+            'Experience, Development & Software': 'circle'
         };
 
         // Add blip symbol (SVG) - 2.5x size

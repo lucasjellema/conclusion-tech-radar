@@ -11,10 +11,10 @@ export const UI_CLASSES = {
 export function getSymbolPathForDomain(name) {
     const MAP = {
         'Cloud & Mission Critical': d3.symbolSquare,
-        'Strategy & Business Consultany': d3.symbolTriangle,
+        'Business Consultancy': d3.symbolTriangle,
         'Enterprise Applications': d3.symbolDiamond,
         'Data & AI': d3.symbolStar,
-        'Experience & Software': d3.symbolCircle
+        'Experience, Development & Software': d3.symbolCircle
     };
     const sym = MAP[name] || d3.symbolCircle;
     return d3.symbol().type(sym).size(80)();

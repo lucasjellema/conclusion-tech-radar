@@ -12,21 +12,21 @@
       "description": "Strategy and business consulting to align technology choices with organisational goals.",
       "homepage": "https://www.conclusion.com/consulting",
       "logo": "logos/Conclusion Consulting logo.png",
-      "domain": "Strategy & Business Consultany"
+      "domain": "Business Consultancy"
     },
     {
       "name": "Conclusion Integration",
       "description": "Specialises in system integration, messaging and event-driven architectures.",
       "homepage": "https://www.conclusion.com/integration",
       "logo": "logos/Conclusion Integration logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "4net",
       "description": "Network and managed hosting provider offering connectivity and cloud services.",
       "homepage": "https://www.4net.com/",
       "logo": "logos/logo-4net.svg",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "AMIS",
@@ -47,28 +47,28 @@
       "description": "IT service provider focused on networking, integration and managed services.",
       "homepage": "https://www.arlanet.nl/",
       "logo": "",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Bright Alley",
       "description": "Design and development studio building digital products and user experiences.",
       "homepage": "https://www.conclusion.nl/bright-alley",
       "logo": "logos/Bright Alley PoC logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Bikkelhart",
       "description": "Small digital agency delivering web and application development services.",
       "homepage": "https://www.bikkelhart.com/",
       "logo": "",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Blauwe Monsters",
       "description": "Creative studio focused on visual design and interactive experiences.",
       "homepage": "https://blauwemonsters.nl/",
       "logo": "",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Conclusion AFAS Services",
@@ -103,28 +103,28 @@
       "description": "Digital product and experience teams building customer-facing applications.",
       "homepage": "https://www.conclusion.nl/experience",
       "logo": "logos/Conclusion Experience logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Conclusion Staffing",
       "description": "Staffing and talent services providing skilled professionals to projects.",
       "homepage": "https://www.conclusionstaffing.nl/",
       "logo": "",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "D&A group",
       "description": "Data & analytics group delivering data strategy and engineering solutions.",
       "homepage": "https://www.conclusion.nl/dna",
       "logo": "logos/D&A Conclusion logo.png",
-      "domain": "Strategy & Business Consultany"
+      "domain": "Business Consultancy"
     },
     {
       "name": "First 8",
       "description": "",
       "homepage": "https://www.conclusion.nl/first8",
       "logo": "logos/First8 Conclusion logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Conclusion ForeyeT",
@@ -145,7 +145,7 @@
       "description": "Digital health and software company building healthcare applications and platforms.",
       "homepage": "https://www.conclusion.nl/furore",
       "logo": "logos/Furore Conclusion logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Hot ITem",
@@ -159,14 +159,14 @@
       "description": "Management consultancy focused on performance and results-driven transformations.",
       "homepage": "https://www.conclusion.nl/kwd-resultaatmanagement",
       "logo": "logos/KWD Resultaatrmanagement logo.png",
-      "domain": "Strategy & Business Consultany"
+      "domain": "Business Consultancy"
     },
     {
       "name": "Low Code Company",
       "description": "Specialises in low-code platforms and rapid application development.",
       "homepage": "https://www.conclusion.nl/low-code-company",
       "logo": "logos/Conclusion Low Code Company logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "myAppX",
@@ -187,7 +187,7 @@
       "description": "Digital agency and consultancy specialising in web and data-driven solutions.",
       "homepage": "https://www.conclusion.nl/morgens",
       "logo": "logos/Morgens Conclusion logo.png",
-      "domain": "Strategy & Business Consultany"
+      "domain": "Business Consultancy"
     },
     {
       "name": "myBrand",
@@ -201,21 +201,21 @@
       "description": "Integration and connectivity specialist delivering enterprise-grade messaging solutions.",
       "homepage": "https://www.nexwork.nl/",
       "logo": "logos/Logo_Nexwork_Conclusion.svg",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "PossibilIT",
       "description": "Consultancy offering software development and IT advisory services.",
       "homepage": "https://www.possibilit.nl/en/",
       "logo": "logos/logo_01_conclusion_possibilit_DEF_klein.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "theFactor.e",
       "description": "Creative and technical consultancy focused on digital product innovation.",
       "homepage": "https://tfe.nl/",
       "logo": "",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Conclusion Xforce",
@@ -229,14 +229,14 @@
       "description": "Group of agencies and specialist teams delivering marketing, design and digital services.",
       "homepage": "https://www.conclusion.nl/yellowtail",
       "logo": "logos/Yellowtail Conclusion logo.png",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     },
     {
       "name": "Netvlies",
       "description": "Digital agency specialising in web development, design and e-commerce solutions.",
       "homepage": "https://www.netvlies.nl/",
       "logo": "logos/logo-netvlies.jpg",
-      "domain": "Experience & Software"
+      "domain": "Experience, Development & Software"
     }
   ]
 }

@@ -278,10 +278,10 @@ export function updateRadar(data) {
     // Domain -> symbol mapping
     const DOMAIN_SYMBOLS = {
         'Cloud & Mission Critical': d3.symbolSquare,
-        'Strategy & Business Consultany': d3.symbolTriangle,
+        'Business Consultancy': d3.symbolTriangle,
         'Enterprise Applications': d3.symbolDiamond,
         'Data & AI': d3.symbolStar,
-        'Experience & Software': d3.symbolCircle
+        'Experience, Development & Software': d3.symbolCircle
     };
 
     // 4. Draw Blips (with domain-shaped symbols and company colors)
