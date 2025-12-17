@@ -1,5 +1,5 @@
 import { t } from '../i18n.js';
-import { getRatingsForTech, getCompanyByName } from '../data.js';
+import { getRatingsForTech, getCompanyByName, getTechnology } from '../data.js';
 
 export function openModal(data) {
     const overlay = document.getElementById('modal-overlay');
@@ -150,7 +150,10 @@ export function openModal(data) {
             card.className = 'rating-card';
             card.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <strong>${r.identifier}</strong>
+                    <strong>${(() => {
+                    const t = getTechnology(r.identifier);
+                    return t ? t.name : r.identifier;
+                })()}</strong>
                     <span class="rating-phase ${r.fase.toLowerCase()}">${r.fase.toUpperCase()}</span>
                 </div>
                 <div style="font-size:0.85rem; color:#94a3b8; margin-top:0.25rem">${r.datumBeoordeling}</div>

@@ -264,6 +264,13 @@ export function getRatingsForTech(identifier) {
     return rawData.ratings.filter(r => r.identifier === identifier);
 }
 
+export function getTechnology(identifier) {
+    const tech = rawData.technologies.find(t => t.identifier === identifier);
+    if (tech) return tech;
+    // Fallback to custom technologies
+    return rawData.customTechnologies.find(t => t.identifier === identifier);
+}
+
 export function getCompanyByName(name) {
     if (!name) return null;
     return rawData.companies.find(c => c.name === name) || null;
