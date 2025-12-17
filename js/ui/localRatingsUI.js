@@ -225,7 +225,7 @@ export function showManageRatingsTab() {
 export function showAuthenticatedUser(userDetails, claims) {
     const welcome = document.getElementById('welcome-message');
     if (welcome) {
-        welcome.textContent = `Hi, ${userDetails.name || 'User'}`;
+        welcome.textContent = `Hi, ${userDetails.displayName || 'User'}`;
         welcome.classList.remove('sr-only');
     }
     const signIn = document.getElementById('signin-button');
