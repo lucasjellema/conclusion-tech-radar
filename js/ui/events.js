@@ -8,7 +8,8 @@ import {
     getFilters,
     setAllCategories,
     setAllCompanies,
-    setAllPhases
+    setAllPhases,
+    getIsUrlFiltered
 } from '../data.js';
 import { toggleOptimization } from '../radar.js';
 import { t, translatePage } from '../i18n.js';
@@ -253,8 +254,11 @@ export function setupEventListeners(updateCallback) {
     });
 }
 
-export function resetView(updateCallback) {
-    const newData = resetAllFilters();
+export function resetView(updateCallback, forceReset = true) {
+    if (forceReset || !getIsUrlFiltered()) {
+        resetAllFilters();
+    }
+    const newData = getProcessedData();
     updateCallback(newData);
     renderFilters(updateCallback);
 

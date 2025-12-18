@@ -1,4 +1,4 @@
-import { loadData, handleFreshRatings } from './data.js';
+import { loadData, handleFreshRatings, applyUrlFilters } from './data.js';
 import { initRadar, updateRadar } from './radar.js';
 //import { initUI } from './ui.js';
 import * as ui from './ui/index.js';
@@ -29,8 +29,13 @@ async function init() {
     }
 
 
-    const data = await loadData();
-    console.log('Data loaded:', data);
+    const initialData = await loadData();
+    console.log('Initial data loaded:', initialData);
+
+    // Apply filters from URL deep links if present
+    const urlParams = new URLSearchParams(window.location.search);
+    const data = applyUrlFilters(urlParams);
+    console.log('Data after URL filters:', data);
 
     initRadar(data);
     ui.initUI(data, updateRadar);
@@ -207,8 +212,8 @@ async function fetchData() {
     handleFreshRatings(data.statusPerBedrijf, data.toelichtingPerBedrijf);
     console.log("Fetched data:", data);
 
-    // Update radar and UI with fresh data, resetting filters to ensure everything is visible
-    ui.resetView(updateRadar);
+    // Update radar and UI with fresh data, respecting URL filters if the user hasn't interacted with them yet
+    ui.resetView(updateRadar, false);
   } catch (error) {
     console.error("Error fetching data:", error);
     ui.showDataError(error.message || "Failed to fetch data");

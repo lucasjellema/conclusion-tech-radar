@@ -18,6 +18,8 @@ let activeFilters = {
     search: ''
 };
 
+let isUrlFiltered = false;
+
 // Load data from JSON files and initialise filters
 export async function loadData() {
     const [techRes, ratingsRes] = await Promise.all([
@@ -136,18 +138,24 @@ function processRadarData() {
 
 
 
-    for (const c of companies) activeFilters.companies.add(c);
+    if (!isUrlFiltered) {
+        for (const c of companies) activeFilters.companies.add(c);
+    }
 
     // Merge server technologies with custom technologies
     const allTechnologies = [...rawData.technologies, ...rawData.customTechnologies];
 
     // Initialise all categories as active
     const categories = [...new Set(allTechnologies.map(t => t.category))];
-    for (const c of categories) activeFilters.categories.add(c);
+    if (!isUrlFiltered) {
+        for (const c of categories) activeFilters.categories.add(c);
+    }
 
     // Initialise all phases as active (from ratings data)
     const phases = [...new Set(allRatings.map(r => (r.fase || '').toLowerCase()))].filter(p => p);
-    for (const p of phases) activeFilters.phases.add(p);
+    if (!isUrlFiltered) {
+        for (const p of phases) activeFilters.phases.add(p);
+    }
 
     return processData();
 }
@@ -190,6 +198,7 @@ export function getFilters() {
 }
 
 export function setFilter(type, value, isAdd) {
+    isUrlFiltered = false;
     if (type === 'company') {
         if (isAdd) activeFilters.companies.add(value);
         else activeFilters.companies.delete(value);
@@ -213,6 +222,7 @@ export function setFilter(type, value, isAdd) {
 }
 
 export function setAllCompanies(shouldSelect) {
+    isUrlFiltered = false;
     if (shouldSelect) {
         const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
         for (const c of allCompanies) activeFilters.companies.add(c);
@@ -223,6 +233,7 @@ export function setAllCompanies(shouldSelect) {
 }
 
 export function setAllCategories(shouldSelect) {
+    isUrlFiltered = false;
     if (shouldSelect) {
         const allCategories = [...new Set(rawData.technologies.map(t => t.category))];
         for (const c of allCategories) activeFilters.categories.add(c);
@@ -233,6 +244,7 @@ export function setAllCategories(shouldSelect) {
 }
 
 export function setAllPhases(shouldSelect) {
+    isUrlFiltered = false;
     const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
     if (shouldSelect) {
         for (const p of PHASE_ORDER) activeFilters.phases.add(p);
@@ -243,18 +255,21 @@ export function setAllPhases(shouldSelect) {
 }
 
 export function setExclusivePhase(phase) {
+    isUrlFiltered = false;
     activeFilters.phases.clear();
     if (phase) activeFilters.phases.add(phase.toLowerCase());
     return processData();
 }
 
 export function setExclusiveCategory(category) {
+    isUrlFiltered = false;
     activeFilters.categories.clear();
     activeFilters.categories.add(category);
     return processData();
 }
 
 export function setExclusiveCompany(company) {
+    isUrlFiltered = false;
     activeFilters.companies.clear();
     activeFilters.companies.add(company);
     return processData();
@@ -294,6 +309,7 @@ export function getRatingCountsByCategoryForCompany(companyName) {
 }
 
 export function resetAllFilters() {
+    isUrlFiltered = false;
     // Restore companies
     const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
     activeFilters.companies = new Set(allCompanies);
@@ -312,6 +328,60 @@ export function resetAllFilters() {
     activeFilters.search = '';
 
     return processData();
+}
+
+/**
+ * Apply filters from URL search parameters.
+ * @param {URLSearchParams} searchParams 
+ */
+export function applyUrlFilters(searchParams) {
+    if (!searchParams) return processData();
+
+    // Mapping params to filter types
+    const paramMap = {
+        'company': 'companies',
+        'category': 'categories',
+        'phase': 'phases',
+        'tag': 'tags'
+    };
+
+    let hasAnyFilter = false;
+
+    // Get all available metadata for fuzzy matching
+    const { companies: allCompanies, categories: allCategories, tags: allTags } = getFilters();
+    const fuzzyMap = {
+        'company': allCompanies,
+        'category': allCategories,
+        'tag': allTags
+    };
+
+    for (const [param, filterKey] of Object.entries(paramMap)) {
+        if (searchParams.has(param)) {
+            hasAnyFilter = true;
+            isUrlFiltered = true;
+            activeFilters[filterKey].clear();
+            const values = searchParams.getAll(param);
+            for (let val of values) {
+                if (filterKey === 'phases') val = val.toLowerCase();
+
+                // Fuzzy matching for company, category, and tag
+                if (fuzzyMap[param]) {
+                    const matches = fuzzyMap[param].filter(item => item.toLowerCase().includes(val.toLowerCase()));
+                    if (matches.length === 1) {
+                        val = matches[0];
+                    }
+                }
+
+                activeFilters[filterKey].add(val);
+            }
+        }
+    }
+
+    return processData();
+}
+
+export function getIsUrlFiltered() {
+    return isUrlFiltered;
 }
 
 export function getProcessedData() {
