@@ -2121,7 +2121,130 @@
     "logo": "https://cdn.simpleicons.org/atlassian",
     "vendor": "Atlassian",
     "homepage": "https://www.atlassian.com/software/rovo"
+  },
+  {
+    "identifier": "cilium",
+    "name": "Cilium",
+    "category": "Tools",
+    "tags": [
+      "ebpf",
+      "kubernetes",
+      "cni",
+      "observability",
+      "security"
+    ],
+    "description": "Een open-source oplossing voor het leveren, beveiligen en observeren van netwerkconnectiviteit tussen workload-containers. Cilium maakt gebruik van eBPF-technologie in de Linux-kernel om krachtige doorsturing, security-filtering en diepe monitoring te bieden zonder de overhead van traditionele proxy's.",
+    "logo": "https://cdn.simpleicons.org/cilium",
+    "vendor": "Isovalent / CNCF",
+    "homepage": "https://cilium.io/"
+  },
+  {
+    "identifier": "istio",
+    "name": "Istio",
+    "category": "Tools",
+    "tags": [
+      "service-mesh",
+      "kubernetes",
+      "mtls",
+      "traffic-management"
+    ],
+    "description": "Een open-source service mesh die een transparante laag toevoegt aan gedistribueerde applicaties. Het biedt krachtige functies voor verkeersbeheer (load balancing), beveiliging (mTLS) en monitoring (observability) van microservices, vaak via een sidecar- of ambient-architectuur.",
+    "logo": "https://cdn.simpleicons.org/istio",
+    "vendor": "Istio Project / CNCF",
+    "homepage": "https://istio.io/"
+  },
+  {
+    "identifier": "open-policy-agent",
+    "name": "Open Policy Agent (OPA)",
+    "category": "Security",
+    "tags": [
+      "policy-as-code",
+      "rego",
+      "compliance",
+      "authorization"
+    ],
+    "description": "Een generieke, open-source policy engine die beleid als code ('Policy-as-Code') mogelijk maakt. OPA gebruikt de querytaal Rego om beslissingen te nemen over toegang en configuratie binnen de hele stack, van Kubernetes-toegangscontrole tot API-autorisatie.",
+    "logo": "https://cdn.simpleicons.org/openpolicyagent",
+    "vendor": "Styra / CNCF",
+    "homepage": "https://www.openpolicyagent.org/"
+  },
+  {
+    "identifier": "kyverno",
+    "name": "Kyverno",
+    "category": "Security",
+    "tags": [
+      "kubernetes-native",
+      "policy-as-code",
+      "admission-controller",
+      "yaml"
+    ],
+    "description": "Een Kubernetes-native policy engine die specifiek is ontworpen om policies te beheren met vertrouwde Kubernetes-bronnen (YAML), zonder dat een nieuwe programmeertaal nodig is. Het kan configuraties valideren, muteren en genereren om best-practices af te dwingen.",
+    "logo": "https://cdn.simpleicons.org/kubernetes",
+    "vendor": "Nirmata / CNCF",
+    "homepage": "https://kyverno.io/"
+  },
+  {
+    "identifier": "proxmox-ve",
+    "name": "Proxmox Virtual Environment",
+    "category": "Platform",
+    "tags": [
+      "kvm",
+      "lxc",
+      "hypervisor",
+      "open-source",
+      "homelab"
+    ],
+    "description": "Een compleet open-source platform voor enterprise-virtualisatie. Het integreert de KVM-hypervisor en Linux Containers (LXC), software-defined storage en netwerkfunctionaliteit op één enkel platform, beheersbaar via een webinterface.",
+    "logo": "https://cdn.simpleicons.org/proxmox",
+    "vendor": "Proxmox Server Solutions GmbH",
+    "homepage": "https://www.proxmox.com/en/proxmox-virtual-environment/overview"
+  },
+  {
+    "identifier": "vates",
+    "name": "Vates (XCP-ng & Xen Orchestra)",
+    "category": "Platform",
+    "tags": [
+      "xcp-ng",
+      "xen-orchestra",
+      "hypervisor",
+      "open-source-stack"
+    ],
+    "description": "De organisatie achter de volledig open-source virtualisatiestack bestaande uit XCP-ng (hypervisor op basis van Xen) en Xen Orchestra (beheerinterface). Het is een populair en robuust alternatief voor commerciële oplossingen zoals VMware vSphere.",
+    "logo": "https://cdn.simpleicons.org/xen",
+    "vendor": "Vates SAS",
+    "homepage": "https://vates.tech/"
+  },
+  {
+    "identifier": "hyper-v",
+    "name": "Microsoft Hyper-V",
+    "category": "Platform",
+    "tags": [
+      "windows-server",
+      "hypervisor",
+      "virtual-machines",
+      "microsoft"
+    ],
+    "description": "De hardware-virtualisatierol van Microsoft waarmee je virtuele machines kunt maken en uitvoeren op Windows. Het vormt de basis voor veel Microsoft-cloudservices en biedt een volwassen platform voor het consolideren van workloads op fysieke hardware.",
+    "logo": "https://cdn.simpleicons.org/microsoft",
+    "vendor": "Microsoft",
+    "homepage": "https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-technology-overview"
+  },
+  {
+    "identifier": "openshift-virtualization",
+    "name": "OpenShift Virtualization",
+    "category": "Platform",
+    "tags": [
+      "kubevirt",
+      "kubernetes",
+      "vm-on-containers",
+      "modernization"
+    ],
+    "description": "Een functie binnen Red Hat OpenShift (gebaseerd op KubeVirt) waarmee je traditionele virtuele machines kunt draaien en beheren op hetzelfde platform als containers. Dit stelt organisaties in staat om legacy-workloads te moderniseren zonder ze direct te hoeven containeriseren.",
+    "logo": "https://cdn.simpleicons.org/redhatopenshift",
+    "vendor": "Red Hat",
+    "homepage": "https://www.redhat.com/en/technologies/cloud-computing/openshift/virtualization"
   }
+
 
 
 ]
