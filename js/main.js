@@ -5,6 +5,7 @@ import * as ui from './ui/index.js';
 import { initI18n, setLocale, translatePage, t } from './i18n.js';
 import * as auth from './auth.js';
 import * as dataService from './dataService.js';
+import { APP_VERSION } from './version.js';
 
 
 // Constants for application state
@@ -14,6 +15,7 @@ const APP_STATE = {
 };
 
 async function init() {
+  console.log(`%c Tech Radar v${APP_VERSION.label} (${APP_VERSION.hash}) `, 'background: #222; color: #bada55; font-size: 1.2rem; padding: 4px;');
   try {
     // Initialize i18n first so static labels are translated before UI builds
     initI18n();

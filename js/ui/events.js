@@ -15,8 +15,29 @@ import { toggleOptimization } from '../radar.js';
 import { t, translatePage } from '../i18n.js';
 import { renderFilters } from './filters.js';
 import { openModal, closeModal } from './modals.js';
+import { APP_VERSION } from '../version.js';
 
 export function setupEventListeners(updateCallback) {
+    // Version Easter Egg
+    const logoImg = document.querySelector('header img');
+    if (logoImg) {
+        let clickCount = 0;
+        let lastClickTime = 0;
+        logoImg.style.cursor = 'pointer';
+        logoImg.addEventListener('click', () => {
+            const now = Date.now();
+            if (now - lastClickTime > 2000) {
+                clickCount = 0;
+            }
+            clickCount++;
+            lastClickTime = now;
+            if (clickCount >= 5) {
+                clickCount = 0;
+                alert(`Conclusion Technology Radar\nVersion: ${APP_VERSION.label}\nHash: ${APP_VERSION.hash}\nBuilt: ${APP_VERSION.timestamp}`);
+            }
+        });
+    }
+
     // Theme Toggle
     const themeBtn = document.getElementById('theme-toggle');
     themeBtn.addEventListener('click', () => {
