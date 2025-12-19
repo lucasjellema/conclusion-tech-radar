@@ -1,0 +1,36 @@
+#theme-toggle {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+#theme-toggle:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+[data-theme="light"] {
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --sidebar-bg: #ffffff;
+    --accent-color: #0284c7;
+    --border-color: #cbd5e1;
+    --ring-color: #64748b;
+    --segment-color: #e2e8f0;
+    --tooltip-bg: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .company-legend {
+    background-color: rgba(248, 250, 252, 0.8);
+}
+
+[data-theme="light"] .legend-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
