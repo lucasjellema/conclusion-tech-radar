@@ -266,9 +266,8 @@ export function setupEventListeners(updateCallback) {
             // Handle radar mode switching
             if (tabName === 'radar' || tabName === 'individual-radar') {
                 const mode = tabName === 'radar' ? 'companies' : 'individual';
-                const newData = setMode(mode);
-                updateCallback(newData);
-                renderFilters(updateCallback);
+                setMode(mode);
+                resetView(updateCallback);
 
                 // Show radar content
                 const radarContent = document.getElementById('radar-tab-content');

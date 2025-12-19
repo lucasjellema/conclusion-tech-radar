@@ -1,5 +1,5 @@
 export const APP_VERSION = {
-    label: "Golden Nova",
-    hash: "a12653c",
-    timestamp: "2025-12-19T14:18:14.751Z"
+    label: "Frosty Horizon",
+    hash: "0393dac",
+    timestamp: "2025-12-19T15:45:40.747Z"
 };

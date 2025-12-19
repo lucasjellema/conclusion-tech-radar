@@ -27,6 +27,13 @@ The "Add/Edit Rating" modal in the **Manage Ratings** tab now dynamically update
 - If the **Company** field has a value, it shows company phases (*Adopt, Trial, Assess, Hold, Deprecate*).
 - This ensures that local ratings are always created with the correct phase set for their type.
 
+### 5. Mode-aware Filter Reset
+The **Reset Filters** and phase selection controls now correctly account for the current mode:
+- In **Individual Mode**, resetting filters correctly restores the individual-specific phases (*Pre-assess, Personal Assess, Personal Use, Hold*).
+- In **Companies Mode**, it restores the standard company phases.
+- This reset is now **automatically triggered** whenever you switch between the "Companies Radar" and "Colleagues Radar" tabs, ensuring a clean and consistent view for each mode.
+- This ensures consistency across the UI regardless of how the user manipulates the filters.
+
 ## Implementation Details
 
 ### Data Filtering

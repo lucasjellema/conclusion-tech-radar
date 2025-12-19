@@ -264,7 +264,9 @@ export function setAllCategories(shouldSelect) {
 export function setAllPhases(shouldSelect) {
     isUrlFiltered = false;
     urlFilteredKeys.clear();
-    const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
+    const PHASE_ORDER = currentMode === 'companies'
+        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
+        : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'];
     if (shouldSelect) {
         for (const p of PHASE_ORDER) activeFilters.phases.add(p);
     } else {
@@ -334,15 +336,21 @@ export function resetAllFilters() {
     isUrlFiltered = false;
     urlFilteredKeys.clear();
     // Restore companies
-    const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
-    activeFilters.companies = new Set(allCompanies);
+    if (currentMode === 'companies') {
+        const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf).filter(Boolean))];
+        activeFilters.companies = new Set(allCompanies);
+    } else {
+        activeFilters.companies.clear();
+    }
 
     // Restore categories
     const allCategories = [...new Set(rawData.technologies.map(t => t.category))];
     activeFilters.categories = new Set(allCategories);
 
     // Restore phases to canonical order
-    const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
+    const PHASE_ORDER = currentMode === 'companies'
+        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
+        : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'];
     activeFilters.phases = new Set(PHASE_ORDER);
 
     // Clear tags, date and search
