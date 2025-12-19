@@ -1420,3 +1420,79 @@ header {
     color: var(--bg-color);
 }
 
+
+/* Markdown Content Styling */
+.markdown-content {
+    line-height: 1.5;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.markdown-content p {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.markdown-content p:last-child {
+    margin-bottom: 0;
+}
+
+.markdown-content ul, 
+.markdown-content ol {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    padding-left: 1.25rem;
+}
+
+.markdown-content li {
+    margin-bottom: 0.25rem;
+}
+
+.markdown-content a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.markdown-content a:hover {
+    text-decoration: underline;
+}
+
+.markdown-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+[data-theme=\"light\"] .markdown-content code {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.markdown-content pre {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-bottom: 0.75rem;
+}
+
+[data-theme=\"light\"] .markdown-content pre {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid var(--accent-color);
+    margin: 0 0 0.75rem 0;
+    padding: 0.5rem 0 0.5rem 1rem;
+    background: rgba(56, 189, 248, 0.05);
+    font-style: italic;
+}

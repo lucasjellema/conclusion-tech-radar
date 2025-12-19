@@ -121,9 +121,10 @@ export function openModal(data) {
             h3Explanation.style.marginTop = '1.5rem';
             content.appendChild(h3Explanation);
 
-            const explanationP = document.createElement('p');
-            explanationP.textContent = data.toelichting;
-            content.appendChild(explanationP);
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'markdown-content';
+            explanationDiv.innerHTML = typeof marked !== 'undefined' ? marked.parse(data.toelichting) : data.toelichting;
+            content.appendChild(explanationDiv);
         }
 
         const h3Counts = document.createElement('h3');
@@ -157,7 +158,7 @@ export function openModal(data) {
                     <span class="rating-phase ${r.fase.toLowerCase()}">${r.fase.toUpperCase()}</span>
                 </div>
                 <div style="font-size:0.85rem; color:#94a3b8; margin-top:0.25rem">${r.datumBeoordeling}</div>
-                <p style="margin-top:0.5rem">${r.toelichting || ''}</p>
+                <div class="markdown-content" style="margin-top:0.5rem">${typeof marked !== 'undefined' ? marked.parse(r.toelichting || '') : (r.toelichting || '')}</div>
             `;
             ratingsList.appendChild(card);
         });
@@ -197,7 +198,7 @@ export function openModal(data) {
             <div class="rating-phase ${data.rating.fase.toLowerCase()}" style="margin-bottom: 0.5rem">
                 ${data.rating.fase.toUpperCase()}
             </div>
-            <p>${data.rating.toelichting}</p>
+            <div class="markdown-content">${typeof marked !== 'undefined' ? marked.parse(data.rating.toelichting || '') : (data.rating.toelichting || '')}</div>
             <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem">
                 <strong>${t('modal.reviewers')}:</strong> ${data.rating.beoordelaars.join(', ')}
             </div>
