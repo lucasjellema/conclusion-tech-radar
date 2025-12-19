@@ -1496,3 +1496,13 @@ header {
     background: rgba(56, 189, 248, 0.05);
     font-style: italic;
 }
+
+/* EasyMDE Custom Theme */
+.editor-toolbar { background: var(--sidebar-bg); border-color: var(--border-color); }
+.editor-toolbar button { color: var(--text-color) !important; }
+.editor-toolbar button.active, .editor-toolbar button:hover { background: var(--bg-color); border-color: var(--accent-color); }
+.editor-status { color: var(--text-color); }
+.CodeMirror { background: var(--bg-color); color: var(--text-color); border-color: var(--border-color); }
+.CodeMirror-cursor { border-left: 1px solid var(--text-color); }
+.editor-preview-side { background: var(--bg-color); border-color: var(--border-color); }
+.editor-preview { background: var(--bg-color); }

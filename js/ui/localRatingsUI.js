@@ -11,7 +11,10 @@ import {
 import { getFilters, getProcessedData } from '../data.js';
 import { t } from '../i18n.js';
 
+let radarUpdateFn = null;
+
 export function initLocalRatingsUI(updateRadar) {
+    radarUpdateFn = updateRadar;
     // Populate Companies Datalist
     const datalist = document.getElementById('companies-datalist');
     if (datalist) {
@@ -76,7 +79,7 @@ export function initLocalRatingsUI(updateRadar) {
             // Simplified: asking user for input via prompt/confirm for now as fallback
             // Ideally we'd build a proper form in the modal.
             // Let's create a dynamic form in the modal.
-            openAddRatingModal(updateRadar);
+            openAddRatingModal(radarUpdateFn);
         });
     }
 
@@ -96,7 +99,7 @@ export function initLocalRatingsUI(updateRadar) {
             if (confirm(t('manage.confirm_clear', 'Are you sure you want to delete all local ratings?'))) {
                 clearLocalRatings();
                 renderLocalRatingsTable();
-                updateRadar(getProcessedData()); // Refresh radar
+                radarUpdateFn(getProcessedData()); // Refresh radar
             }
         });
     }
@@ -124,38 +127,49 @@ function renderLocalRatingsTable() {
                 <td>${r.datumBeoordeling}</td>
                 <td>${r.toelichting || ''}</td>
                 <td>
-                    <button class="delete-rating-btn" data-id="${r._localId}" style="color:red;">&times;</button>
+                    <button class="edit-rating-btn" data-id="${r._localId}" title="${t('manage.edit_rating', 'Edit Rating')}" style="margin-right:0.5rem; background:none; border:none; cursor:pointer; font-size:1.2rem;">✏️</button>
+                    <button class="delete-rating-btn" data-id="${r._localId}" title="${t('manage.delete_rating', 'Delete Rating')}" style="color:red; background:none; border:none; cursor:pointer; font-size:1.2rem;">&times;</button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
 
-        // Attach delete listeners
+        // Attach action listeners
+        tbody.querySelectorAll('.edit-rating-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = e.target.getAttribute('data-id');
+                const ratings = getLocalRatings();
+                const rating = ratings.find(r => r._localId === id);
+                if (rating) {
+                    openAddRatingModal(radarUpdateFn, rating);
+                }
+            });
+        });
+
         tbody.querySelectorAll('.delete-rating-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = e.target.getAttribute('data-id');
-                deleteLocalRating(id);
-                renderLocalRatingsTable();
-                // We should also trigger updateRadar ?? 
-                // We need to pass updateRadar to this function or dispatch event.
-                // For now, let's dispatch a custom event or assume user refreshes manually? 
-                // No, better to dispatch 'local-ratings-changed'
-                document.dispatchEvent(new CustomEvent('local-data-changed'));
+                if (confirm(t('manage.confirm_delete_single', 'Are you sure you want to delete this rating?'))) {
+                    deleteLocalRating(id);
+                    renderLocalRatingsTable();
+                    document.dispatchEvent(new CustomEvent('local-data-changed'));
+                }
             });
         });
     }
 }
 
-// Helper to open a form in the modal for adding a rating
-function openAddRatingModal(updateRadar) {
+// Helper to open a form in the modal for adding/editing a rating
+function openAddRatingModal(updateRadar, ratingToEdit = null) {
     const modalContent = document.getElementById('modal-content');
     const overlay = document.getElementById('modal-overlay');
     if (!overlay || !modalContent) return;
 
-    const companyVal = document.getElementById('local-company-input')?.value || '';
+    const isEditing = !!ratingToEdit;
+    const companyVal = isEditing ? ratingToEdit.bedrijf : (document.getElementById('local-company-input')?.value || '');
 
     modalContent.innerHTML = `
-        <h2>${t('manage.add_rating', 'Add New Rating')}</h2>
+        <h2>${isEditing ? t('manage.edit_rating', 'Edit Rating') : t('manage.add_rating', 'Add New Rating')}</h2>
         <form id="add-rating-form" style="display:flex; flex-direction:column; gap:1rem;">
             <div>
                 <label>Company</label>
@@ -163,7 +177,7 @@ function openAddRatingModal(updateRadar) {
             </div>
             <div>
                 <label>Technology (Identifier)</label>
-                <input type="text" name="identifier" list="tech-options" required style="width:100%; padding:0.5rem;" autocomplete="off">
+                <input type="text" name="identifier" list="tech-options" value="${isEditing ? ratingToEdit.identifier : ''}" required style="width:100%; padding:0.5rem;" autocomplete="off">
                 <datalist id="tech-options">
                     ${getProcessedData().technologies.sort((a, b) => (a.identifier || '').localeCompare(b.identifier || '')).map(t => `<option value="${t.identifier}">${t.name}</option>`).join('')}
                 </datalist>
@@ -171,38 +185,65 @@ function openAddRatingModal(updateRadar) {
              <div>
                 <label>Phase</label>
                 <select name="phase" style="width:100%; padding:0.5rem;">
-                    <option value="Assess">Assess</option>
-                    <option value="Trial">Trial</option>
-                    <option value="Adopt">Adopt</option>
-                    <option value="Hold">Hold</option>
+                    <option value="Assess" ${isEditing && ratingToEdit.fase === 'Assess' ? 'selected' : ''}>Assess</option>
+                    <option value="Trial" ${isEditing && ratingToEdit.fase === 'Trial' ? 'selected' : ''}>Trial</option>
+                    <option value="Adopt" ${isEditing && ratingToEdit.fase === 'Adopt' ? 'selected' : ''}>Adopt</option>
+                    <option value="Hold" ${isEditing && ratingToEdit.fase === 'Hold' ? 'selected' : ''}>Hold</option>
+                    <option value="Deprecate" ${isEditing && ratingToEdit.fase === 'Deprecate' ? 'selected' : ''}>Deprecate</option>
                 </select>
             </div>
              <div>
                 <label>Comment</label>
-                <textarea name="comment" rows="3" style="width:100%; padding:0.5rem;"></textarea>
+                <textarea id="comment-editor" name="comment" rows="3" style="width:100%; padding:0.5rem;">${isEditing ? (ratingToEdit.toelichting || '') : ''}</textarea>
             </div>
-            <button type="submit" class="filter-btn" style="background:var(--accent-color); color:white;">Save</button>
+            <button type="submit" class="filter-btn" style="background:var(--accent-color); color:white;">
+                ${isEditing ? t('manage.save_changes', 'Save Changes') : t('manage.save', 'Save')}
+            </button>
         </form>
     `;
+
+    // Initialize EasyMDE
+    let easyMDE = null;
+    if (typeof EasyMDE !== 'undefined') {
+        easyMDE = new EasyMDE({
+            element: document.getElementById('comment-editor'),
+            spellChecker: false,
+            autosave: { enabled: false },
+            toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen", "|", "guide"],
+            status: false,
+            minHeight: "150px"
+        });
+    }
 
     document.getElementById('add-rating-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        const newRating = {
+        const ratingData = {
             bedrijf: formData.get('company'),
             identifier: formData.get('identifier'),
             fase: formData.get('phase'),
-            toelichting: formData.get('comment'),
-            datumBeoordeling: new Date().toISOString().split('T')[0],
-            beoordelaars: ['Me']
+            toelichting: easyMDE ? easyMDE.value() : formData.get('comment'),
+            datumBeoordeling: isEditing ? ratingToEdit.datumBeoordeling : new Date().toISOString().split('T')[0],
+            beoordelaars: isEditing ? ratingToEdit.beoordelaars : ['Me']
         };
 
-        addLocalRating(newRating);
-        updateRadar(getProcessedData()); // Refresh map
-        renderLocalRatingsTable();
-        // Close modal
-        document.getElementById('modal-overlay').classList.add('hidden');
+        if (isEditing) {
+            import('../localRatings.js').then(({ updateLocalRating }) => {
+                updateLocalRating(ratingToEdit._localId, ratingData);
+                completeUpdate();
+            });
+        } else {
+            addLocalRating(ratingData);
+            completeUpdate();
+        }
+
+        function completeUpdate() {
+            radarUpdateFn(getProcessedData()); // Refresh map
+            renderLocalRatingsTable();
+            // Close modal
+            document.getElementById('modal-overlay').classList.add('hidden');
+        }
     });
 
     overlay.classList.remove('hidden');

@@ -7,7 +7,7 @@
 - Filters for categories, phases (rings), companies (grouped by domain), and tags.
 - **Company Legend:** Visual list of companies on the right, sorted by blip count. Hover to highlight.
 - **Radar Optimization:** "Optimize" button to hide empty sectors and improve blip distribution using a polar grid layout.
-- **Local Ratings:** Authenticated users can create and manage their own ratings locally via the "Manage Ratings" tab.
+- **Local Ratings:** Authenticated users can create, edit, and manage their own ratings locally via the "Manage Ratings" tab. It features a rich text (Markdown) editor for comments.
 - Drill-down by double-clicking category or phase labels.
 - Sidebar with resizable width and collapsible sections.
 - Session-sticky color mapping for categories and companies.
@@ -80,6 +80,19 @@ Notes & development
 - Companies listed in `data/companies.json` are shown in the filter panel even if `data/ratings.json` contains no ratings for them.
 - Authentication UI: `Sign in` is shown when `APP_STATE.authenticated === false`. On successful login the app sets `APP_STATE.authenticated = true`, shows `Sign out`, and displays the user's display name in the header. The UI functions that control this are in `js/ui.js` (`showAuthenticatedUser()` / `showUnauthenticatedState()`).
 - To change translations, edit `js/locales/en.js` and `js/locales/nl.js`, then switch using the language selector in the header.
+- **Rich Text Editing:** The local ratings "comment" field uses **EasyMDE** for a rich text experience. It supports standard Markdown syntax like headings, lists, and links.
+
+**Version Management**
+The application uses a recognizable version label (e.g., "Robust Glacier") which is visible in the UI. This version is generated based on the current Git commit hash.
+
+To update the version label (typically before a commit or deployment), run:
+```bash
+node scripts/update-version.js
+```
+This script will:
+1. Get the short Git hash of the current HEAD.
+2. Generate a unique name using an adjective and a noun.
+3. Update `js/version.js` with the new version details.
 
 Testing & verification
 - After starting a static server, exercise the UI: toggle filters, double-click company tags to open modals, check that companies without ratings appear in the company list, sign in and sign out using the header buttons and verify that the welcome message displays your name.
