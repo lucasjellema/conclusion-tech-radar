@@ -1901,7 +1901,8 @@
       "finops",
       "cloud-management",
       "automation",
-      "compliance", "operations"
+      "compliance",
+      "operations"
     ],
     "description": "Het proces van het toewijzen van metadata (labels) aan cloud-resources. Dit is essentieel voor het categoriseren van kosten, het identificeren van eigenaarschap en het automatiseren van beheer- en beveiligingstaken binnen publieke cloudomgevingen.",
     "logo": "https://cdn.simpleicons.org/labelbox",
@@ -1916,7 +1917,8 @@
       "sre",
       "documentation",
       "incident-response",
-      "devops", "operations"
+      "devops",
+      "operations"
     ],
     "description": "Gedocumenteerde procedures voor het oplossen van specifieke foutmeldingen of incidenten. Hoewel traditioneel statisch, verschuift de trend naar 'executable runbooks' en dynamische monitoring waarbij acties direct gekoppeld zijn aan alerts.",
     "logo": "https://cdn.simpleicons.org/gitbook",
@@ -2043,8 +2045,7 @@
     "logo": "https://cdn.simpleicons.org/exoscale",
     "vendor": "Exoscale (onderdeel van A1 Telekom Austria Group)",
     "homepage": "https://www.exoscale.com/"
-  }
-, 
+  },
   {
     "identifier": "servicenow",
     "name": "ServiceNow",
@@ -2243,8 +2244,37 @@
     "logo": "https://cdn.simpleicons.org/redhatopenshift",
     "vendor": "Red Hat",
     "homepage": "https://www.redhat.com/en/technologies/cloud-computing/openshift/virtualization"
+  },
+  {
+    "identifier": "stryker-mutator",
+    "name": "Stryker Mutator",
+    "category": "Tools",
+    "tags": [
+      "mutation-testing",
+      "javascript",
+      "c-sharp",
+      "scala",
+      "test-automation"
+    ],
+    "description": "Een framework voor mutation testing dat de effectiviteit van unit tests meet door kleine fouten (mutaties) in de broncode te injecteren. Als de bestaande tests deze fouten niet opmerken, wordt de 'mutant' overleefd, wat duidt op een zwakke testsuite. Het biedt een veel nauwkeuriger beeld van testkwaliteit dan traditionele code coverage.",
+    "logo": "https://cdn.simpleicons.org/stryker",
+    "vendor": "Stryker Mutator Team (Open Source)",
+    "homepage": "https://stryker-mutator.io/"
+  },
+  {
+    "identifier": "bun-runtime",
+    "name": "Bun",
+    "category": "Platform",
+    "tags": [
+      "javascript",
+      "typescript",
+      "runtime",
+      "package-manager",
+      "bundler"
+    ],
+    "description": "Een extreem snelle, alles-in-één JavaScript-runtime, package manager en bundler geschreven in Zig. Bun is ontworpen als een moderne vervanger voor Node.js, maakt gebruik van de JavaScriptCore-engine (WebKit) en biedt native ondersteuning voor TypeScript en JSX zonder extra configuratie.",
+    "logo": "https://cdn.simpleicons.org/bun",
+    "vendor": "Oven",
+    "homepage": "https://bun.sh/"
   }
-
-
-
 ]
