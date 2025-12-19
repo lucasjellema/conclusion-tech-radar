@@ -9,6 +9,7 @@ I added a new function `applyUrlFilters(searchParams)` to [data.js](file:///c:/r
 - Parses `company`, `category`, `phase`, and `tag` parameters.
 - Clears default filters if a parameter is provided.
 - Accurately populates the active filter sets.
+- Fixed a bug where omitting a parameter (like `phase`) would result in an empty filter set and no data display; the application now correctly initializes unspecified parameters to "all active".
 
 ### Application Initialization
 I updated the `init` function in [main.js](file:///c:/research/conclusion-tech-radar/js/main.js) to:

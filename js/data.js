@@ -19,6 +19,7 @@ let activeFilters = {
 };
 
 let isUrlFiltered = false;
+let urlFilteredKeys = new Set();
 
 // Load data from JSON files and initialise filters
 export async function loadData() {
@@ -138,7 +139,7 @@ function processRadarData() {
 
 
 
-    if (!isUrlFiltered) {
+    if (!isUrlFiltered || !urlFilteredKeys.has('companies')) {
         for (const c of companies) activeFilters.companies.add(c);
     }
 
@@ -147,13 +148,13 @@ function processRadarData() {
 
     // Initialise all categories as active
     const categories = [...new Set(allTechnologies.map(t => t.category))];
-    if (!isUrlFiltered) {
+    if (!isUrlFiltered || !urlFilteredKeys.has('categories')) {
         for (const c of categories) activeFilters.categories.add(c);
     }
 
     // Initialise all phases as active (from ratings data)
     const phases = [...new Set(allRatings.map(r => (r.fase || '').toLowerCase()))].filter(p => p);
-    if (!isUrlFiltered) {
+    if (!isUrlFiltered || !urlFilteredKeys.has('phases')) {
         for (const p of phases) activeFilters.phases.add(p);
     }
 
@@ -199,6 +200,7 @@ export function getFilters() {
 
 export function setFilter(type, value, isAdd) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     if (type === 'company') {
         if (isAdd) activeFilters.companies.add(value);
         else activeFilters.companies.delete(value);
@@ -223,6 +225,7 @@ export function setFilter(type, value, isAdd) {
 
 export function setAllCompanies(shouldSelect) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     if (shouldSelect) {
         const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
         for (const c of allCompanies) activeFilters.companies.add(c);
@@ -234,6 +237,7 @@ export function setAllCompanies(shouldSelect) {
 
 export function setAllCategories(shouldSelect) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     if (shouldSelect) {
         const allCategories = [...new Set(rawData.technologies.map(t => t.category))];
         for (const c of allCategories) activeFilters.categories.add(c);
@@ -245,6 +249,7 @@ export function setAllCategories(shouldSelect) {
 
 export function setAllPhases(shouldSelect) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
     if (shouldSelect) {
         for (const p of PHASE_ORDER) activeFilters.phases.add(p);
@@ -256,6 +261,7 @@ export function setAllPhases(shouldSelect) {
 
 export function setExclusivePhase(phase) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     activeFilters.phases.clear();
     if (phase) activeFilters.phases.add(phase.toLowerCase());
     return processData();
@@ -263,6 +269,7 @@ export function setExclusivePhase(phase) {
 
 export function setExclusiveCategory(category) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     activeFilters.categories.clear();
     activeFilters.categories.add(category);
     return processData();
@@ -270,6 +277,7 @@ export function setExclusiveCategory(category) {
 
 export function setExclusiveCompany(company) {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     activeFilters.companies.clear();
     activeFilters.companies.add(company);
     return processData();
@@ -310,6 +318,7 @@ export function getRatingCountsByCategoryForCompany(companyName) {
 
 export function resetAllFilters() {
     isUrlFiltered = false;
+    urlFilteredKeys.clear();
     // Restore companies
     const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf))];
     activeFilters.companies = new Set(allCompanies);
@@ -337,6 +346,8 @@ export function resetAllFilters() {
 export function applyUrlFilters(searchParams) {
     if (!searchParams) return processData();
 
+    urlFilteredKeys.clear();
+
     // Mapping params to filter types
     const paramMap = {
         'company': 'companies',
@@ -359,6 +370,7 @@ export function applyUrlFilters(searchParams) {
         if (searchParams.has(param)) {
             hasAnyFilter = true;
             isUrlFiltered = true;
+            urlFilteredKeys.add(filterKey);
             activeFilters[filterKey].clear();
             const values = searchParams.getAll(param);
             for (let val of values) {
