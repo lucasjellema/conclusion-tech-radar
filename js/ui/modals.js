@@ -190,17 +190,17 @@ export function openModal(data) {
         <div class="rating-card">
             <div class="rating-header">
                 <div style="display:flex; align-items:center; gap:10px;">
-                     <span class="company-name">${data.rating.bedrijf}</span>
+                     <span class="company-name">${data.rating.bedrijf || (data.rating.beoordelaars && data.rating.beoordelaars[0]) || ''}</span>
                      ${data.companyLogo ? `<img src="${data.companyLogo}" alt="${data.rating.bedrijf} logo" style="height:24px; width:auto;">` : ''}
                 </div>
                 <span>${data.rating.datumBeoordeling}</span>
             </div>
-            <div class="rating-phase ${data.rating.fase.toLowerCase()}" style="margin-bottom: 0.5rem">
-                ${data.rating.fase.toUpperCase()}
+            <div class="rating-phase ${(data.rating.fase || '').toLowerCase()}" style="margin-bottom: 0.5rem">
+                ${(data.rating.fase || '').toUpperCase()}
             </div>
             <div class="markdown-content">${typeof marked !== 'undefined' ? marked.parse(data.rating.toelichting || '') : (data.rating.toelichting || '')}</div>
             <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem">
-                <strong>${t('modal.reviewers')}:</strong> ${data.rating.beoordelaars.join(', ')}
+                <strong>${t('modal.reviewers')}:</strong> ${(data.rating.beoordelaars || []).join(', ')}
             </div>
         </div>
         </div>

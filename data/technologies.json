@@ -2262,7 +2262,7 @@
     "homepage": "https://stryker-mutator.io/"
   },
   {
-    "identifier": "bun-runtime",
+    "identifier": "bun",
     "name": "Bun",
     "category": "Platform",
     "tags": [
@@ -2276,5 +2276,38 @@
     "logo": "https://cdn.simpleicons.org/bun",
     "vendor": "Oven",
     "homepage": "https://bun.sh/"
+  },
+  {
+    "identifier": "power-automate",
+    "name": "Microsoft Power Automate",
+    "category": "Tools",
+    "tags": [
+      "rpa",
+      "workflows",
+      "microsoft-365",
+      "automation",
+      "low-code"
+    ],
+    "description": "Een krachtig low-code platform van Microsoft voor het automatiseren van repetitieve taken en bedrijfsprocessen. Het stelt gebruikers in staat om workflows te creëren tussen honderden verschillende apps en services (zoals Outlook, SharePoint en Salesforce) en ondersteunt zowel cloud-gebaseerde automatisering als Desktop RPA (Robotic Process Automation).",
+    "logo": "https://cdn.simpleicons.org/microsoftpowerautomate",
+    "vendor": "Microsoft",
+    "homepage": "https://powerautomate.microsoft.com/"
+  },
+  {
+    "identifier": "google-antigravity",
+    "name": "Antigravity (AI Code Generation)",
+    "category": "AI",
+    "tags": [
+      "ai-coding",
+      "code-generation",
+      "refactoring",
+      "google-ai",
+      "llm",
+      "lsc"
+    ],
+    "description": "Een intern AI-platform van Google (aangedreven door modellen zoals Gemini) dat is ontworpen om grootschalige codewijzigingen (Large Scale Changes) te automatiseren. Het helpt ingenieurs bij het genereren, refactoren en migreren van code over enorme codebases heen, waardoor technische schuld wordt verminderd en de productiviteit aanzienlijk wordt verhoogd.",
+    "logo": "https://cdn.simpleicons.org/google",
+    "vendor": "Google",
+    "homepage": "https://research.google/blog/using-machine-learning-to-help-automate-large-scale-code-changes/"
   }
 ]

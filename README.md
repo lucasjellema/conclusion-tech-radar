@@ -6,6 +6,7 @@
 - Interactive radar visualization with D3.js.
 - Filters for categories, phases (rings), companies (grouped by domain), and tags.
 - **Company Legend:** Visual list of companies on the right, sorted by blip count. Hover to highlight.
+- **Individual Radar Mode:** A dedicated mode to view personal ratings from colleagues, with specialized phases and a simplified blip presentation. See the [Individual Radar Walkthrough](docs/individual-radar-walkthrough.md) for details.
 - **Radar Optimization:** "Optimize" button to hide empty sectors and improve blip distribution using a polar grid layout.
 - **Local Ratings:** Authenticated users can create, edit, and manage their own ratings locally via the "Manage Ratings" tab. It features a rich text (Markdown) editor for comments.
 - Drill-down by double-clicking category or phase labels.

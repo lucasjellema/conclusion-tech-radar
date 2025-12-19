@@ -41,7 +41,11 @@ export default {
     trial: "Trial — promising technologies that are ready for evaluation in a limited scope.",
     assess: "Assess — technologies worth exploring to understand fit and potential.",
     hold: "Hold — technologies that should be used with caution; re-evaluate timing.",
-    deprecate: "Deprecate — technologies to avoid or replace; not recommended for new work."
+    deprecate: "Deprecate — technologies to avoid or replace; not recommended for new work.",
+    'pre-assess': "Pre-assess — initial exploration of a professional's interest.",
+    'personal assess': "Personal Assess — technology being actively evaluated by an individual.",
+    'personal-use': "Personal Use — technology used in individual's personal or professional projects.",
+    'hold-individual': "Hold — technology being held from further personal use/evaluation."
   },
   categories: {
     platform: "Platform — foundational tools and services for building and operating systems.",
@@ -51,7 +55,8 @@ export default {
     data: "Data — storage, processing and analysis technologies."
   },
   tabs: {
-    radar: "Radar",
+    radar: "Companies Radar",
+    individual_radar: "Individual Radar",
     manage_ratings: "Manage Ratings"
   },
   manage: {

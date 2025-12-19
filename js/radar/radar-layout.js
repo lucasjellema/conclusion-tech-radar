@@ -8,8 +8,10 @@ export function calculateBlipPositions(blips, phases, categories, ringRadii, ang
         const phaseIndex = phases.indexOf((blip.rating.fase || '').toLowerCase());
         const catIndex = categories.indexOf(blip.category);
 
-        if (catIndex === -1) continue;
-        if (phaseIndex === -1) continue;
+        if (catIndex === -1 || phaseIndex === -1) {
+            console.warn(`[layout] Skipping blip ${blip.identifier || blip.name} - phase: ${blip.rating.fase}, cat: ${blip.category}`);
+            continue;
+        }
 
         // Use proportional ring radii from the array
         const innerR = phaseIndex === 0 ? 0 : ringRadii[phaseIndex - 1];

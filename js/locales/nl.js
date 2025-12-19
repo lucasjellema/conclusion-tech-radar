@@ -41,7 +41,11 @@ export default {
     trial: "Trial — veelbelovende technologieën geschikt voor beperkte evaluatie.",
     assess: "Assess — technologieën die het waard zijn te verkennen voor fit en potentieel.",
     hold: "Hold — technologieën die met voorzichtigheid gebruikt moeten worden; her-evalueer timing.",
-    deprecate: "Deprecate — technologieën om te vermijden of te vervangen; niet aanbevolen voor nieuw werk."
+    deprecate: "Deprecate — technologieën om te vermijden of te vervangen; niet aanbevolen voor nieuw werk.",
+    'pre-assess': "Pre-assess — eerste verkenning van persoonlijke interesse.",
+    'personal assess': "Personal Assess — technologie die actief door een persoon wordt onderzocht.",
+    'personal-use': "Personal Use — technologie gebruikt in persoonlijke of professionele projecten.",
+    'hold-individual': "Hold — technologie die tijdelijk niet verder persoonlijk wordt gebruikt/onderzocht."
   },
   categories: {
     platform: "Platform — fundamentele tools en services voor bouwen en beheren van systemen.",
@@ -51,7 +55,8 @@ export default {
     data: "Data — opslag-, verwerkings- en analysetechnologieën."
   },
   tabs: {
-    radar: "Radar",
+    radar: "Bedrijven Radar",
+    individual_radar: "Individuele Radar",
     manage_ratings: "Beoordelingen Beheren"
   },
   manage: {

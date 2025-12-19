@@ -4,6 +4,7 @@ import { t } from './i18n.js';
 import { ensureCategoryColors, ensureCompanyColors, getPhaseColor } from './radar/radar-colors.js';
 import { renderCompanyLegend } from './radar/radar-legend.js';
 import { calculateBlipPositions } from './radar/radar-layout.js';
+import { getMode } from './data.js';
 
 let svg, width, height, radius;
 let g;
@@ -271,9 +272,15 @@ export function updateRadar(data) {
     // 3. Calculate Blip Positions using polar grid distribution
     calculateBlipPositions(blips, phases, categories, ringRadii, angleSlice);
 
+    // Filter out blips that didn't get coordinates (e.g. mismatched phase/category)
+    const renderableBlips = blips.filter(d => typeof d.x === 'number' && typeof d.y === 'number');
+
     const companyColorMap = ensureCompanyColors(blips);
     // annotate blips with companyColor for use in tooltips etc.
-    for (const b of blips) b.companyColor = companyColorMap[b.company] || '#999';
+    for (const b of blips) {
+        if (b.company) b.companyColor = companyColorMap[b.company] || '#999';
+        else b.companyColor = '#6366f1'; // Default color for individual blips (indigo)
+    }
 
     // Domain -> symbol mapping
     const DOMAIN_SYMBOLS = {
@@ -286,7 +293,7 @@ export function updateRadar(data) {
 
     // 4. Draw Blips (with domain-shaped symbols and company colors)
     const blipNodes = g.selectAll(".blip")
-        .data(blips)
+        .data(renderableBlips)
         .enter()
         .append("g")
         .attr("class", "blip")
@@ -361,10 +368,11 @@ export function updateRadar(data) {
         // Default: colored domain-shaped symbols
         blipNodes.append('path')
             .attr('d', d => {
-                const sym = DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle;
+                const isIndividual = !d.company;
+                const sym = isIndividual ? d3.symbolCircle : (DOMAIN_SYMBOLS[d.companyDomain] || d3.symbolCircle);
                 return d3.symbol().type(sym).size(SYMBOL_SIZE)();
             })
-            .style('fill', d => companyColorMap[d.company] || '#999')
+            .style('fill', d => d.companyColor)
             .style('stroke', '#fff')
             .style('stroke-width', 1.2);
     }
@@ -404,8 +412,18 @@ export function updateRadar(data) {
         // ignore legend errors
     }
 
-    renderCompanyLegend(blips);
+    const currentMode = getMode();
+    if (currentMode === 'companies') {
+        renderCompanyLegend(blips);
+    } else {
+        // Hide domain legend for individuals
+        svg.selectAll('.domain-legend').remove();
+        // Clear right-side company legend container if it exists
+        const legendContainer = document.getElementById('company-legend');
+        if (legendContainer) legendContainer.innerHTML = '';
+    }
 }
+
 
 // Event Handlers (Dispatched to UI)
 function handleMouseOver(event, d) {
@@ -413,9 +431,9 @@ function handleMouseOver(event, d) {
     tooltip.innerHTML = `
         <h4>${d.name}</h4>
         <div class="tooltip-meta">
-            <span>${d.rating.bedrijf}</span>
+            <span>${d.rating.bedrijf || (d.rating.beoordelaars && d.rating.beoordelaars[0]) || ''}</span>
             <span>•</span>
-            <span style="color: ${d.companyColor}">${d.rating.fase.toUpperCase()}</span>
+            <span style="color: ${d.companyColor}">${(d.rating.fase || '').toUpperCase()}</span>
         </div>
         <div>${d.tags.join(', ')}</div>
     `;

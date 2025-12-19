@@ -173,7 +173,7 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
         <form id="add-rating-form" style="display:flex; flex-direction:column; gap:1rem;">
             <div>
                 <label>Company</label>
-                <input type="text" name="company" value="${companyVal}" required style="width:100%; padding:0.5rem;">
+                <input type="text" id="rating-company-input" name="company" value="${companyVal}" style="width:100%; padding:0.5rem;" placeholder="Leave empty for individual rating">
             </div>
             <div>
                 <label>Technology (Identifier)</label>
@@ -184,12 +184,7 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
             </div>
              <div>
                 <label>Phase</label>
-                <select name="phase" style="width:100%; padding:0.5rem;">
-                    <option value="Assess" ${isEditing && ratingToEdit.fase === 'Assess' ? 'selected' : ''}>Assess</option>
-                    <option value="Trial" ${isEditing && ratingToEdit.fase === 'Trial' ? 'selected' : ''}>Trial</option>
-                    <option value="Adopt" ${isEditing && ratingToEdit.fase === 'Adopt' ? 'selected' : ''}>Adopt</option>
-                    <option value="Hold" ${isEditing && ratingToEdit.fase === 'Hold' ? 'selected' : ''}>Hold</option>
-                    <option value="Deprecate" ${isEditing && ratingToEdit.fase === 'Deprecate' ? 'selected' : ''}>Deprecate</option>
+                <select id="rating-phase-select" name="phase" style="width:100%; padding:0.5rem;">
                 </select>
             </div>
              <div>
@@ -201,6 +196,26 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
             </button>
         </form>
     `;
+
+    const companyInput = document.getElementById('rating-company-input');
+    const phaseSelect = document.getElementById('rating-phase-select');
+
+    const updatePhases = () => {
+        const hasCompany = !!companyInput.value.trim();
+        const phases = hasCompany
+            ? ['Adopt', 'Trial', 'Assess', 'Hold', 'Deprecate']
+            : ['Pre-assess', 'Personal Assess', 'Personal-use', 'Hold-individual'];
+
+        const currentVal = phaseSelect.value || (isEditing ? ratingToEdit.fase : '');
+
+        phaseSelect.innerHTML = phases.map(p => {
+            const label = t(`phases.${p.toLowerCase()}`, p).split(' — ')[0];
+            return `<option value="${p}" ${currentVal.toLowerCase() === p.toLowerCase() ? 'selected' : ''}>${label}</option>`;
+        }).join('');
+    };
+
+    companyInput.addEventListener('input', updatePhases);
+    updatePhases();
 
     // Initialize EasyMDE
     let easyMDE = null;

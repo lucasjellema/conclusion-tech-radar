@@ -54,7 +54,7 @@
                     class="search-input">
             </div>
 
-            <div class="filter-section">
+            <div class="filter-section" id="company-filter-section">
                 <h3><span data-i18n-key="filter.companies">Companies</span> <button id="company-collapse-toggle"
                         class="collapse-toggle" aria-expanded="false">▸</button></h3>
                 <div id="company-filter-body" class="collapsible hidden">
@@ -113,7 +113,10 @@
             <!-- Tab Navigation -->
             <div class="tab-navigation">
                 <button id="radar-tab-btn" class="tab-btn active" data-tab="radar">
-                    <span data-i18n-key="tabs.radar">Radar</span>
+                    <span data-i18n-key="tabs.radar">Companies Radar</span>
+                </button>
+                <button id="individual-radar-tab-btn" class="tab-btn" data-tab="individual-radar">
+                    <span data-i18n-key="tabs.individual_radar">Individual Radar</span>
                 </button>
                 <button id="manage-ratings-tab-btn" class="tab-btn" data-tab="manage-ratings" style="display: none;">
                     <span data-i18n-key="tabs.manage_ratings">Manage Ratings</span>

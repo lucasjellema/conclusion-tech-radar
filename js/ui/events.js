@@ -9,7 +9,9 @@ import {
     setAllCategories,
     setAllCompanies,
     setAllPhases,
-    getIsUrlFiltered
+    getIsUrlFiltered,
+    getMode,
+    setMode
 } from '../data.js';
 import { toggleOptimization } from '../radar.js';
 import { t, translatePage } from '../i18n.js';
@@ -260,9 +262,22 @@ export function setupEventListeners(updateCallback) {
 
             // Toggle active state for content
             document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-            const targetContent = document.getElementById(`${tabName}-tab-content`);
-            if (targetContent) {
-                targetContent.style.display = 'block';
+
+            // Handle radar mode switching
+            if (tabName === 'radar' || tabName === 'individual-radar') {
+                const mode = tabName === 'radar' ? 'companies' : 'individual';
+                const newData = setMode(mode);
+                updateCallback(newData);
+                renderFilters(updateCallback);
+
+                // Show radar content
+                const radarContent = document.getElementById('radar-tab-content');
+                if (radarContent) radarContent.style.display = 'block';
+            } else {
+                const targetContent = document.getElementById(`${tabName}-tab-content`);
+                if (targetContent) {
+                    targetContent.style.display = 'block';
+                }
             }
         });
     });

@@ -1,7 +1,7 @@
 import {
     getFilters, setFilter, setAllCompanies, setAllCategories, setAllPhases,
     getProcessedData, getCompanyByName, getRatingsForCompany, getRatingCountsByCategoryForCompany,
-    setExclusiveCategory, setExclusiveCompany
+    setExclusiveCategory, setExclusiveCompany, getMode
 } from '../data.js';
 import { t } from '../i18n.js';
 import { getSymbolPathForDomain } from './helpers.js';
@@ -17,114 +17,124 @@ export function renderFilters(updateCallback) {
 
     // Company List grouped by domain
     const companyContainer = document.getElementById('company-filter');
-    companyContainer.innerHTML = '';
-
-    // Global All/None for companies
-    const controlsDiv = document.createElement('div');
-    controlsDiv.className = 'filter-controls';
-    const selectAllBtn = document.createElement('button');
-    selectAllBtn.textContent = t('filter.all');
-    selectAllBtn.className = 'filter-btn';
-    selectAllBtn.onclick = () => { const newData = setAllCompanies(true); updateCallback(newData); renderFilters(updateCallback); };
-    const deselectAllBtn = document.createElement('button');
-    deselectAllBtn.textContent = t('filter.none');
-    deselectAllBtn.className = 'filter-btn';
-    deselectAllBtn.onclick = () => { const newData = setAllCompanies(false); updateCallback(newData); renderFilters(updateCallback); };
-    controlsDiv.appendChild(selectAllBtn);
-    controlsDiv.appendChild(deselectAllBtn);
-    companyContainer.appendChild(controlsDiv);
-
     const { domainsMap, domains } = getFilters();
-    for (const domain of domains) {
-        const domainDiv = document.createElement('div');
-        domainDiv.className = 'domain-group';
-        const header = document.createElement('div');
-        header.className = 'domain-header';
-        // Domain shape icon (matches DOMAIN_SYMBOLS in radar.js)
-        const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svgIcon.setAttribute('width', '18');
-        svgIcon.setAttribute('height', '18');
-        svgIcon.setAttribute('viewBox', '0 0 18 18');
-        svgIcon.classList.add('domain-icon');
-        svgIcon.style.marginRight = '8px';
-        svgIcon.style.verticalAlign = 'middle';
+    const currentMode = getMode();
+    const companySection = document.getElementById('company-filter-section');
 
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    if (companySection) {
+        companySection.style.display = currentMode === 'companies' ? 'block' : 'none';
+    }
 
-        // Use module-scoped helper to get symbol path
-        path.setAttribute('d', getSymbolPathForDomain(domain));
-        path.setAttribute('transform', 'translate(9,9)');
-        path.setAttribute('fill', 'rgba(200,200,200,0.12)');
-        path.setAttribute('stroke', 'var(--text-color)');
-        path.setAttribute('stroke-width', '1');
-        svgIcon.appendChild(path);
+    if (currentMode === 'companies' && companyContainer) {
+        companyContainer.innerHTML = '';
 
-        header.appendChild(svgIcon);
+        // Global All/None for companies
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'filter-controls';
+        const selectAllBtn = document.createElement('button');
+        selectAllBtn.textContent = t('filter.all');
+        selectAllBtn.className = 'filter-btn';
+        selectAllBtn.onclick = () => { const newData = setAllCompanies(true); updateCallback(newData); renderFilters(updateCallback); };
+        const deselectAllBtn = document.createElement('button');
+        deselectAllBtn.textContent = t('filter.none');
+        deselectAllBtn.className = 'filter-btn';
+        deselectAllBtn.onclick = () => { const newData = setAllCompanies(false); updateCallback(newData); renderFilters(updateCallback); };
+        controlsDiv.appendChild(selectAllBtn);
+        controlsDiv.appendChild(deselectAllBtn);
+        companyContainer.appendChild(controlsDiv);
 
-        const title = document.createElement('strong');
-        title.textContent = domain;
-        header.appendChild(title);
+        for (const domain of domains) {
+            const domainDiv = document.createElement('div');
+            domainDiv.className = 'domain-group';
+            const header = document.createElement('div');
+            header.className = 'domain-header';
+            // Domain shape icon (matches DOMAIN_SYMBOLS in radar.js)
+            const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svgIcon.setAttribute('width', '18');
+            svgIcon.setAttribute('height', '18');
+            svgIcon.setAttribute('viewBox', '0 0 18 18');
+            svgIcon.classList.add('domain-icon');
+            svgIcon.style.marginRight = '8px';
+            svgIcon.style.verticalAlign = 'middle';
 
-        const domSelectAll = document.createElement('button');
-        domSelectAll.textContent = t('filter.all');
-        domSelectAll.className = 'filter-btn small';
-        domSelectAll.onclick = () => {
-            for (const c of domainsMap[domain]) setFilter('company', c, true);
-            const newData = getProcessedData();
-            updateCallback(newData);
-            renderFilters(updateCallback);
-        };
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
-        const domDeselect = document.createElement('button');
-        domDeselect.textContent = t('filter.none');
-        domDeselect.className = 'filter-btn small';
-        domDeselect.onclick = () => {
-            for (const c of domainsMap[domain]) setFilter('company', c, false);
-            const newData = getProcessedData();
-            updateCallback(newData);
-            renderFilters(updateCallback);
-        };
+            // Use module-scoped helper to get symbol path
+            path.setAttribute('d', getSymbolPathForDomain(domain));
+            path.setAttribute('transform', 'translate(9,9)');
+            path.setAttribute('fill', 'rgba(200,200,200,0.12)');
+            path.setAttribute('stroke', 'var(--text-color)');
+            path.setAttribute('stroke-width', '1');
+            svgIcon.appendChild(path);
 
-        header.appendChild(domSelectAll);
-        header.appendChild(domDeselect);
-        domainDiv.appendChild(header);
+            header.appendChild(svgIcon);
 
-        const list = document.createElement('div');
-        list.className = 'tag-cloud domain-list';
-        for (const company of domainsMap[domain]) {
-            const span = document.createElement('span');
-            span.className = 'tag';
-            if (active.companies.has(company)) span.classList.add('active');
-            span.textContent = company;
-            span.addEventListener('click', () => {
-                const isActive = span.classList.toggle('active');
-                setFilter('company', company, isActive);
+            const title = document.createElement('strong');
+            title.textContent = domain;
+            header.appendChild(title);
+
+            const domSelectAll = document.createElement('button');
+            domSelectAll.textContent = t('filter.all');
+            domSelectAll.className = 'filter-btn small';
+            domSelectAll.onclick = () => {
+                for (const c of domainsMap[domain]) setFilter('company', c, true);
                 const newData = getProcessedData();
                 updateCallback(newData);
-            });
-            // double-click on company tag opens company modal with details
-            span.addEventListener('dblclick', async () => {
-                const meta = getCompanyByName(company) || { name: company };
-                const counts = getRatingCountsByCategoryForCompany(company);
-                const ratings = getRatingsForCompany(company);
-                const modalData = {
-                    type: 'company',
-                    name: meta.name || company,
-                    description: meta.description || '',
-                    logo: meta.logo || '',
-                    homepage: meta.homepage || '',
-                    domain: meta.domain || '',
-                    belangrijksteOnderwerpen: meta.belangrijksteOnderwerpen || '',
-                    toelichting: meta.toelichting || '',
-                    ratingCounts: counts,
-                    ratings: ratings
-                };
-                document.dispatchEvent(new CustomEvent('open-modal', { detail: modalData }));
-            });
-            list.appendChild(span);
+                renderFilters(updateCallback);
+            };
+
+            const domDeselect = document.createElement('button');
+            domDeselect.textContent = t('filter.none');
+            domDeselect.className = 'filter-btn small';
+            domDeselect.onclick = () => {
+                for (const c of domainsMap[domain]) setFilter('company', c, false);
+                const newData = getProcessedData();
+                updateCallback(newData);
+                renderFilters(updateCallback);
+            };
+
+            header.appendChild(domSelectAll);
+            header.appendChild(domDeselect);
+            domainDiv.appendChild(header);
+
+            const list = document.createElement('div');
+            list.className = 'tag-cloud domain-list';
+            for (const company of domainsMap[domain]) {
+                const span = document.createElement('span');
+                span.className = 'tag';
+                if (active.companies.has(company)) span.classList.add('active');
+                span.textContent = company;
+                span.addEventListener('click', () => {
+                    const isActive = span.classList.toggle('active');
+                    setFilter('company', company, isActive);
+                    const newData = getProcessedData();
+                    updateCallback(newData);
+                });
+                // double-click on company tag opens company modal with details
+                span.addEventListener('dblclick', async () => {
+                    const meta = getCompanyByName(company) || { name: company };
+                    const counts = getRatingCountsByCategoryForCompany(company);
+                    const ratings = getRatingsForCompany(company);
+                    const modalData = {
+                        type: 'company',
+                        name: meta.name || company,
+                        description: meta.description || '',
+                        logo: meta.logo || '',
+                        homepage: meta.homepage || '',
+                        domain: meta.domain || '',
+                        belangrijksteOnderwerpen: meta.belangrijksteOnderwerpen || '',
+                        toelichting: meta.toelichting || '',
+                        ratingCounts: counts,
+                        ratings: ratings
+                    };
+                    document.dispatchEvent(new CustomEvent('open-modal', { detail: modalData }));
+                });
+                list.appendChild(span);
+            }
+            domainDiv.appendChild(list);
+            companyContainer.appendChild(domainDiv);
         }
-        domainDiv.appendChild(list);
-        companyContainer.appendChild(domainDiv);
+
     }
 
     // Category Filter

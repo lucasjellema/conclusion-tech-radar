@@ -17,6 +17,7 @@ let activeFilters = {
     phases: new Set(),
     search: ''
 };
+let currentMode = 'companies'; // 'companies' or 'individual'
 
 let isUrlFiltered = false;
 let urlFilteredKeys = new Set();
@@ -169,7 +170,9 @@ export function getFilters() {
     const allTags = rawData.technologies.flatMap(t => t.tags);
     const tags = [...new Set(allTags)].sort((a, b) => a.localeCompare(b));
     const categories = [...new Set(rawData.technologies.map(t => t.category))].sort((a, b) => a.localeCompare(b));
-    const PHASE_ORDER = ['adopt', 'trial', 'assess', 'hold', 'deprecate'];
+    const PHASE_ORDER = currentMode === 'companies'
+        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
+        : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'];
     const phases = PHASE_ORDER; // Expose fixed order for UI and radar
     // Build domain grouping using companies metadata (if available)
     const companyMeta = rawData.companies || [];
@@ -222,6 +225,17 @@ export function setFilter(type, value, isAdd) {
     }
     return processData();
 }
+
+export function setMode(mode) {
+    currentMode = mode;
+    return processData();
+}
+
+export function getMode() {
+    return currentMode;
+}
+
+
 
 export function setAllCompanies(shouldSelect) {
     isUrlFiltered = false;
@@ -407,7 +421,14 @@ function processData() {
 
     // 1. Filter Ratings (company & date)
     const filteredRatings = allRatings.filter(r => {
-        if (!activeFilters.companies.has(r.bedrijf)) return false;
+        if (currentMode === 'companies') {
+            if (!r.bedrijf) return false;
+            if (!activeFilters.companies.has(r.bedrijf)) return false;
+        } else {
+            // Individual mode: exclude ratings with a company reference
+            if (r.bedrijf) return false;
+        }
+
         if (activeFilters.date) {
             const ratingDate = new Date(r.datumBeoordeling);
             if (ratingDate < activeFilters.date) return false;
@@ -450,7 +471,9 @@ function processData() {
         categories: [...activeFilters.categories].sort((a, b) => a.localeCompare(b)),
         // Return only the active phases in the canonical order so the radar redraws
         // as if unselected rings do not exist.
-        phases: ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p)),
+        phases: currentMode === 'companies'
+            ? ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p))
+            : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'].filter(p => activeFilters.phases.has(p.toLowerCase())),
         technologies: allTechnologies
     };
 }
