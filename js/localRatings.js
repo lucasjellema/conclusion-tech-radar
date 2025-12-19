@@ -148,7 +148,9 @@ export function addCustomTechnology(technology) {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
 
-    const newTech = {
+    const existingIndex = technologies.findIndex(t => t.identifier === identifier);
+
+    const techData = {
         identifier,
         name: technology.name,
         category: technology.category || 'Other',
@@ -160,10 +162,17 @@ export function addCustomTechnology(technology) {
         _isCustom: true
     };
 
-    technologies.push(newTech);
+    if (existingIndex !== -1) {
+        // Update existing entry
+        technologies[existingIndex] = techData;
+    } else {
+        // Add new entry
+        technologies.push(techData);
+    }
+
     saveCustomTechnologies(technologies);
 
-    return newTech;
+    return techData;
 }
 
 /**
@@ -190,13 +199,14 @@ export function getCustomTechnologies() {
 export function exportRatingsJSON(companyName) {
     const ratings = loadLocalRatings();
     const companyDetails = loadCompanyDetails();
+    const customTech = loadCustomTechnologies();
 
     // Filter ratings for the specified company
     const companyRatings = companyName
         ? ratings.filter(r => r.bedrijf === companyName)
         : ratings;
 
-    // Remove local-specific properties
+    // Remove local-specific properties from ratings
     const cleanedRatings = companyRatings.map(r => {
         const { _localId, _isLocal, ...cleanRating } = r;
         return cleanRating;
@@ -214,9 +224,23 @@ export function exportRatingsJSON(companyName) {
         Object.assign(toelichtingPerBedrijf, companyDetails);
     }
 
+    // Filter custom technologies to only include those used in the exported ratings (if company filtered)
+    let exportedTechnologies = customTech;
+    if (companyName) {
+        const usedIdentifiers = new Set(cleanedRatings.map(r => r.identifier));
+        exportedTechnologies = customTech.filter(t => usedIdentifiers.has(t.identifier));
+    }
+
+    // Remove local-specific properties from technologies
+    const cleanedTechnologies = exportedTechnologies.map(t => {
+        const { _isCustom, ...cleanTech } = t;
+        return cleanTech;
+    });
+
     return {
         toelichtingPerBedrijf,
-        statusPerBedrijf: cleanedRatings
+        statusPerBedrijf: cleanedRatings,
+        technologies: cleanedTechnologies
     };
 }
 
@@ -243,9 +267,6 @@ export function downloadRatingsJSON(companyName) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-
-    // Also download custom technologies if any exist
-    downloadCustomTechnologiesJSON();
 }
 
 /**

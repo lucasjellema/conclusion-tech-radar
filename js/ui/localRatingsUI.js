@@ -1,14 +1,17 @@
 import {
     getLocalRatings,
     addLocalRating,
+    updateLocalRating,
     deleteLocalRating,
     downloadRatingsJSON,
     clearLocalRatings,
     getCompanyDetails,
     setCompanyDetails,
-    loadLocalRatings
+    loadLocalRatings,
+    addCustomTechnology,
+    loadCustomTechnologies
 } from '../localRatings.js';
-import { getFilters, getProcessedData } from '../data.js';
+import { getFilters, getProcessedData, getTechnology, refreshLocalData } from '../data.js';
 import { t } from '../i18n.js';
 
 let radarUpdateFn = null;
@@ -120,9 +123,11 @@ function renderLocalRatingsTable() {
     } else {
         if (noRatingsMsg) noRatingsMsg.style.display = 'none';
         ratings.forEach(r => {
+            const tech = getTechnology(r.identifier);
+            const techName = tech ? tech.name : r.identifier;
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${r.identifier || r.technology}</td>
+                <td>${techName}</td>
                 <td><span class="rating-phase ${r.fase?.toLowerCase()}">${r.fase}</span></td>
                 <td>${r.datumBeoordeling}</td>
                 <td>${r.toelichting || ''}</td>
@@ -160,13 +165,16 @@ function renderLocalRatingsTable() {
 }
 
 // Helper to open a form in the modal for adding/editing a rating
-function openAddRatingModal(updateRadar, ratingToEdit = null) {
+function openAddRatingModal(updateRadar, ratingToEdit = null, prefilledData = null) {
     const modalContent = document.getElementById('modal-content');
     const overlay = document.getElementById('modal-overlay');
     if (!overlay || !modalContent) return;
 
     const isEditing = !!ratingToEdit;
-    const companyVal = isEditing ? ratingToEdit.bedrijf : (document.getElementById('local-company-input')?.value || '');
+    const companyVal = isEditing ? ratingToEdit.bedrijf : (prefilledData ? prefilledData.bedrijf : (document.getElementById('local-company-input')?.value || ''));
+    const techNameVal = isEditing ? (getTechnology(ratingToEdit.identifier)?.name || ratingToEdit.identifier) : (prefilledData ? prefilledData.techName : '');
+    const phaseVal = isEditing ? ratingToEdit.fase : (prefilledData ? prefilledData.fase : '');
+    const commentVal = isEditing ? (ratingToEdit.toelichting || '') : (prefilledData ? prefilledData.comment : '');
 
     modalContent.innerHTML = `
         <h2>${isEditing ? t('manage.edit_rating', 'Edit Rating') : t('manage.add_rating', 'Add New Rating')}</h2>
@@ -175,11 +183,14 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
                 <label>Company</label>
                 <input type="text" id="rating-company-input" name="company" value="${companyVal}" style="width:100%; padding:0.5rem;" placeholder="Leave empty for individual rating">
             </div>
-            <div>
-                <label>Technology (Identifier)</label>
-                <input type="text" name="identifier" list="tech-options" value="${isEditing ? ratingToEdit.identifier : ''}" required style="width:100%; padding:0.5rem;" autocomplete="off">
+            <div style="display:flex; gap:0.5rem; align-items: flex-end;">
+                <div style="flex-grow: 1;">
+                    <label>Technology Name</label>
+                    <input type="text" id="rating-tech-input" name="techName" list="tech-options" value="${techNameVal}" required style="width:100%; padding:0.5rem;" autocomplete="off">
+                </div>
+                <button type="button" id="add-new-tech-btn" class="filter-btn" title="Add New Technology" style="padding: 0.5rem 0.8rem; height: 38px; font-weight: bold; border-radius: 4px;">+</button>
                 <datalist id="tech-options">
-                    ${getProcessedData().technologies.sort((a, b) => (a.identifier || '').localeCompare(b.identifier || '')).map(t => `<option value="${t.identifier}">${t.name}</option>`).join('')}
+                    ${getProcessedData().technologies.sort((a, b) => (a.name || '').localeCompare(b.name || '')).map(t => `<option value="${t.name}">${t.identifier}</option>`).join('')}
                 </datalist>
             </div>
              <div>
@@ -189,7 +200,7 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
             </div>
              <div>
                 <label>Comment</label>
-                <textarea id="comment-editor" name="comment" rows="3" style="width:100%; padding:0.5rem;">${isEditing ? (ratingToEdit.toelichting || '') : ''}</textarea>
+                <textarea id="comment-editor" name="comment" rows="3" style="width:100%; padding:0.5rem;">${commentVal}</textarea>
             </div>
             <button type="submit" class="filter-btn" style="background:var(--accent-color); color:white;">
                 ${isEditing ? t('manage.save_changes', 'Save Changes') : t('manage.save', 'Save')}
@@ -206,7 +217,7 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
             ? ['Adopt', 'Trial', 'Assess', 'Hold', 'Deprecate']
             : ['Pre-assess', 'Personal Assess', 'Personal-use', 'Hold-individual'];
 
-        const currentVal = phaseSelect.value || (isEditing ? ratingToEdit.fase : '');
+        const currentVal = phaseSelect.value || phaseVal || '';
 
         phaseSelect.innerHTML = phases.map(p => {
             const label = t(`phases.${p.toLowerCase()}`, p).split(' — ')[0];
@@ -216,6 +227,28 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
 
     companyInput.addEventListener('input', updatePhases);
     updatePhases();
+
+    // Plus button listener
+    const addTechBtn = document.getElementById('add-new-tech-btn');
+    if (addTechBtn) {
+        addTechBtn.addEventListener('click', () => {
+            const currentData = {
+                bedrijf: document.getElementById('rating-company-input').value,
+                techName: document.getElementById('rating-tech-input').value,
+                fase: phaseSelect.value,
+                comment: easyMDE ? easyMDE.value() : document.getElementById('comment-editor').value
+            };
+
+            // Check if technology already exists in custom techs
+            const customTechs = loadCustomTechnologies();
+            const existingCustom = customTechs.find(t => t.name.toLowerCase() === currentData.techName.toLowerCase());
+
+            openAddTechnologyModal((newTech) => {
+                refreshLocalData();
+                openAddRatingModal(updateRadar, ratingToEdit, { ...currentData, techName: newTech.name });
+            }, existingCustom || { name: currentData.techName });
+        });
+    }
 
     // Initialize EasyMDE
     let easyMDE = null;
@@ -234,9 +267,22 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
         e.preventDefault();
         const formData = new FormData(e.target);
 
+        const techName = formData.get('techName');
+        const allTechs = getProcessedData().technologies;
+        const existingTech = allTechs.find(t => t.name === techName);
+
+        let identifier = existingTech ? existingTech.identifier : null;
+
+        if (!identifier) {
+            // New technology - create custom tech
+            const newTech = addCustomTechnology({ name: techName });
+            identifier = newTech.identifier;
+            refreshLocalData();
+        }
+
         const ratingData = {
             bedrijf: formData.get('company'),
-            identifier: formData.get('identifier'),
+            identifier: identifier,
             fase: formData.get('phase'),
             toelichting: easyMDE ? easyMDE.value() : formData.get('comment'),
             datumBeoordeling: isEditing ? ratingToEdit.datumBeoordeling : new Date().toISOString().split('T')[0],
@@ -244,12 +290,12 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
         };
 
         if (isEditing) {
-            import('../localRatings.js').then(({ updateLocalRating }) => {
-                updateLocalRating(ratingToEdit._localId, ratingData);
-                completeUpdate();
-            });
+            updateLocalRating(ratingToEdit._localId, ratingData);
+            refreshLocalData();
+            completeUpdate();
         } else {
             addLocalRating(ratingData);
+            refreshLocalData();
             completeUpdate();
         }
 
@@ -259,6 +305,78 @@ function openAddRatingModal(updateRadar, ratingToEdit = null) {
             // Close modal
             document.getElementById('modal-overlay').classList.add('hidden');
         }
+    });
+
+    overlay.classList.remove('hidden');
+}
+
+function openAddTechnologyModal(onSelect, initialData = {}) {
+    const modalContent = document.getElementById('modal-content');
+    const overlay = document.getElementById('modal-overlay');
+    if (!overlay || !modalContent) return;
+
+    const isEditing = !!initialData.identifier;
+
+    modalContent.innerHTML = `
+        <h2>${isEditing ? 'Edit Technology' : 'Add New Technology'}</h2>
+        <form id="add-tech-form" style="display:flex; flex-direction:column; gap:1rem; max-height: 70vh; overflow-y: auto; padding: 0.5rem;">
+            <div>
+                <label>Name</label>
+                <input type="text" name="name" value="${initialData.name || ''}" required style="width:100%; padding:0.5rem;" autocomplete="off">
+            </div>
+            <div>
+                <label>Category</label>
+                <select name="category" style="width:100%; padding:0.5rem;">
+                    ${getFilters().categories.map(c => `<option value="${c}" ${initialData.category === c ? 'selected' : ''}>${c}</option>`).join('')}
+                    <option value="Other" ${initialData.category === 'Other' ? 'selected' : ''}>Other</option>
+                </select>
+            </div>
+            <div>
+                <label>Logo URL</label>
+                <input type="text" name="logo" value="${initialData.logo || ''}" style="width:100%; padding:0.5rem;" placeholder="https://example.com/logo.png">
+            </div>
+            <div>
+                <label>Vendor</label>
+                <input type="text" name="vendor" value="${initialData.vendor || ''}" style="width:100%; padding:0.5rem;">
+            </div>
+            <div>
+                <label>Homepage</label>
+                <input type="url" name="homepage" value="${initialData.homepage || ''}" style="width:100%; padding:0.5rem;" placeholder="https://">
+            </div>
+            <div>
+                <label>Tags (comma separated)</label>
+                <input type="text" name="tags" value="${(initialData.tags || []).join(', ')}" style="width:100%; padding:0.5rem;" placeholder="cloud, ai, developer-tools">
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea name="description" rows="3" style="width:100%; padding:0.5rem;">${initialData.description || ''}</textarea>
+            </div>
+            <button type="submit" class="filter-btn" style="background:var(--accent-color); color:white;">
+                ${isEditing ? 'Update Technology' : 'Create Technology'}
+            </button>
+        </form>
+    `;
+
+    document.getElementById('add-tech-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        const tagsString = formData.get('tags') || '';
+        const tagsArray = tagsString.split(',').map(s => s.trim()).filter(s => s !== '');
+
+        const techToSave = {
+            name: formData.get('name'),
+            category: formData.get('category'),
+            description: formData.get('description'),
+            logo: formData.get('logo'),
+            vendor: formData.get('vendor'),
+            homepage: formData.get('homepage'),
+            tags: tagsArray
+        };
+
+        const newTech = addCustomTechnology(techToSave);
+
+        if (onSelect) onSelect(newTech);
     });
 
     overlay.classList.remove('hidden');
