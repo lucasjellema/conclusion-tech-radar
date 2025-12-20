@@ -2306,7 +2306,7 @@
       "lsc"
     ],
     "description": "Een intern AI-platform van Google (aangedreven door modellen zoals Gemini) dat is ontworpen om grootschalige codewijzigingen (Large Scale Changes) te automatiseren. Het helpt ingenieurs bij het genereren, refactoren en migreren van code over enorme codebases heen, waardoor technische schuld wordt verminderd en de productiviteit aanzienlijk wordt verhoogd.",
-    "logo": "https://cdn.simpleicons.org/google",
+    "logo": "https://www.searchyour.ai/archivos/antigravity-google-ai-logo.jpg",
     "vendor": "Google",
     "homepage": "https://research.google/blog/using-machine-learning-to-help-automate-large-scale-code-changes/"
   }
