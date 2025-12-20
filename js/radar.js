@@ -23,7 +23,25 @@ const config = {
     levels: 5,
     labelFactor: 1.25,
     opacityArea: 0.1,
-    dotRadius: 6
+    dotRadius: 6,
+    RESIZE_DEBOUNCE_MS: 150,
+    DEFAULT_INDIVIDUAL_COLOR: '#6366f1'
+};
+
+const DOMAIN_SYMBOLS = {
+    'Cloud & Mission Critical': d3.symbolSquare,
+    'Business Consultancy': d3.symbolTriangle,
+    'Enterprise Applications': d3.symbolDiamond,
+    'Data & AI': d3.symbolStar,
+    'Experience, Development & Software': d3.symbolCircle
+};
+
+const BLIP_SIZING = {
+    SMALL_COUNT: 5,
+    MEDIUM_COUNT: 15,
+    LARGE_COUNT: 30,
+    RADII: { SMALL: 12, MEDIUM: 10, LARGE: 8, DEFAULT: 6 },
+    FONT_SIZES: { SMALL: '14px', MEDIUM: '12px', LARGE: '11px', DEFAULT: '10px' }
 };
 
 // Phases are provided per-render from the data object so layout can compress
@@ -53,7 +71,6 @@ export function initRadar(data) {
     try {
         const containerNode = document.querySelector('.radar-container') || container.parentElement || container;
         if (resizeObserver) resizeObserver.disconnect();
-        const RESIZE_DEBOUNCE_MS = 150;
         let resizeTimer = null;
         resizeObserver = new ResizeObserver(() => {
             // update measured size immediately, but debounce the expensive re-render
@@ -69,12 +86,12 @@ export function initRadar(data) {
                     g.attr('transform', `translate(${0.4 * width},${height / 2})`);
                 }
                 if (currentData) updateRadar(currentData);
-            }, RESIZE_DEBOUNCE_MS);
+            }, config.RESIZE_DEBOUNCE_MS);
         });
         resizeObserver.observe(containerNode);
     } catch (e) {
         // ResizeObserver may not be available; fall back to window resize with debounce
-        const RESIZE_DEBOUNCE_MS = 150;
+        const RESIZE_DEBOUNCE_MS_WIN = config.RESIZE_DEBOUNCE_MS;
         let resizeTimerWin = null;
         globalThis.addEventListener('resize', () => {
             resizeCanvas(container);
@@ -89,7 +106,7 @@ export function initRadar(data) {
                     g.attr('transform', `translate(${0.4 * width},${height / 2})`);
                 }
                 if (currentData) updateRadar(currentData);
-            }, RESIZE_DEBOUNCE_MS);
+            }, RESIZE_DEBOUNCE_MS_WIN);
         });
     }
 
@@ -279,7 +296,7 @@ export function updateRadar(data) {
     // annotate blips with companyColor for use in tooltips etc.
     for (const b of blips) {
         if (b.company) b.companyColor = companyColorMap[b.company] || '#999';
-        else b.companyColor = '#6366f1'; // Default color for individual blips (indigo)
+        else b.companyColor = config.DEFAULT_INDIVIDUAL_COLOR;
     }
 
     // Domain -> symbol mapping
@@ -302,11 +319,23 @@ export function updateRadar(data) {
         .on("mousemove", handleMouseMove)
         .on("mouseleave", handleMouseOut)
         .on("click", handleClick);
-    const SYMBOL_SIZE = Math.max(30, Math.PI * Math.pow(config.dotRadius + 2, 2));
+
+    // Dynamic sizing based on blip count
+    const blipCount = renderableBlips.length;
+    const dynamicDotRadius = blipCount <= BLIP_SIZING.SMALL_COUNT ? BLIP_SIZING.RADII.SMALL :
+        blipCount <= BLIP_SIZING.MEDIUM_COUNT ? BLIP_SIZING.RADII.MEDIUM :
+            blipCount <= BLIP_SIZING.LARGE_COUNT ? BLIP_SIZING.RADII.LARGE : BLIP_SIZING.RADII.DEFAULT;
+    const dynamicFontSize = blipCount <= BLIP_SIZING.SMALL_COUNT ? BLIP_SIZING.FONT_SIZES.SMALL :
+        blipCount <= BLIP_SIZING.MEDIUM_COUNT ? BLIP_SIZING.FONT_SIZES.MEDIUM :
+            blipCount <= BLIP_SIZING.LARGE_COUNT ? BLIP_SIZING.FONT_SIZES.LARGE : BLIP_SIZING.FONT_SIZES.DEFAULT;
+    const dynamicLabelOffset = dynamicDotRadius + 4;
+    const dynamicLabelY = dynamicDotRadius / 3 + 2;
+
+    const SYMBOL_SIZE = Math.max(30, Math.PI * Math.pow(dynamicDotRadius + 2, 2));
 
     // Toggle: show logos in blips if the visibility control is checked
     const showLogos = !!document.getElementById('toggle-blip-logos') && document.getElementById('toggle-blip-logos').checked;
-    const ICON_SIZE = Math.max(18, config.dotRadius * 4);
+    const ICON_SIZE = Math.max(18, dynamicDotRadius * 4);
 
     if (showLogos) {
         // Debug: log attempt to load logos so users can inspect console when Network shows nothing
@@ -379,10 +408,10 @@ export function updateRadar(data) {
 
     // Add small text label to blip
     blipNodes.append("text")
-        .attr("x", 8)
-        .attr("y", 4)
+        .attr("x", dynamicLabelOffset)
+        .attr("y", dynamicLabelY)
         .text(d => d.name)
-        .style("font-size", "10px")
+        .style("font-size", dynamicFontSize)
         .style("fill", "var(--text-color)")
         .style("pointer-events", "none");
 

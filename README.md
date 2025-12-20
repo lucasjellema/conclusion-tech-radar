@@ -2,20 +2,16 @@
 
 - **What it is:** A client-side interactive Technology Radar visualization showing technologies, their categories, and ratings by company and phase. Users can filter by category, phase (rings), company/domain, and tags, drill down by double-clicking labels, and view details in a modal.
 
-**Key Features**
-- Interactive radar visualization with D3.js.
-- Filters for categories, phases (rings), companies (grouped by domain), and tags.
-- **Company Legend:** Visual list of companies on the right, sorted by blip count. Hover to highlight.
-- **Full User Guide:** For a detailed explanation of how to use the radar, its concepts, and features, see the [User Guide](docs/user-guide.md).
-- **Individual Radar Mode:** A dedicated mode to view personal ratings from colleagues, with specialized phases and a simplified blip presentation. See the [Individual Radar Walkthrough](docs/individual-radar-walkthrough.md) for details.
-- **Radar Optimization:** "Optimize" button to hide empty sectors and improve blip distribution using a polar grid layout.
-- **Local Ratings:** Authenticated users can create, edit, and manage their own ratings locally via the "Manage Ratings" tab. It features a rich text (Markdown) editor for comments.
-- Drill-down by double-clicking category or phase labels.
-- Sidebar with resizable width and collapsible sections.
-- Session-sticky color mapping for categories and companies.
-- EN/NL localization and dynamic UI translations.
-- Company details modal: double-click a company tag in the sidebar or legend to open a modal with details.
-- Companies without ratings are now included in the company filter panel.
+- **Dynamic Radar Visualization:** Interactive D3.js radar that scales blips and font sizes automatically based on density. Sparse radars get larger, more readable blips.
+- **Advanced Filtering:** Filter by categories, phases (rings), companies (grouped by domain), tags, and date.
+- **Company Legend:** Interactive visual list of companies on the right, sorted by impact (blip count). Hover to highlight blips; double-click to filter.
+- **Logo Support:** Toggleable option to show technology or company logos directly on radar blips for quick recognition.
+- **Individual Radar Mode:** Specialized view for personal evaluations from colleagues, featuring a dedicated phase model and simplified presentation. Read more in the [Individual Radar Walkthrough](docs/individual-radar-walkthrough.md).
+- **Radar Optimization:** A one-click "Optimize" button that hides empty sectors and uses a polar grid layout to maximize space and prevent overlaps.
+- **Local Ratings & Rich Text:** Authenticated users can manage personal ratings locally using a built-in Markdown (EasyMDE) editor.
+- **Drill-Down Navigation:** Double-click any category or phase label to instantly focus the radar on that specific segment or ring.
+- **Localization:** Full support for English and Dutch with dynamic translation switching.
+- **Comprehensive Docs:** Detailed documentation is available in the [User Guide](docs/user-guide.md).
 
 **Authentication (Microsoft Entra ID / MSAL)**
 - The app includes an optional Microsoft Entra ID (Azure AD / MSAL) sign-in flow using `msal-browser` (popup flow). A `Sign in` button appears in the header when unauthenticated; after sign-in the header shows `Sign out` and a short welcome message with the authenticated user's display name.
@@ -83,6 +79,7 @@ Notes & development
 - Authentication UI: `Sign in` is shown when `APP_STATE.authenticated === false`. On successful login the app sets `APP_STATE.authenticated = true`, shows `Sign out`, and displays the user's display name in the header. The UI functions that control this are in `js/ui.js` (`showAuthenticatedUser()` / `showUnauthenticatedState()`).
 - To change translations, edit `js/locales/en.js` and `js/locales/nl.js`, then switch using the language selector in the header.
 - **Rich Text Editing:** The local ratings "comment" field uses **EasyMDE** for a rich text experience. It supports standard Markdown syntax like headings, lists, and links.
+- **Dynamic Blip Sizing:** To improve legibility, the radar automatically adjusts blip radii (6px to 12px) and font sizes (10px to 14px) based on the current blip density. This ensures that when filters are applied and fewer blips remain, the visualization scales up to fill the space effectively.
 
 **Version Management**
 The application uses a recognizable version label (e.g., "Robust Glacier") which is visible in the UI. This version is generated based on the current Git commit hash.
