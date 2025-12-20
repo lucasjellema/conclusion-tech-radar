@@ -16,6 +16,7 @@
 const STORAGE_KEY = 'local-ratings';
 const CUSTOM_TECH_KEY = 'local-technologies';
 const COMPANY_DETAILS_KEY = 'local-company-details';
+const DEFAULT_CATEGORY = 'Other';
 
 /**
  * Load local ratings from localStorage
@@ -153,7 +154,7 @@ export function addCustomTechnology(technology) {
     const techData = {
         identifier,
         name: technology.name,
-        category: technology.category || 'Other',
+        category: technology.category || DEFAULT_CATEGORY,
         tags: technology.tags || [],
         description: technology.description || '',
         logo: technology.logo || '',

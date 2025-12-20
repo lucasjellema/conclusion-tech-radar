@@ -1,6 +1,19 @@
 // Data handling for Technology Radar
 import { loadLocalRatings, loadCustomTechnologies } from './localRatings.js';
 
+export const MODES = {
+    COMPANIES: 'companies',
+    INDIVIDUAL: 'individual'
+};
+
+export const PHASES = {
+    [MODES.COMPANIES]: ['adopt', 'trial', 'assess', 'hold', 'deprecate'],
+    [MODES.INDIVIDUAL]: ['personal-use', 'personal assess', 'pre-assess', 'hold-individual']
+};
+
+export const DEFAULT_CATEGORY = 'Uncategorized';
+export const DEFAULT_DOMAIN = 'Other';
+
 let rawData = {
     technologies: [],
     ratings: [],
@@ -17,12 +30,10 @@ let activeFilters = {
     phases: new Set(),
     search: ''
 };
-let currentMode = 'companies'; // 'companies' or 'individual'
+let currentMode = MODES.COMPANIES;
 
 function getPhaseOrder() {
-    return currentMode === 'companies'
-        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
-        : ['personal-use', 'personal assess', 'pre-assess', 'hold-individual'];
+    return PHASES[currentMode];
 }
 
 let isUrlFiltered = false;
@@ -181,12 +192,12 @@ export function getFilters() {
     const companyMeta = rawData.companies || [];
     const companyToDomain = {};
     for (const c of companyMeta) {
-        if (c && c.name) companyToDomain[c.name] = c.domain || 'Other';
+        if (c && c.name) companyToDomain[c.name] = c.domain || DEFAULT_DOMAIN;
     }
 
     const domainsMap = {};
     for (const c of companies) {
-        const d = companyToDomain[c] || 'Other';
+        const d = companyToDomain[c] || DEFAULT_DOMAIN;
         if (!domainsMap[d]) domainsMap[d] = [];
         domainsMap[d].push(c);
     }
@@ -327,7 +338,7 @@ export function getRatingCountsByCategoryForCompany(companyName) {
     const ratings = getRatingsForCompany(companyName);
     for (const r of ratings) {
         const tech = rawData.technologies.find(t => t.identifier === r.identifier);
-        const cat = tech ? tech.category : 'Uncategorized';
+        const cat = tech ? tech.category : DEFAULT_CATEGORY;
         counts[cat] = (counts[cat] || 0) + 1;
     }
     return counts;
@@ -337,7 +348,7 @@ export function resetAllFilters() {
     isUrlFiltered = false;
     urlFilteredKeys.clear();
     // Restore companies
-    if (currentMode === 'companies') {
+    if (currentMode === MODES.COMPANIES) {
         const allCompanies = [...new Set(rawData.ratings.map(r => r.bedrijf).filter(Boolean))];
         activeFilters.companies = new Set(allCompanies);
     } else {
@@ -428,7 +439,7 @@ function processData() {
 
     // 1. Filter Ratings (company & date)
     const filteredRatings = allRatings.filter(r => {
-        if (currentMode === 'companies') {
+        if (currentMode === MODES.COMPANIES) {
             if (!r.bedrijf) return false;
             if (!activeFilters.companies.has(r.bedrijf)) return false;
         } else {
@@ -467,7 +478,7 @@ function processData() {
             rating,
             id: `${rating.identifier}-${rating.bedrijf}`,
             company: rating.bedrijf,
-            companyDomain: companyMeta.domain || 'Other',
+            companyDomain: companyMeta.domain || DEFAULT_DOMAIN,
             companyHomepage: companyMeta.homepage || '',
             companyLogo: companyMeta.logo || ''
         };

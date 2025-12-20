@@ -14,6 +14,11 @@ import {
 import { getFilters, getProcessedData, getTechnology, refreshLocalData } from '../data.js';
 import { t } from '../i18n.js';
 
+const PHASES_COMPANY = ['Adopt', 'Trial', 'Assess', 'Hold', 'Deprecate'];
+const PHASES_INDIVIDUAL = ['Pre-assess', 'Personal Assess', 'Personal-use', 'Hold-individual'];
+const DEFAULT_REVIEWERS = ['Me'];
+const DEFAULT_CATEGORY = 'Other';
+
 let radarUpdateFn = null;
 
 export function initLocalRatingsUI(updateRadar) {
@@ -130,7 +135,7 @@ function renderLocalRatingsTable() {
                 <td>${techName}</td>
                 <td><span class="rating-phase ${r.fase?.toLowerCase()}">${r.fase}</span></td>
                 <td>${r.datumBeoordeling}</td>
-                <td>${r.toelichting || ''}</td>
+                <td>${typeof marked !== 'undefined' ? marked.parse(r.toelichting || '') : (r.toelichting || '')}</td>
                 <td>
                     <button class="edit-rating-btn" data-id="${r._localId}" title="${t('manage.edit_rating', 'Edit Rating')}" style="margin-right:0.5rem; background:none; border:none; cursor:pointer; font-size:1.2rem;">✏️</button>
                     <button class="delete-rating-btn" data-id="${r._localId}" title="${t('manage.delete_rating', 'Delete Rating')}" style="color:red; background:none; border:none; cursor:pointer; font-size:1.2rem;">&times;</button>
@@ -213,9 +218,7 @@ function openAddRatingModal(updateRadar, ratingToEdit = null, prefilledData = nu
 
     const updatePhases = () => {
         const hasCompany = !!companyInput.value.trim();
-        const phases = hasCompany
-            ? ['Adopt', 'Trial', 'Assess', 'Hold', 'Deprecate']
-            : ['Pre-assess', 'Personal Assess', 'Personal-use', 'Hold-individual'];
+        const phases = hasCompany ? PHASES_COMPANY : PHASES_INDIVIDUAL;
 
         const currentVal = phaseSelect.value || phaseVal || '';
 
@@ -286,7 +289,7 @@ function openAddRatingModal(updateRadar, ratingToEdit = null, prefilledData = nu
             fase: formData.get('phase'),
             toelichting: easyMDE ? easyMDE.value() : formData.get('comment'),
             datumBeoordeling: isEditing ? ratingToEdit.datumBeoordeling : new Date().toISOString().split('T')[0],
-            beoordelaars: isEditing ? ratingToEdit.beoordelaars : ['Me']
+            beoordelaars: isEditing ? ratingToEdit.beoordelaars : DEFAULT_REVIEWERS
         };
 
         if (isEditing) {
@@ -328,7 +331,7 @@ function openAddTechnologyModal(onSelect, initialData = {}) {
                 <label>Category</label>
                 <select name="category" style="width:100%; padding:0.5rem;">
                     ${getFilters().categories.map(c => `<option value="${c}" ${initialData.category === c ? 'selected' : ''}>${c}</option>`).join('')}
-                    <option value="Other" ${initialData.category === 'Other' ? 'selected' : ''}>Other</option>
+                    <option value="${DEFAULT_CATEGORY}" ${initialData.category === DEFAULT_CATEGORY ? 'selected' : ''}>${DEFAULT_CATEGORY}</option>
                 </select>
             </div>
             <div>
