@@ -1,6 +1,22 @@
 import { t } from '../i18n.js';
 import { getRatingsForTech, getCompanyByName, getTechnology } from '../data.js';
 
+// Configure marked to open links in new tab
+if (typeof marked !== 'undefined') {
+    marked.use({
+        renderer: {
+            link(href, title, text) {
+                return `<a target="_blank" rel="noopener noreferrer" href="${href}" ${title ? `title="${title}"` : ''}>${text}</a>`;
+            }
+        }
+    });
+}
+
+const SECTION_LABELS = {
+    TOPICS: 'Belangrijkste Onderwerpen',
+    EXPLANATION: 'Toelichting'
+};
+
 export function openModal(data) {
     const overlay = document.getElementById('modal-overlay');
     const content = document.getElementById('modal-content');
@@ -85,6 +101,7 @@ export function openModal(data) {
             const a = document.createElement('a');
             a.href = data.homepage;
             a.target = '_blank';
+            a.rel = 'noopener noreferrer';
             a.style.color = 'var(--accent-color)';
             a.style.fontSize = '0.9rem';
             a.style.textDecoration = 'none';
@@ -98,26 +115,28 @@ export function openModal(data) {
 
         content.appendChild(header);
 
-        const desc = document.createElement('p');
-        desc.textContent = data.description || '';
-        content.appendChild(desc);
+        const descDiv = document.createElement('div');
+        descDiv.className = 'markdown-content';
+        descDiv.innerHTML = typeof marked !== 'undefined' ? marked.parse(data.description || '') : (data.description || '');
+        content.appendChild(descDiv);
 
         // Add belangrijksteOnderwerpen if present
         if (data.belangrijksteOnderwerpen) {
             const h3Topics = document.createElement('h3');
-            h3Topics.textContent = 'Belangrijkste Onderwerpen';
+            h3Topics.textContent = SECTION_LABELS.TOPICS;
             h3Topics.style.marginTop = '1.5rem';
             content.appendChild(h3Topics);
 
-            const topicsP = document.createElement('p');
-            topicsP.textContent = data.belangrijksteOnderwerpen;
-            content.appendChild(topicsP);
+            const topicsDiv = document.createElement('div');
+            topicsDiv.className = 'markdown-content';
+            topicsDiv.innerHTML = typeof marked !== 'undefined' ? marked.parse(data.belangrijksteOnderwerpen) : data.belangrijksteOnderwerpen;
+            content.appendChild(topicsDiv);
         }
 
         // Add toelichting if present
         if (data.toelichting) {
             const h3Explanation = document.createElement('h3');
-            h3Explanation.textContent = 'Toelichting';
+            h3Explanation.textContent = SECTION_LABELS.EXPLANATION;
             h3Explanation.style.marginTop = '1.5rem';
             content.appendChild(h3Explanation);
 
@@ -176,11 +195,11 @@ export function openModal(data) {
                 <h2>${data.name}</h2>
                 <div style="color: #94a3b8">${data.category}</div>
                 <div style="color: #64748b; font-size: 0.9rem">${data.vendor || ''}</div>
-                ${data.homepage ? `<a href="${data.homepage}" target="_blank" style="color: var(--accent-color); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-top: 0.25rem;">${t('modal.visit_website')}</a>` : ''}
+                ${data.homepage ? `<a href="${data.homepage}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-color); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-top: 0.25rem;">${t('modal.visit_website')}</a>` : ''}
             </div>
         </div>
         
-        <p>${data.description}</p>
+        <div class="markdown-content">${typeof marked !== 'undefined' ? marked.parse(data.description || '') : (data.description || '')}</div>
         
         <div style="margin-bottom: 1.5rem">
             <strong>${t('modal.tags')}</strong> ${data.tags.map(tg => `<span class="tag">${tg}</span>`).join(' ')}
