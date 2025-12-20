@@ -86,10 +86,10 @@ The left sidebar gives you full control over the data:
 Switch to the **Individual Radar** tab (top navigation) to see personal ratings from colleagues within the company. This view is focused on individual skillsets and interests rather than corporate adoption.
 
 **Phases in Individual Mode:**
-- **Pre-assess**: "I'm curious about this and want to learn more."
+- **Pre-assess**: "I'm somewhat curious about this and put it on to-explore-list."
 - **Personal Assess**: "I am currently experimenting with this."
 - **Personal Use**: "I use this regularly in my toolset."
-- **Hold**: "I've stopped using this or decided it's not for me."
+- **Hold**: "I've stopped using this or decided it's not for me at this point. Perhaps later on I will revisit it"
 
 ---
 

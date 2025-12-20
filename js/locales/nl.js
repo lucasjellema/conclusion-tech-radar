@@ -42,7 +42,7 @@ export default {
     assess: "Assess — technologieën die het waard zijn te verkennen voor fit en potentieel.",
     hold: "Hold — technologieën die met voorzichtigheid gebruikt moeten worden; her-evalueer timing.",
     deprecate: "Deprecate — technologieën om te vermijden of te vervangen; niet aanbevolen voor nieuw werk.",
-    'pre-assess': "Pre-assess — eerste verkenning van persoonlijke interesse.",
+    'pre-assess': "Pre-assess — registratie van een onderwerp dat mogelijk nader bekeken kan worden (eerste oppervlakkige indruk was interessant).",
     'personal assess': "Personal Assess — technologie die actief door een persoon wordt onderzocht.",
     'personal-use': "Personal Use — technologie gebruikt in persoonlijke of professionele projecten.",
     'hold-individual': "Hold — technologie die tijdelijk niet verder persoonlijk wordt gebruikt/onderzocht."

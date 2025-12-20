@@ -45,7 +45,7 @@ export default {
     'pre-assess': "Pre-assess — initial exploration of a professional's interest.",
     'personal assess': "Personal Assess — technology being actively evaluated by an individual.",
     'personal-use': "Personal Use — technology used in individual's personal or professional projects.",
-    'hold-individual': "Hold — technology being held from further personal use/evaluation."
+    'hold-individual': "Hold — technology being held from further personal use/evaluation (for now)."
   },
   categories: {
     platform: "Platform — foundational tools and services for building and operating systems.",
