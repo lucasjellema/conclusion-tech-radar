@@ -19,6 +19,12 @@ let activeFilters = {
 };
 let currentMode = 'companies'; // 'companies' or 'individual'
 
+function getPhaseOrder() {
+    return currentMode === 'companies'
+        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
+        : ['personal-use', 'personal assess', 'pre-assess', 'hold-individual'];
+}
+
 let isUrlFiltered = false;
 let urlFilteredKeys = new Set();
 
@@ -170,10 +176,7 @@ export function getFilters() {
     const allTags = rawData.technologies.flatMap(t => t.tags);
     const tags = [...new Set(allTags)].sort((a, b) => a.localeCompare(b));
     const categories = [...new Set(rawData.technologies.map(t => t.category))].sort((a, b) => a.localeCompare(b));
-    const PHASE_ORDER = currentMode === 'companies'
-        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
-        : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'];
-    const phases = PHASE_ORDER; // Expose fixed order for UI and radar
+    const phases = getPhaseOrder(); // Expose fixed order for UI and radar
     // Build domain grouping using companies metadata (if available)
     const companyMeta = rawData.companies || [];
     const companyToDomain = {};
@@ -264,11 +267,9 @@ export function setAllCategories(shouldSelect) {
 export function setAllPhases(shouldSelect) {
     isUrlFiltered = false;
     urlFilteredKeys.clear();
-    const PHASE_ORDER = currentMode === 'companies'
-        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
-        : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'];
+    const phases = getPhaseOrder();
     if (shouldSelect) {
-        for (const p of PHASE_ORDER) activeFilters.phases.add(p);
+        for (const p of phases) activeFilters.phases.add(p);
     } else {
         activeFilters.phases.clear();
     }
@@ -348,10 +349,8 @@ export function resetAllFilters() {
     activeFilters.categories = new Set(allCategories);
 
     // Restore phases to canonical order
-    const PHASE_ORDER = currentMode === 'companies'
-        ? ['adopt', 'trial', 'assess', 'hold', 'deprecate']
-        : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'];
-    activeFilters.phases = new Set(PHASE_ORDER);
+    const phases = getPhaseOrder();
+    activeFilters.phases = new Set(phases);
 
     // Clear tags, date and search
     activeFilters.tags.clear();
@@ -479,9 +478,7 @@ function processData() {
         categories: [...activeFilters.categories].sort((a, b) => a.localeCompare(b)),
         // Return only the active phases in the canonical order so the radar redraws
         // as if unselected rings do not exist.
-        phases: currentMode === 'companies'
-            ? ['adopt', 'trial', 'assess', 'hold', 'deprecate'].filter(p => activeFilters.phases.has(p))
-            : ['pre-assess', 'personal assess', 'personal-use', 'hold-individual'].filter(p => activeFilters.phases.has(p.toLowerCase())),
+        phases: getPhaseOrder().filter(p => activeFilters.phases.has(p.toLowerCase())),
         technologies: allTechnologies
     };
 }
