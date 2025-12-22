@@ -44,7 +44,7 @@
   {
     "identifier": "prometheus",
     "name": "Prometheus",
-    "category": "Observability",
+    "category": "Tools",
     "tags": [
       "monitoring",
       "metrics",
@@ -58,7 +58,7 @@
   {
     "identifier": "grafana",
     "name": "Grafana",
-    "category": "Observability",
+    "category": "Tools",
     "tags": [
       "visualization",
       "dashboard",
@@ -171,7 +171,7 @@
   {
     "identifier": "salesforce-ai",
     "name": "Salesforce AI",
-    "category": "Business Applications",
+    "category": "AI",
     "tags": [
       "AI",
       "CRM",
@@ -240,7 +240,7 @@
   {
     "identifier": "elmah-io",
     "name": "Elmah.io",
-    "category": "Observability",
+    "category": "Tools",
     "tags": [
       "logging",
       "monitoring",
@@ -365,7 +365,7 @@
   {
     "identifier": "ansible",
     "name": "Ansible",
-    "category": "Automation",
+    "category": "Tools",
     "tags": [
       "configuration-management",
       "automation",
@@ -425,7 +425,7 @@
   {
     "identifier": "dynatrace",
     "name": "Dynatrace",
-    "category": "Observability",
+    "category": "Tools",
     "tags": [
       "apm",
       "observability",
@@ -500,7 +500,7 @@
   {
     "identifier": "n8n",
     "name": "N8N",
-    "category": "Automation",
+    "category": "Tools",
     "tags": [
       "workflow-automation",
       "integration",
@@ -515,7 +515,7 @@
   {
     "identifier": "copilot-studio-power-automate",
     "name": "CoPilot Studio/Power Automate",
-    "category": "Automation",
+    "category": "Tools",
     "tags": [
       "rpa",
       "low-code",
@@ -621,7 +621,7 @@
   {
     "identifier": "puppet",
     "name": "Puppet",
-    "category": "Automation",
+    "category": "Tools",
     "tags": [
       "configuration-management",
       "automation",
@@ -651,7 +651,7 @@
   {
     "identifier": "zabbix",
     "name": "Zabbix",
-    "category": "Observability",
+    "category": "Tools",
     "tags": [
       "network-monitoring",
       "server-monitoring",
@@ -759,7 +759,7 @@
   {
     "identifier": "copilot-dynamics365",
     "name": "Copilot for Dynamics 365",
-    "category": "Business Applications",
+    "category": "AI",
     "tags": [
       "crm",
       "erp",
@@ -775,7 +775,7 @@
   {
     "identifier": "copilot-studio",
     "name": "Copilot Studio",
-    "category": "Automation",
+    "category": "Tools",
     "tags": [
       "chatbot",
       "low-code",
@@ -939,7 +939,7 @@
   {
     "identifier": "prosci-adkar",
     "name": "PROSCI-ADKAR Veranderaanpak",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "change-management",
       "adkar",
@@ -984,7 +984,7 @@
   {
     "identifier": "model-netwerksamenwerking",
     "name": "Model Netwerksamenwerking",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "Collaboration",
       "Network",
@@ -1009,7 +1009,7 @@
   {
     "identifier": "it-architecture-consulting",
     "name": "IT Architecture Consulting",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [],
     "description": "",
     "logo": "",
@@ -1080,7 +1080,7 @@
   {
     "identifier": "ai-assisted-engineering",
     "name": "AI Assisted Software Engineering",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "ai",
       "software engineering",
@@ -1095,7 +1095,7 @@
   {
     "identifier": "securing-coding",
     "name": "Secure Coding Policy",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "security",
       "software engineering"
@@ -1289,7 +1289,7 @@
   {
     "identifier": "executive-coaching",
     "name": "Executive Coaching",
-    "category": "Professionele Ontwikkeling",
+    "category": "Process",
     "tags": [
       "leiderschap",
       "bedrijfsvoering",
@@ -1304,7 +1304,7 @@
   {
     "identifier": "reflact",
     "name": "Reflact®-meting",
-    "category": "Persoonlijkheidsanalyse",
+    "category": "Process",
     "tags": [
       "hr",
       "recruitment",
@@ -1319,7 +1319,7 @@
   {
     "identifier": "vaadin",
     "name": "Vaadin",
-    "category": "Frontend",
+    "category": "Tools",
     "tags": [
       "java",
       "web-components",
@@ -1379,7 +1379,7 @@
   {
     "identifier": "vue-js",
     "name": "Vue.js",
-    "category": "Frontend",
+    "category": "Tools",
     "tags": [
       "javascript",
       "ui",
@@ -1866,7 +1866,7 @@
   {
     "identifier": "t-shaped-profielen",
     "name": "T-Shaped Profielen",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "career-development",
       "multi-skilled",
@@ -1896,7 +1896,7 @@
   {
     "identifier": "resource-tagging",
     "name": "Resource Tagging",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "finops",
       "cloud-management",
@@ -1912,7 +1912,7 @@
   {
     "identifier": "error-handling-runbooks",
     "name": "Error Handling Runbooks",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "sre",
       "documentation",
@@ -1943,7 +1943,7 @@
   {
     "identifier": "version-pinning",
     "name": "Version Pinning",
-    "category": "Werkwijze",
+    "category": "Process",
     "tags": [
       "dependency-management",
       "ci-cd",
