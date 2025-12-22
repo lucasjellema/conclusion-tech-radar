@@ -2309,33 +2309,50 @@
     "logo": "https://www.searchyour.ai/archivos/antigravity-google-ai-logo.jpg",
     "vendor": "Google",
     "homepage": "https://research.google/blog/using-machine-learning-to-help-automate-large-scale-code-changes/"
-  },{
-      "identifier": "eurostack",
-      "name": "Eurostack",
-      "category": "Process",
-      "tags": [
-        "cloud",
-        "soeverein",
-        "autonomie",
-        "europa"
-      ],
-      "description": "“EuroStack” is our original idea for a European Industrial Policy initiative bringing together tech, governance and funding for Europe-focused investment to build and adopt a suite of digital infrastructures: from connectivity to cloud computing, AI and digital platforms. ",
-      "logo": "https://eurostack.eu/wp-content/uploads/elementor/thumbs/eurostacklogo2x-r7j6ft12880nkvxbo616itekg87ualkjgfe3w3cpbk.png",
-      "vendor": "EuroStack",
-      "homepage": "https://eurostack.eu/"
-    },
-    {
-      "identifier": "umami",
-      "name": "Umami",
-      "category": "Tools",
-      "tags": [
-        "analytics",
-        "web",
-        "observability"
-      ],
-      "description": "Umami is a modern, privacy-focused analytics platform. An open-source alternative to Google Analytics, Mixpanel and Amplitude.",
-      "logo": "https://avatars.githubusercontent.com/u/105618662?s=48&v=4",
-      "vendor": "Umami",
-      "homepage": "https://github.com/umami-software/umami"
-    }
+  },
+  {
+    "identifier": "eurostack",
+    "name": "Eurostack",
+    "category": "Process",
+    "tags": [
+      "cloud",
+      "soeverein",
+      "autonomie",
+      "europa"
+    ],
+    "description": "“EuroStack” is our original idea for a European Industrial Policy initiative bringing together tech, governance and funding for Europe-focused investment to build and adopt a suite of digital infrastructures: from connectivity to cloud computing, AI and digital platforms. ",
+    "logo": "https://eurostack.eu/wp-content/uploads/elementor/thumbs/eurostacklogo2x-r7j6ft12880nkvxbo616itekg87ualkjgfe3w3cpbk.png",
+    "vendor": "EuroStack",
+    "homepage": "https://eurostack.eu/"
+  },
+  {
+    "identifier": "umami",
+    "name": "Umami",
+    "category": "Tools",
+    "tags": [
+      "analytics",
+      "web",
+      "observability"
+    ],
+    "description": "Umami is a modern, privacy-focused analytics platform. An open-source alternative to Google Analytics, Mixpanel and Amplitude.",
+    "logo": "https://avatars.githubusercontent.com/u/105618662?s=48&v=4",
+    "vendor": "Umami",
+    "homepage": "https://github.com/umami-software/umami"
+  },
+  {
+    "identifier": "scayle",
+    "name": "Scayle",
+    "category": "E-commerce Platform",
+    "tags": [
+      "headless-commerce",
+      "enterprise",
+      "saas",
+      "b2c",
+      "api-first"
+    ],
+    "description": "Een enterprise headless e-commerce platform dat is voortgekomen uit de technologie van de modegigant ABOUT YOU. Scayle biedt een modulaire en schaalbare B2C-oplossing voor grote retailers en merken, met een sterke focus op snelheid, internationale groei en een 'API-first' architectuur die naadloze integraties mogelijk maakt.",
+    "logo": "https://cdn.simpleicons.org/shopify",
+    "vendor": "SCAYLE GmbH (ABOUT YOU Group)",
+    "homepage": "https://www.scayle.com/"
+  }
 ]
