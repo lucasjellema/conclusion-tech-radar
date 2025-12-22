@@ -143,8 +143,30 @@ export function updateRadar(data) {
     // If there are no active phases, don't draw rings or blips
     if (!phases || phases.length === 0) return;
 
-    // Compute angle slice based on number of categories
-    const angleSlice = Math.PI * 2 / (categories.length || 1);
+    // Proportional Segment (Category) Sizing
+    const catBlipCounts = {};
+    categories.forEach(c => catBlipCounts[c] = 0);
+    blips.forEach(b => {
+        if (catBlipCounts[b.category] !== undefined) catBlipCounts[b.category]++;
+    });
+
+    const totalCircumference = Math.PI * 2;
+    const minAnglePerCategory = (totalCircumference / (categories.length || 1)) * 0.4; // At least 40% of equal share
+    const remainingAngle = totalCircumference - (minAnglePerCategory * categories.length);
+    const totalBlipsCount = blips.length || 1;
+
+    let cumulativeAngle = 0;
+    const categoryAngles = []; // array of {start, end} in radians
+
+    categories.forEach(cat => {
+        const proportion = catBlipCounts[cat] / totalBlipsCount;
+        const angleWidth = minAnglePerCategory + (proportion * remainingAngle);
+        categoryAngles.push({
+            start: cumulativeAngle,
+            end: cumulativeAngle + angleWidth
+        });
+        cumulativeAngle += angleWidth;
+    });
 
     // Count blips per phase for proportional ring sizing
     const blipCounts = {};
@@ -183,8 +205,8 @@ export function updateRadar(data) {
         const arc = d3.arc()
             .innerRadius(0)
             .outerRadius(radius)
-            .startAngle((d, i) => i * angleSlice)
-            .endAngle((d, i) => (i + 1) * angleSlice);
+            .startAngle((d, i) => categoryAngles[i].start)
+            .endAngle((d, i) => categoryAngles[i].end);
 
         g.selectAll(".segment-arc")
             .data(categories)
@@ -207,8 +229,8 @@ export function updateRadar(data) {
             .attr("class", "segment-line")
             .attr("x1", 0)
             .attr("y1", 0)
-            .attr("x2", (d, i) => radius * Math.cos(i * angleSlice - Math.PI / 2))
-            .attr("y2", (d, i) => radius * Math.sin(i * angleSlice - Math.PI / 2));
+            .attr("x2", (d, i) => radius * Math.cos(categoryAngles[i].start - Math.PI / 2))
+            .attr("y2", (d, i) => radius * Math.sin(categoryAngles[i].start - Math.PI / 2));
 
         // Category Labels
         g.selectAll(".category-label")
@@ -216,8 +238,14 @@ export function updateRadar(data) {
             .enter()
             .append("text")
             .attr("class", "legend-text")
-            .attr("x", (d, i) => (radius + 20) * Math.cos(i * angleSlice + angleSlice / 2 - Math.PI / 2))
-            .attr("y", (d, i) => (radius + 20) * Math.sin(i * angleSlice + angleSlice / 2 - Math.PI / 2))
+            .attr("x", (d, i) => {
+                const midAngle = (categoryAngles[i].start + categoryAngles[i].end) / 2;
+                return (radius + 20) * Math.cos(midAngle - Math.PI / 2);
+            })
+            .attr("y", (d, i) => {
+                const midAngle = (categoryAngles[i].start + categoryAngles[i].end) / 2;
+                return (radius + 20) * Math.sin(midAngle - Math.PI / 2);
+            })
             .style("text-anchor", "middle")
             .style("cursor", "pointer")
             .text(d => d)
@@ -287,7 +315,7 @@ export function updateRadar(data) {
     }
 
     // 3. Calculate Blip Positions using polar grid distribution
-    calculateBlipPositions(blips, phases, categories, ringRadii, angleSlice);
+    calculateBlipPositions(blips, phases, categories, ringRadii, categoryAngles);
 
     // Filter out blips that didn't get coordinates (e.g. mismatched phase/category)
     const renderableBlips = blips.filter(d => typeof d.x === 'number' && typeof d.y === 'number');

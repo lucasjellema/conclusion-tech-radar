@@ -1,7 +1,7 @@
 // radar-layout.js
 // Calculates blip positions using a polar grid distribution
 
-export function calculateBlipPositions(blips, phases, categories, ringRadii, angleSlice) {
+export function calculateBlipPositions(blips, phases, categories, ringRadii, categoryAngles) {
     // Group blips by sector (ring + category) for better distribution
     const sectorBlips = {};
     for (const blip of blips) {
@@ -16,8 +16,11 @@ export function calculateBlipPositions(blips, phases, categories, ringRadii, ang
         // Use proportional ring radii from the array
         const innerR = phaseIndex === 0 ? 0 : ringRadii[phaseIndex - 1];
         const outerR = ringRadii[phaseIndex];
-        const startAngle = catIndex * angleSlice - Math.PI / 2;
-        const endAngle = (catIndex + 1) * angleSlice - Math.PI / 2;
+
+        // Use dynamic category angles
+        const catAngle = categoryAngles[catIndex];
+        const startAngle = catAngle.start - Math.PI / 2;
+        const endAngle = catAngle.end - Math.PI / 2;
 
         blip.innerR = innerR;
         blip.outerR = outerR;
