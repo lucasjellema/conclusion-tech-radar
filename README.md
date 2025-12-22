@@ -4,6 +4,7 @@
 
 - **Dynamic Radar Visualization:** Interactive D3.js radar that scales blips and font sizes automatically based on density. Sparse radars get larger, more readable blips.
 - **Advanced Filtering:** Filter by categories, phases (rings), companies (grouped by domain), tags, and date.
+- **Share Link:** Generate shareable URLs that capture the current filter state, allowing colleagues to view the exact same radar configuration. Read more in the [Share Link Walkthrough](docs/share-link-walkthrough.md).
 - **Company Legend:** Interactive visual list of companies on the right, sorted by impact (blip count). Hover to highlight blips; double-click to filter.
 - **Logo Support:** Toggleable option to show technology or company logos directly on radar blips for quick recognition.
 - **Individual Radar Mode:** Specialized view for personal evaluations from colleagues, featuring a dedicated phase model and simplified presentation. Read more in the [Individual Radar Walkthrough](docs/individual-radar-walkthrough.md).
@@ -71,6 +72,8 @@ npx serve -s . -l 5000
 
 Notes & development
 - The app communicates between modules using `CustomEvent` events (e.g., `filter-category`, `filter-phase`, `open-modal`, `language-changed`).
+- **URL Deep Linking:** The application supports URL query parameters for deep linking. On load, if URL parameters are present (e.g., `?company=Xforce&category=AI&phase=adopt`), they are automatically applied to set the initial filter state. This enables sharing specific radar views via URL.
+- **Share Link Feature:** Users can click the "Share Link" button in the sidebar to copy a URL with the current filter state to their clipboard. The generated URL includes parameters for mode, companies, categories, phases, tags, search terms, and date filters. See [Share Link Walkthrough](docs/share-link-walkthrough.md) for details.
 - **Proportional Ring Widths:** Ring widths are calculated proportionally based on the number of blips they contain. Rings with more blips (like "adopt") are wider, while rings with fewer blips (like "hold" and "deprecate") are narrower. A minimum width constraint (10% of radius) ensures all rings remain visible. The algorithm normalizes ring widths to fit within the total radar radius.
 - The radar layout computes ring spacing from the active phases returned by `js/data.js` so hiding phases compresses the rings.
 - Blips are rendered as domain-shaped symbols (square/triangle/diamond/star/circle) and companies within the same domain share the same symbol shape. Company colors are assigned and persisted for the browser session.

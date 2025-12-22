@@ -24,7 +24,9 @@ export default {
     show_segments: "Show Segments (categories)",
     show_blip_logos: "Show Logos on Blips", // show_blip_logos
     all: "All",
-    none: "None"
+    none: "None",
+    share_link: "Share Link",
+    link_copied: "Link copied to clipboard!"
   },
   modal: {
     visit_website: "Visit Website →",

@@ -11,7 +11,8 @@ import {
     setAllPhases,
     getIsUrlFiltered,
     getMode,
-    setMode
+    setMode,
+    getShareableLink
 } from '../data.js';
 import { toggleOptimization } from '../radar.js';
 import { t, translatePage } from '../i18n.js';
@@ -189,6 +190,40 @@ export function setupEventListeners(updateCallback) {
         searchInput.addEventListener('input', (e) => {
             const newData = setFilter('search', e.target.value);
             updateCallback(newData);
+        });
+    }
+
+    // Share Link button
+    const shareBtn = document.getElementById('share-link-btn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            const link = getShareableLink();
+            try {
+                // Check if clipboard API is available
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(link);
+                } else {
+                    // Fallback for non-HTTPS or older browsers
+                    const textArea = document.createElement("textarea");
+                    textArea.value = link;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                }
+
+                const originalContent = shareBtn.innerHTML;
+                const copiedText = t('filter.link_copied', 'Copied!');
+                shareBtn.textContent = copiedText;
+                shareBtn.classList.add('success');
+                setTimeout(() => {
+                    shareBtn.innerHTML = originalContent;
+                    shareBtn.classList.remove('success');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy link to clipboard. Link: ' + link);
+            }
         });
     }
 

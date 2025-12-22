@@ -131,6 +131,12 @@
     color: var(--accent-color);
 }
 
+.filter-btn.success {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    color: white !important;
+}
+
 .filter-btn.small {
     padding: 0.25rem 0.75rem;
     font-size: 0.85rem;

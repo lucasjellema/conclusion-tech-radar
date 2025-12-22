@@ -385,10 +385,20 @@ export function applyUrlFilters(searchParams) {
         'company': 'companies',
         'category': 'categories',
         'phase': 'phases',
-        'tag': 'tags'
+        'tag': 'tags',
+        'search': 'search',
+        'date': 'date'
     };
 
     let hasAnyFilter = false;
+
+    // Handle Mode first as it affects other things
+    if (searchParams.has('mode')) {
+        const mode = searchParams.get('mode');
+        if (Object.values(MODES).includes(mode)) {
+            currentMode = mode;
+        }
+    }
 
     // Get all available metadata for fuzzy matching
     const { companies: allCompanies, categories: allCategories, tags: allTags } = getFilters();
@@ -403,25 +413,71 @@ export function applyUrlFilters(searchParams) {
             hasAnyFilter = true;
             isUrlFiltered = true;
             urlFilteredKeys.add(filterKey);
-            activeFilters[filterKey].clear();
-            const values = searchParams.getAll(param);
-            for (let val of values) {
-                if (filterKey === 'phases') val = val.toLowerCase();
 
-                // Fuzzy matching for company, category, and tag
-                if (fuzzyMap[param]) {
-                    const matches = fuzzyMap[param].filter(item => item.toLowerCase().includes(val.toLowerCase()));
-                    if (matches.length === 1) {
-                        val = matches[0];
+            if (filterKey === 'search') {
+                activeFilters.search = searchParams.get(param).toLowerCase();
+            } else if (filterKey === 'date') {
+                const dateStr = searchParams.get(param);
+                if (dateStr) activeFilters.date = new Date(dateStr);
+            } else {
+                activeFilters[filterKey].clear();
+                const values = searchParams.getAll(param);
+                for (let val of values) {
+                    if (filterKey === 'phases') val = val.toLowerCase();
+
+                    // Fuzzy matching for company, category, and tag
+                    if (fuzzyMap[param]) {
+                        const matches = fuzzyMap[param].filter(item => item.toLowerCase().includes(val.toLowerCase()));
+                        if (matches.length === 1) {
+                            val = matches[0];
+                        }
                     }
-                }
 
-                activeFilters[filterKey].add(val);
+                    activeFilters[filterKey].add(val);
+                }
             }
         }
     }
 
     return processData();
+}
+
+export function getShareableLink() {
+    const params = new URLSearchParams();
+
+    if (currentMode !== MODES.COMPANIES) {
+        params.set('mode', currentMode);
+    }
+
+    if (activeFilters.search) {
+        params.set('search', activeFilters.search);
+    }
+
+    if (activeFilters.date) {
+        params.set('date', activeFilters.date.toISOString().slice(0, 10));
+    }
+
+    const { companies: allCompanies, categories: allCategories, phases: allPhases } = getFilters();
+
+    if (activeFilters.companies.size > 0 && activeFilters.companies.size < allCompanies.length) {
+        activeFilters.companies.forEach(c => params.append('company', c));
+    }
+
+    if (activeFilters.categories.size > 0 && activeFilters.categories.size < allCategories.length) {
+        activeFilters.categories.forEach(c => params.append('category', c));
+    }
+
+    if (activeFilters.phases.size > 0 && activeFilters.phases.size < allPhases.length) {
+        activeFilters.phases.forEach(p => params.append('phase', p));
+    }
+
+    if (activeFilters.tags.size > 0) {
+        activeFilters.tags.forEach(t => params.append('tag', t));
+    }
+
+    const baseUrl = window.location.origin + window.location.pathname;
+    const query = params.toString();
+    return query ? `${baseUrl}?${query}` : baseUrl;
 }
 
 export function getIsUrlFiltered() {

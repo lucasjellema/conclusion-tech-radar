@@ -99,7 +99,9 @@ The `main.js` file is the orchestrator of the application. It:
 
 ### 2. Data & State Layer
 This layer is responsible for how data is fetched, merged, and filtered.
-- **`data.js`**: The central hub for state. It maintains the `rawData` (all technologies and ratings) and `activeFilters`. It provides the `processData()` logic that computes which "blips" should be visible on the radar based on current filters.
+- **`data.js`**: The central hub for state. It maintains the `rawData` (all technologies and ratings) and `activeFilters`. It provides the `processData()` logic that computes which "blips" should be visible on the radar based on current filters. Also includes:
+  - `applyUrlFilters()`: Parses URL query parameters on initial load to set filter state from deep links
+  - `getShareableLink()`: Generates shareable URLs containing the current filter configuration
 - **`localRatings.js`**: Specifically manages interactions with the browser's `localStorage` for user-defined ratings and custom technologies.
 - **`dataService.js`**: Handles API requests to fetch live data from external sources after authentication.
 
@@ -115,7 +117,7 @@ A modularized collection of components that handle user interaction.
 - **`filters.js`**: Renders the sidebar with company, category, phase, and tag filters.
 - **`modals.js`**: Manages the logic for showing detailed information in popup windows (e.g., technology details, company descriptions).
 - **`localRatingsUI.js`**: Controls the "Manage Ratings" tab, including the form for adding/editing local ratings and the rich-text editor integration.
-- **`events.js`**: Centralizes global event listeners and coordinates updates between the UI and the data layer.
+- **`events.js`**: Centralizes global event listeners and coordinates updates between the UI and the data layer. Also handles the Share Link button functionality, which generates shareable URLs with current filter state and copies them to the clipboard.
 
 ### 5. Shared Services
 - **`auth.js`**: Interfaces with the Microsoft Authentication Library (MSAL) to provide secure login/logout capabilities.

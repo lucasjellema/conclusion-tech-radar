@@ -24,7 +24,9 @@ export default {
     show_segments: "Segmenten (categorieën) tonen",
     show_blip_logos: "Logo's op blips tonen", // show_blip_logos
     all: "Alle",
-    none: "Geen"
+    none: "Geen",
+    share_link: "Deel Link",
+    link_copied: "Link gekopieerd naar klembord!"
   },
   modal: {
     visit_website: "Bezoek website →",
@@ -51,8 +53,10 @@ export default {
     platform: "Platform — fundamentele tools en services voor bouwen en beheren van systemen.",
     infrastructure: "Infrastructuur — hardware, netwerken en laag-niveau services die apps ondersteunen.",
     process: "Proces — werkwijzen, methodieken en manieren van werken.",
-    tools: "Tools — ontwikkeltools, frameworks en libraries die delivery ondersteunen.",
-    data: "Data — opslag-, verwerkings- en analysetechnologieën."
+    tools: "Tools — ontwikkeltools, frameworks en libraries die software voortbrenging ondersteunen.",
+    data: "Data — opslag-, verwerkings- en analysetechnologieën.",
+    ai: "AI — technologieën gerelateerd aan kunstmatige intelligentie en machine learning.",
+    security: "Security — technologieën gericht op het beveiligen van systemen en data."
   },
   tabs: {
     radar: "Bedrijven Radar",
